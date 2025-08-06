@@ -1,7 +1,7 @@
 // Import necessary modules
 import Head from 'next/head'; // For managing the <head> section of the HTML document
 import React from 'react'; // React library for building UI components
-import { loadData } from '../web3/funcs'; // Function to load Web3 data (defined elsewhere)
+
 import Link from 'next/link'; // Next.js Link component for navigation
 import Image from 'next/image'; // Optimized image component in Next.js
 import { useEffect, useState } from 'react'; // React hooks for managing state and lifecycle events
@@ -498,5 +498,6 @@ export default function Home() {
     </>
   )
 }
+
 
 
