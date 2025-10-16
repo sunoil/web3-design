@@ -12146,7 +12146,7 @@ html {
     display: flex;
   }
   
-  .second-section-3 {
+.second-section-3 {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -12158,7 +12158,7 @@ html {
     text-decoration: none;
     display: flex;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
   }
   
   .frame-49 {
