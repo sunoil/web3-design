@@ -17,7 +17,6 @@ import ethTokenLogo from '../src/img/planet/eth-logo.png';
 import bscLogo from '../src/img/planet/bsc-logo.png';
 import xrpLogo from '../src/img/planet/xrp-logo.png';
 import { useEffect, useState } from 'react';
-import Script from 'next/script';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SpiralScene from '../components/SpiralScene';
@@ -47,49 +46,10 @@ export default function Home() {
         <title>Salexey&#x27;s Stupendous Site</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="Webflow" name="generator" />
-        <link
-            href="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/css/salexeys-stupendous-site.webflow.shared.db29cfd44.css"
-            rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com" rel="preconnect" />
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossOrigin="anonymous" />
-        
-        <link href="https://cdn.prod.website-files.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <link href="https://cdn.prod.website-files.com/img/webclip.png" rel="apple-touch-icon" />
+        <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <link href="/webclip.png" rel="apple-touch-icon" />
       </Head>
-      
-        
-      
-      <Script
-        src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"
-        strategy="afterInteractive"
-        onLoad={() => {
-          if (typeof window !== 'undefined' && window.WebFont) {
-            window.WebFont.load({
-              google: {
-                families: [
-                  "Exo:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic",
-                  "Inter:regular"
-                ]
-              }
-            });
-          }
-        }}
-      />
 
-      <Script
-        id="webflow-init"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            !function(o, c) {
-              var n = c.documentElement, t = " w-mod-";
-              n.className += t + "js";
-              ("ontouchstart" in o || (o.DocumentTouch && c instanceof DocumentTouch)) && 
-              (n.className += t + "touch");
-            }(window, document);
-          `
-        }}
-      />
       <div className ="body">
         <div className ="page-5">
             <Header />
@@ -247,11 +207,7 @@ export default function Home() {
             <Footer />
         </div>
         
-        <Script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=66c9e08a6edbb91f35dede99"
-            type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-            crossOrigin="anonymous"></Script>
-        <Script src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/js/webflow.a9ba356d.f9d79368f06abced.js"
-            type="text/javascript"></Script>
+        
          <div
           data-animation="default"
           data-collapse="medium"

@@ -50,7 +50,7 @@ export default function NetworksStatusBoard() {
           {ready.map((c) => (
             <ChainCard key={c.name} {...c} />
           ))}
-        </div>
+        </div>gio
       </div>
       <div className="nsb-divider" />
       <div className="nsb-group">
@@ -64,5 +64,6 @@ export default function NetworksStatusBoard() {
     </div>
   );
 }
+
 
 
