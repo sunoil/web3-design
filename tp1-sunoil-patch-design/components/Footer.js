@@ -37,17 +37,19 @@ export default function Footer() {
           <div className ="column-79">
             <div className ="content-style-17">
               <div className ="text-185">Social</div>
-              <div className ="actions-152">
-                <div className ="text-186">Discord</div>
-                <div className ="text-187">twopir.social</div>
-              </div>
-              <div className ="actions-153">
-                <div className ="text-186">Twitter</div>
-                <div className ="text-188">@TwoPiR_</div>
-              </div>
-              <div className ="actions-153">
-                <div className ="text-186">Telegram</div>
-                <div className ="text-188">twopir.social</div>
+              <div className ="footer-social-icons">
+                <a href="#" aria-label="Discord" title="Discord">
+                  <img src="https://img.icons8.com/ios-glyphs/30/9aa2b2/discord-logo.png" alt="Discord" />
+                </a>
+                <a href="#" aria-label="Twitter" title="Twitter">
+                  <img src="https://img.icons8.com/ios-glyphs/30/9aa2b2/twitter.png" alt="Twitter" />
+                </a>
+                <a href="#" aria-label="Telegram" title="Telegram">
+                  <img src="https://img.icons8.com/ios-glyphs/30/9aa2b2/telegram-app.png" alt="Telegram" />
+                </a>
+                <a href="#" aria-label="GitHub" title="GitHub">
+                  <img src="https://img.icons8.com/ios-glyphs/30/9aa2b2/github.png" alt="GitHub" />
+                </a>
               </div>
             </div>
           </div>
