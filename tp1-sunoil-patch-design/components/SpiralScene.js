@@ -11,23 +11,25 @@ import baseLogo from '../src/img/planet/base-logo.png';
 import ethTokenLogo from '../src/img/planet/eth-logo.png';
 
 export default function SpiralScene() {
+  const ringRadius = 128;
+  const ringStroke = 8;
+  const ringEdgeRadius = ringRadius + ringStroke / 2;
+  const maskRadius = 114;
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const pathEl = document.getElementById('spiralPathTwopir');
     if (!pathEl) return;
     const cx = 500;
     const cy = 500;
-    const ringOuterRadius = 68;
-    const ringStroke = 8;
-    const ringEdgeRadius = ringOuterRadius + ringStroke / 2;
     const startAngleDeg = -25;
     const startTheta = (startAngleDeg * Math.PI) / 180;
     const turns = 3.5;
-    const spacingPerTurn = 118; // tiny shrink to keep inner orbits higher
+    const spacingPerTurn = 118;
     const k = spacingPerTurn / (2 * Math.PI);
     const thetaEnd = startTheta + turns * Math.PI * 2;
-    const a = 82; // Start spiral path outside the central mask (r=78)
-    const step = 0.035;
+    const a = ringEdgeRadius; // Start spiral path right at the ring edge
+    const step = 0.032;
     let d = '';
     for (let t = startTheta, i = 0; t <= thetaEnd; t += step, i++) {
       const r = a + k * (t - startTheta);
@@ -53,7 +55,7 @@ export default function SpiralScene() {
       el.style.opacity = '0';
     });
     const totalLength = path.getTotalLength();
-    const pxPerMs = 0.08; // constant speed for all
+    const pxPerMs = 0.08;
     const segment = totalLength / Math.max(1, dots.length);
     let head = 0;
     let last = performance.now();
@@ -153,16 +155,16 @@ export default function SpiralScene() {
           </filter>
           <mask id="cutCenter" maskUnits="userSpaceOnUse">
             <rect x="-120" y="-120" width="1240" height="1240" fill="white" />
-            <circle cx="500" cy="500" r="78" fill="black" />
+            <circle cx="500" cy="500" r={maskRadius} fill="black" />
           </mask>
           <clipPath id="spiralClip">
             <rect x="-200" y="-200" width="1400" height="1400" />
           </clipPath>
         </defs>
         <g clipPath="url(#spiralClip)">
-          <image href={planetLogo.src} x="440" y="440" width="120" height="120" preserveAspectRatio="xMidYMid meet" filter="url(#tokenGlow)" className="planet-center" data-animate-on-scroll data-animate="planet" />
+          <image href={planetLogo.src} x="388" y="388" width="224" height="224" preserveAspectRatio="xMidYMid meet" filter="url(#tokenGlow)" className="planet-center" data-animate-on-scroll data-animate="planet" />
           <path id="spiralPathTwopir" d="" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" filter="url(#spiralGlow)" strokeDasharray="4 4" mask="url(#cutCenter)" />
-          <circle id="planetRing" cx="500" cy="500" r="68" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="8" filter="url(#spiralGlow)" />
+          <circle id="planetRing" cx="500" cy="500" r={ringRadius} fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth={ringStroke} filter="url(#spiralGlow)" />
           <image className="spiral-planet" data-logo="arb" href={arbLogo.src} width="72" height="72" filter="url(#tokenGlow)" />
           <image className="spiral-planet" data-logo="ava" href={avalanceLogo.src} width="72" height="72" filter="url(#tokenGlow)" />
           <image className="spiral-planet" data-logo="poly" href={polygonLogo.src} width="72" height="72" filter="url(#tokenGlow)" />

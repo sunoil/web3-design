@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image'; 
 import NetworksStatusBoard from '../components/NetworksStatusBoard';
 import Bubbles from '../components/Bubbles';
+import CardsCarousel from '../components/CardsCarousel';
 import planetLogo from '../src/img/planet/planet-logo.png';
 import arbLogo from '../src/img/planet/arb-logo.png';
 import avalanceLogo from '../src/img/planet/avalance-logo.png';
@@ -83,10 +84,10 @@ export default function Home() {
                 </div>
                 <div className ="container-29">
                     <div className ="column-75">
-                        <div className ="content-style-9" data-animate-on-scroll>
-                            <p className ="text-167"><span className ="text-11-6">Grow</span><span className ="text-11-7"> your yield </span><span className ="text-11-8">securely </span><span className ="text-11-7">and more </span><span className ="text-11-8">profitably</span><span className ="text-11-7"> than a traditional </span><span className ="text-11-6">bank</span><span className ="text-11-7"> deposit</span></p>
+                        <div className ="content-style-9">
+                            <h1 className ="text-167" data-animate-on-scroll data-animate="heading" data-size="lg"><span className ="text-11-6">Grow</span><span className ="text-11-7"> your yield </span><span className ="text-11-8">securely </span><span className ="text-11-7">and more </span><span className ="text-11-8">profitably</span><span className ="text-11-7"> than a traditional </span><span className ="text-11-6">bank</span><span className ="text-11-7"> deposit</span></h1>
                         </div>
-                        <div className ="text-168" data-animate-on-scroll>Maximize your returns with our secure and efficient DeFi platform</div>
+                        <h2 className ="text-168" data-animate-on-scroll data-animate="heading" data-size="md">Maximize your returns with our secure and efficient DeFi platform</h2>
                         <Link href="/my-deposit" legacyBehavior>
                           <a className ="button-style-3 launch-dapp-btn">
                             <div className ="stake-now-8 label">LAUNCH DAPP</div>
@@ -106,16 +107,13 @@ export default function Home() {
                     { size: 34, left: '280px', top: '50px' },
                   ]}
                 />
-                <div className ="frame-46">
+                    <div className ="frame-46">
                     <div className ="frame-47">
-                        <div className ="text-169" data-animate-on-scroll>
-                            <div className ="text-169"><span className ="about-twopir-4">About </span><span
-                                    className ="about-twopir-5">TwoPiR</span></div>
-                        </div>
+                        <h2 className ="text-169" data-animate-on-scroll data-animate="heading" data-size="md"><span className ="about-twopir-4">About </span><span className ="about-twopir-5">TwoPiR</span></h2>
                     </div>
                     <div style={{ height: 16 }} aria-hidden="true" />
                     <div className ="frame-48">
-                        <div className ="text-169" data-animate-on-scroll>
+                        <div className ="text-169" data-animate-on-scroll data-animate="heading" data-size="sm">
                             <div className ="text-169"><span
                                     className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-4">TwoPiR
                                     is an </span><span
@@ -140,7 +138,7 @@ export default function Home() {
             </div>
             <div className ="second-section-3">
                 <div className ="frame-49">
-                    <div className ="text-169" data-animate-on-scroll>
+                    <h2 className ="text-169" data-animate-on-scroll data-animate="heading" data-size="md">
                         <div className ="text-169"><span className ="track-of-the-progress-and-tvl-of-supported-networks-7">Track of
                                 the </span><span
                                 className ="track-of-the-progress-and-tvl-of-supported-networks-8">Progress</span><span
@@ -148,7 +146,7 @@ export default function Home() {
                                 className ="track-of-the-progress-and-tvl-of-supported-networks-9">TVL $</span><span
                                 className ="track-of-the-progress-and-tvl-of-supported-networks-7"> of Supported Networks</span>
                         </div>
-                    </div>
+                    </h2>
                 </div>
                 <div className="networks-grid">
                         <div className="networks-left">
@@ -180,30 +178,34 @@ export default function Home() {
                         loading="lazy" width="281" height="500" alt="" className ="color-text-v2-2-f-4" /></div>
             </div>
             <div className ="third-section-3">
-                <div className ="frame-52">
-                    <div className ="frame-53">
-                        <div className ="text-169" data-animate-on-scroll>
-                            <div className ="text-169"><span className ="twopir-rewards-program-2">TwoPiR</span><span
-                                    className ="twopir-rewards-program-3"> Rewards Program</span></div>
-                        </div>
-                        <div className ="text-169" data-animate-on-scroll>
-                            <div className ="text-169"><span
-                                    className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-4">Introducing
-                                    the </span><span
-                                    className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-5">TwoPiR</span><span
-                                    className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-4">
-                                    Rewards Program! Participants can earn points through engaging in various on-chain
-                                    activities. These points will be converted into </span><span
-                                    className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-6">PIR</span><span
-                                    className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-4">
-                                    tokens, giving you the opportunity to maximize your rewards and become part of our
-                                    growing ecosystem. Stay tuned for more updates!</span></div>
+                <div className="rewards-grid">
+                    <div className ="frame-52 rewards-left">
+                        <div className ="frame-53">
+                            <h2 className ="text-169" data-animate-on-scroll data-animate="heading" data-size="md">
+                                <div className ="text-169"><span className ="twopir-rewards-program-2">TwoPiR</span><span
+                                        className ="twopir-rewards-program-3"> Rewards Program</span></div>
+                            </h2>
+                            <div className ="text-169" data-animate-on-scroll>
+                                <div className ="text-169"><span
+                                        className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-4">Introducing
+                                        the </span><span
+                                        className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-5">TwoPiR</span><span
+                                        className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-4">
+                                        Rewards Program! Participants can earn points through engaging in various on-chain
+                                        activities. These points will be converted into </span><span
+                                        className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-6">PIR</span><span
+                                        className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-4">
+                                        tokens, giving you the opportunity to maximize your rewards and become part of our
+                                        growing ecosystem. Stay tuned for more updates!</span></div>
+                            </div>
                         </div>
                     </div>
-                </div><Image
-                    src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/684d85d96cdaf7e5252ba887_Group-28.svg"
-                    loading="lazy" width="637.9027099609375" height="359.8247375488281" alt="" className ="group-34" style={{ width: '100%', height: 'auto' }} />
+                    <div className="rewards-right" data-animate-on-scroll>
+                        <CardsCarousel />
+                    </div>
+                </div>
             </div>
+            
             <Footer />
         </div>
         
