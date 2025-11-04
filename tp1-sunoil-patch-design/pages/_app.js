@@ -1,7 +1,9 @@
 import '../public/css/normalize.css';
 import '../public/css/webflow.css';
 import '../public/css/yield-02a248.webflow.css';
-import '../public/css/custom-overrides.css';
+import '../public/css/custom-base.css';
+import '../public/css/custom-components.css';
+import '../public/css/custom-animations.css';
 import Head from 'next/head';
 import { useEffect } from 'react';
 
