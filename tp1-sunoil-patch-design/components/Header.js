@@ -1,37 +1,99 @@
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
+const NAV_LINKS = [
+  { href: '/stake', label: 'Stake' },
+  { href: '/my-deposit', label: 'My deposit' },
+  { href: '/docs', label: 'Docs' },
+];
+
 export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const closeMenu = () => setIsMenuOpen(false);
+
   return (
-    <div data-animation="default" data-collapse="medium" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" className ="navbar-logo-left-18 w-nav">
-      <div className ="navbarcontainer-13 w-container">
-        <div className ="navbar-content-14">
-          <Link href="/" legacyBehavior>
-            <a className="logo-link" aria-label="Home">
-              <Image
-                src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/68492fb235b07b4bcd6d03c1_Color-text-v2-2-(f)-3.png"
-                loading="lazy" width="181.10003662109375" height="63.6773681640625" alt="TwoPiR logo"
-                className ="color-text-v2-2-f-4" />
-            </a>
-          </Link>
-          <nav role="navigation" className ="navbar-menu-14 w-nav-menu">
-            <Link href="/my-deposit" legacyBehavior>
-              <a className ="navbar w-nav-link"><div className ="text-166">Stake</div></a>
-            </Link>
-            <a href="#" className ="navbar w-nav-link is-static" onClick={(e) => e.preventDefault()}>
-              <div className ="text-166">My deposit</div>
-            </a>
-            <a href="#" className ="navbar w-nav-link" onClick={(e) => e.preventDefault()}>
-              <div className ="text-166">Docs</div>
-            </a>
+    <>
+      <header className="site-header">
+        <div className="header-content">
+          <div className="logo">
+              <Link href="/" legacyBehavior>
+                  <a className="logo-link" aria-label="Home">
+                      <Image
+                          src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/68492fb235b07b4bcd6d03c1_Color-text-v2-2-(f)-3.png"
+                          loading="lazy" width="181" height="64" alt="TwoPiR logo"
+                      />
+                  </a>
+              </Link>
+          </div>
+          <nav className="main-nav">
+              <ul>
+                  {NAV_LINKS.map(({ href, label }) => (
+                    <li key={href}>
+                      <Link href={href} legacyBehavior>
+                        <a>{label}</a>
+                      </Link>
+                    </li>
+                  ))}
+              </ul>
           </nav>
+          <button
+            className={`burger-menu ${isMenuOpen ? 'is-open' : ''}`}
+            onClick={toggleMenu}
+            aria-label="Toggle navigation"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav"
+          >
+              <span />
+              <span />
+              <span />
+          </button>
         </div>
-        <div className ="w-nav-button">
-          <div className ="w-icon-nav-menu"></div>
+      </header>
+
+      <div
+        id="mobile-nav"
+        className={`mobile-nav-overlay ${isMenuOpen ? 'is-open' : ''}`}
+        aria-hidden={!isMenuOpen}
+      >
+        <button
+          className={`burger-menu burger-menu--overlay ${isMenuOpen ? 'is-open' : ''}`}
+          onClick={closeMenu}
+          aria-label="Close navigation"
+        >
+            <span />
+            <span />
+            <span />
+        </button>
+        <div className="mobile-nav-header">
+          <Link href="/" legacyBehavior>
+              <a className="logo-link" aria-label="Home" onClick={closeMenu}>
+                  <Image
+                      src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/68492fb235b07b4bcd6d03c1_Color-text-v2-2-(f)-3.png"
+                      loading="lazy" width="160" height="56" alt="TwoPiR logo"
+                  />
+              </a>
+          </Link>
         </div>
+        <ul className="mobile-nav-links">
+            {NAV_LINKS.map(({ href, label }) => (
+              <li key={`mobile-${href}`}>
+                <Link href={href} legacyBehavior>
+                  <a onClick={closeMenu}>{label}</a>
+                </Link>
+              </li>
+            ))}
+        </ul>
       </div>
-    </div>
+    </>
   );
 }
-
-

@@ -11,10 +11,10 @@ import baseLogo from '../src/img/planet/base-logo.png';
 import ethTokenLogo from '../src/img/planet/eth-logo.png';
 
 export default function SpiralScene() {
-  const ringRadius = 128;
-  const ringStroke = 8;
+  const ringRadius = 152;
+  const ringStroke = 10;
   const ringEdgeRadius = ringRadius + ringStroke / 2;
-  const maskRadius = 114;
+  const maskRadius = 136;
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -25,7 +25,7 @@ export default function SpiralScene() {
     const startAngleDeg = -25;
     const startTheta = (startAngleDeg * Math.PI) / 180;
     const turns = 3.5;
-    const spacingPerTurn = 118;
+    const spacingPerTurn = 132;
     const k = spacingPerTurn / (2 * Math.PI);
     const thetaEnd = startTheta + turns * Math.PI * 2;
     const a = ringEdgeRadius; // Start spiral path right at the ring edge
@@ -83,7 +83,7 @@ export default function SpiralScene() {
         const dot = dots[i];
         const offset = (head + i * segment) % totalLength;
         const pos = path.getPointAtLength(offset);
-        const half = 36;
+        const half = 42;
         dot.setAttribute('x', String(pos.x - half));
         dot.setAttribute('y', String(pos.y - half));
 
@@ -121,7 +121,7 @@ export default function SpiralScene() {
 
   return (
     <div className="spiral-container" aria-hidden="true">
-      <svg viewBox="-120 -120 1240 1240" preserveAspectRatio="xMidYMid meet" className="spiral-svg">
+      <svg viewBox="-90 -90 1240 1240" preserveAspectRatio="xMidYMid meet" className="spiral-svg">
         <defs>
           <radialGradient id="planetGradientTwopir">
             <stop offset="0%" style={{ stopColor: '#667eea', stopOpacity: 1 }} />
@@ -162,17 +162,17 @@ export default function SpiralScene() {
           </clipPath>
         </defs>
         <g clipPath="url(#spiralClip)">
-          <image href={planetLogo.src} x="388" y="388" width="224" height="224" preserveAspectRatio="xMidYMid meet" filter="url(#tokenGlow)" className="planet-center" data-animate-on-scroll data-animate="planet" />
+          <image href={planetLogo.src} x="352" y="352" width="296" height="296" preserveAspectRatio="xMidYMid meet" filter="url(#tokenGlow)" className="planet-center" data-animate-on-scroll data-animate="planet" />
           <path id="spiralPathTwopir" d="" fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" filter="url(#spiralGlow)" strokeDasharray="4 4" mask="url(#cutCenter)" />
           <circle id="planetRing" cx="500" cy="500" r={ringRadius} fill="none" stroke="#000000" strokeOpacity="0.25" strokeWidth={ringStroke} filter="url(#spiralGlow)" />
-          <image className="spiral-planet" data-logo="arb" href={arbLogo.src} width="72" height="72" filter="url(#tokenGlow)" />
-          <image className="spiral-planet" data-logo="ava" href={avalanceLogo.src} width="72" height="72" filter="url(#tokenGlow)" />
-          <image className="spiral-planet" data-logo="poly" href={polygonLogo.src} width="72" height="72" filter="url(#tokenGlow)" />
-          <image className="spiral-planet" data-logo="op" href={opLogo.src} width="72" height="72" filter="url(#tokenGlow)" />
-          <image className="spiral-planet" data-logo="sol" href={solLogo.src} width="72" height="72" filter="url(#tokenGlow)" />
-          <image className="spiral-planet" data-logo="bnb" href={bscLogo.src} width="72" height="72" filter="url(#tokenGlow)" />
-          <image className="spiral-planet" data-logo="base" href={baseLogo.src} width="72" height="72" filter="url(#tokenGlow)" />
-          <image className="spiral-planet" data-logo="eth" href={ethTokenLogo.src} width="72" height="72" filter="url(#tokenGlow)" />
+          <image className="spiral-planet" data-logo="arb" href={arbLogo.src} width="84" height="84" filter="url(#tokenGlow)" />
+          <image className="spiral-planet" data-logo="ava" href={avalanceLogo.src} width="84" height="84" filter="url(#tokenGlow)" />
+          <image className="spiral-planet" data-logo="poly" href={polygonLogo.src} width="84" height="84" filter="url(#tokenGlow)" />
+          <image className="spiral-planet" data-logo="op" href={opLogo.src} width="84" height="84" filter="url(#tokenGlow)" />
+          <image className="spiral-planet" data-logo="sol" href={solLogo.src} width="84" height="84" filter="url(#tokenGlow)" />
+          <image className="spiral-planet" data-logo="bnb" href={bscLogo.src} width="84" height="84" filter="url(#tokenGlow)" />
+          <image className="spiral-planet" data-logo="base" href={baseLogo.src} width="84" height="84" filter="url(#tokenGlow)" />
+          <image className="spiral-planet" data-logo="eth" href={ethTokenLogo.src} width="84" height="84" filter="url(#tokenGlow)" />
         </g>
       </svg>
     </div>

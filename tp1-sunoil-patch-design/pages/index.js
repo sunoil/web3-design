@@ -5,7 +5,6 @@ import React from 'react';
 import Link from 'next/link'; 
 import Image from 'next/image'; 
 import NetworksStatusBoard from '../components/NetworksStatusBoard';
-import Bubbles from '../components/Bubbles';
 import CardsCarousel from '../components/CardsCarousel';
 import planetLogo from '../src/img/planet/planet-logo.png';
 import arbLogo from '../src/img/planet/arb-logo.png';
@@ -17,13 +16,26 @@ import baseLogo from '../src/img/planet/base-logo.png';
 import ethTokenLogo from '../src/img/planet/eth-logo.png';
 import bscLogo from '../src/img/planet/bsc-logo.png';
 import xrpLogo from '../src/img/planet/xrp-logo.png';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SpiralScene from '../components/SpiralScene';
 
 export default function Home() {
   
+  const heroMotionRef = useRef({
+    targetDX: 0,
+    targetDY: 0,
+    dx: 0,
+    dy: 0,
+    targetX: 50,
+    targetY: 50,
+    pointerX: 50,
+    pointerY: 50,
+  });
+  const heroFieldRef = useRef(null);
+  const heroBubblesRef = useRef([]);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const elements = document.querySelectorAll('[data-animate-on-scroll]');
@@ -40,6 +52,35 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!heroFieldRef.current) return;
+    heroBubblesRef.current = Array.from(heroFieldRef.current.querySelectorAll('.hero-gooey'));
+  }, []);
+
+  useEffect(() => {
+    const section = heroFieldRef.current;
+    if (!section) return;
+
+    let frame;
+    const tick = () => {
+      const motion = heroMotionRef.current;
+      motion.dx += (motion.targetDX - motion.dx) * 0.1;
+      motion.dy += (motion.targetDY - motion.dy) * 0.1;
+      motion.pointerX += (motion.targetX - motion.pointerX) * 0.1;
+      motion.pointerY += (motion.targetY - motion.pointerY) * 0.1;
+
+      section.style.setProperty('--hero-motion-dx', `${motion.dx}px`);
+      section.style.setProperty('--hero-motion-dy', `${motion.dy}px`);
+      section.style.setProperty('--hero-pointer-x', `${motion.pointerX}%`);
+      section.style.setProperty('--hero-pointer-y', `${motion.pointerY}%`);
+
+      frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
   return (
     <>
       <Head>
@@ -54,21 +95,58 @@ export default function Home() {
       <div className ="body">
         <div className ="page-5">
             <Header />
-            <div className ="first-section-3">
+            <div className ="first-section-3"
+                 onMouseMove={({ clientX, clientY, currentTarget }) => {
+                   const rect = currentTarget.getBoundingClientRect();
+                   const centerX = rect.left + rect.width / 2;
+                   const centerY = rect.top + rect.height / 2;
+                   const dx = clientX - centerX;
+                   const dy = clientY - centerY;
+                   const x = ((clientX - rect.left) / rect.width) * 100;
+                   const y = ((clientY - rect.top) / rect.height) * 100;
+                   const motion = heroMotionRef.current;
+                   motion.targetDX = dx;
+                   motion.targetDY = dy;
+                   motion.targetX = x;
+                   motion.targetY = y;
+
+                  if (!heroBubblesRef.current.length && heroFieldRef.current) {
+                    heroBubblesRef.current = Array.from(heroFieldRef.current.querySelectorAll('.hero-gooey'));
+                  }
+                   heroBubblesRef.current.forEach((bubble) => {
+                     const bubbleRect = bubble.getBoundingClientRect();
+                     const bubbleX = bubbleRect.left + bubbleRect.width / 2;
+                     const bubbleY = bubbleRect.top + bubbleRect.height / 2;
+                     const distance = Math.hypot(clientX - bubbleX, clientY - bubbleY);
+                     const maxDistance = Math.max(bubbleRect.width, bubbleRect.height) * 3.2;
+                     const intensity = Math.max(0, Math.min(1, 1 - distance / maxDistance));
+                     bubble.style.setProperty('--hero-pointer-intensity', intensity.toFixed(3));
+                   });
+                 }}
+                 onMouseLeave={() => {
+                   const motion = heroMotionRef.current;
+                   motion.targetDX = 0;
+                   motion.targetDY = 0;
+                   motion.targetX = 50;
+                   motion.targetY = 50;
+
+                   heroBubblesRef.current.forEach((bubble) => {
+                     bubble.style.setProperty('--hero-pointer-intensity', '0');
+                   });
+                 }}>
                 <div className="hero-bg-layer" aria-hidden="true">
-                    <Bubbles
-                      className="hero-bubbles"
-                      bubbles={[
-                        { size: 520, left: '50%', top: '48%', center: true },
-                        { size: 420, right: '16%', top: '24%' },
-                        { size: 360, left: '30%', top: '44%' },
-                        { size: 260, right: '30%', top: '52%' },
-                        { size: 200, left: '22%', bottom: '16%' },
-                        { size: 160, right: '22%', bottom: '18%' },
-                        { size: 120, left: '44%', top: '24%' },
-                        { size: 90, left: '52%', bottom: '26%' },
-                      ]}
-                    />
+                    <div className="hero-blob-field" aria-hidden="true" ref={heroFieldRef}>
+                      <span className="hero-gooey hero-gooey--a" />
+                      <span className="hero-gooey hero-gooey--b" />
+                      <span className="hero-gooey hero-gooey--c" />
+                      <span className="hero-gooey hero-gooey--d" />
+                      <span className="hero-gooey hero-gooey--e" />
+                      <span className="hero-gooey hero-gooey--f" />
+                      <span className="hero-gooey hero-gooey--g" />
+                      <span className="hero-gooey hero-gooey--h" />
+                      <span className="hero-gooey hero-gooey--i" />
+                      <span className="hero-gooey hero-gooey--j" />
+                    </div>
                     <div className="hero-cloud hero-cloud-1" />
                     <div className="hero-cloud hero-cloud-2" />
                     <div className="hero-cloud hero-cloud-3" />
@@ -97,20 +175,13 @@ export default function Home() {
                 </div>
             </div>
             <div className ="about-twopir-3">
-                <Bubbles
-                  className="about-bubbles"
-                  bubbles={[
-                    { size: 120, left: '24px', top: '10px' },
-                    { size: 80, left: '160px', top: '30px' },
-                    { size: 56, left: '220px', top: '64px' },
-                    { size: 42, left: '96px', top: '74px' },
-                    { size: 34, left: '280px', top: '50px' },
-                  ]}
-                />
+                <div className="about-blobs" aria-hidden="true">
+                    <span className="about-blob about-blob--1" />
+                    <span className="about-blob about-blob--2" />
+                    <span className="about-blob about-blob--3" />
+                </div>
                     <div className ="frame-46">
-                    <div className ="frame-47">
-                        <h2 className ="text-169" data-animate-on-scroll data-animate="heading" data-size="md"><span className ="about-twopir-4">About </span><span className ="about-twopir-5">TwoPiR</span></h2>
-                    </div>
+                    <h2 className ="text-169" data-animate-on-scroll data-animate="heading" data-size="md"><span className ="about-twopir-4">About </span><span className ="about-twopir-5">TwoPiR</span></h2>
                     <div style={{ height: 16 }} aria-hidden="true" />
                     <div className ="frame-48">
                         <div className ="text-169" data-animate-on-scroll data-animate="heading" data-size="sm">
