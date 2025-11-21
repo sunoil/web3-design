@@ -1,3 +1,21 @@
+/* Header Styles */
+.site-header {
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 12000;
+    background: rgba(26, 26, 34, 0.95);
+    backdrop-filter: blur(18px);
+    transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.site-header.is-scrolled {
+    background: rgba(26, 26, 34, 0.78);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
 /* Custom overrides – component layouts and sections */
 
 /* Networks status board */
@@ -1384,11 +1402,20 @@
 /* Header Styles */
 .site-header {
     padding: 15px 0;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
+    z-index: 12000;
+    background: rgba(26, 26, 34, 0.95);
+    backdrop-filter: blur(18px);
+    transition: background 0.25s ease, box-shadow 0.25s ease;
 }
 
+.site-header.is-scrolled {
+    background: rgba(26, 26, 34, 0.78);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
 /* Нижня лінія з градієнтом */
 .site-header::after {
     content: '';
@@ -1409,6 +1436,9 @@
     margin: 0 auto;
     padding: 0 20px;
     position: relative;
+    gap: 16px;
+    padding-right: 84px;
+    min-height: 72px;
 }
 
 /* Навігація */
@@ -1448,16 +1478,17 @@
 /* Burger Menu Styles */
 .burger-menu {
   display: none;
-  position: fixed;
-  top: 24px;
-  right: 22px;
-  width: 44px;
-  height: 44px;
+  position: absolute;
+  top: 50%;
+  right: 28px;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
   padding: 0;
   border: none;
   background: transparent;
   cursor: pointer;
-  z-index: 11000;
+  z-index: 2;
 }
 
 .burger-menu span {
@@ -1497,10 +1528,6 @@
   bottom: auto;
   top: 50%;
   transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.burger-menu--overlay {
-  display: none;
 }
 
 .mobile-nav-overlay {
@@ -1546,6 +1573,10 @@
   letter-spacing: 0.05em;
 }
 
+.page-5 {
+  padding-top: 120px;
+}
+
 @media (max-width: 991px) {
   .main-nav {
     display: none;
@@ -1558,12 +1589,8 @@
     align-items: center;
   }
 
-  .mobile-nav-overlay.is-open .burger-menu--overlay {
-    display: flex;
-    position: absolute;
-    top: 24px;
-    right: 22px;
-    z-index: 9100;
+  .page-5 {
+    padding-top: 96px;
   }
 }
 
