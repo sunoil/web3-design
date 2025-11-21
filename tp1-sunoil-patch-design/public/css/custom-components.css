@@ -49,7 +49,7 @@
   height: 420px;
   top: -210px;
   left: -170px;
-  background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22420%22 height=%22420%22 viewBox=%220 0 420 420%22%3E%3Cdefs%3E%3CradialGradient id=%22grey1%22 cx=%2250%25%22 cy=%2250%25%22 r=%2250%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%238a8d96%22 stop-opacity=%220.55%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%238a8d96%22 stop-opacity=%220%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx=%22210%22 cy=%22210%22 r=%22210%22 fill=%22url(%23grey1)%22/%3E%3Cpath d=%22M210 60c78 12 126 60 126 108s-56 102-132 112c-66-16-114-58-114-110 0-48 42-98 120-110Z%22 fill=%22%239ea1a8%22 fill-opacity=%220.18%22/%3E%3C/svg%3E") center/cover no-repeat;
+  background: none;
 }
 .nsb-haze-layer {
   position: absolute;
@@ -579,7 +579,7 @@
   background-image: none;
   overflow: visible;
 }
-.first-section-3 { padding-top: 56px; padding-bottom: 40px; margin-bottom: 32px; }
+.first-section-3 { padding-top: 120px; padding-bottom: 60px; margin-bottom: 48px; }
 .page-5 { gap: 140px; }
 .container-29 { height: auto; min-height: 560px; }
 .first-section-3 .container-29 {
@@ -1574,8 +1574,26 @@
 }
 
 .page-5 {
-  padding-top: 120px;
+  padding-top: 160px;
 }
+
+/* Unified flat background */
+html,
+body {
+  background-color: #1a1a21;
+}
+
+.page-5,
+.first-section-3,
+.second-section-3,
+.third-section-3,
+.video-section-3,
+.about-twopir-3,
+.footer-11 {
+  background-color: #1a1a21 !important;
+  background-image: none !important;
+}
+
 
 @media (max-width: 991px) {
   .main-nav {
@@ -1590,7 +1608,7 @@
   }
 
   .page-5 {
-    padding-top: 96px;
+    padding-top: 130px;
   }
 }
 
