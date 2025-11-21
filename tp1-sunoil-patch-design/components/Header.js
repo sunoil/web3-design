@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -10,20 +10,58 @@ const NAV_LINKS = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const scrollLockRef = useRef(null);
 
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    if (typeof window === 'undefined') return;
+    const body = document.body;
+
+    if (isMenuOpen) {
+      scrollLockRef.current = window.scrollY;
+      body.style.position = 'fixed';
+      body.style.top = `-${scrollLockRef.current}px`;
+      body.style.left = '0';
+      body.style.right = '0';
+      body.style.width = '100%';
+      body.style.overflow = 'hidden';
+    } else if (scrollLockRef.current !== null) {
+      const scrollPosition = scrollLockRef.current;
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      body.style.overflow = '';
+      window.scrollTo(0, scrollPosition);
+      scrollLockRef.current = null;
+    }
+
     return () => {
-      document.body.style.overflow = '';
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      body.style.overflow = '';
     };
   }, [isMenuOpen]);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <>
-      <header className="site-header">
+      <header className={`site-header ${hasScrolled ? 'is-scrolled' : ''}`}>
         <div className="header-content">
           <div className="logo">
               <Link href="/" legacyBehavior>
@@ -65,15 +103,6 @@ export default function Header() {
         className={`mobile-nav-overlay ${isMenuOpen ? 'is-open' : ''}`}
         aria-hidden={!isMenuOpen}
       >
-        <button
-          className={`burger-menu burger-menu--overlay ${isMenuOpen ? 'is-open' : ''}`}
-          onClick={closeMenu}
-          aria-label="Close navigation"
-        >
-            <span />
-            <span />
-            <span />
-        </button>
         <div className="mobile-nav-header">
           <Link href="/" legacyBehavior>
               <a className="logo-link" aria-label="Home" onClick={closeMenu}>
