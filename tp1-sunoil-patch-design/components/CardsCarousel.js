@@ -45,6 +45,74 @@ export default function CardsCarousel() {
     return () => { if (autoTimerRef.current) clearTimeout(autoTimerRef.current); cancelAnimationFrame(rafRef.current); };
   }, []);
 
+  // Responsive layout: keep the triangle inside the viewport (esp. mobile)
+  const [layout, setLayout] = useState(() => ({
+    areaW: 600,
+    areaH: 260,
+    cardW: 280,
+    pts: [
+      // Keep the whole animation inside the 600px desktop column to avoid clipping
+      { x: -140, y: 30 }, // top-left
+      { x: 140, y: 30 }, // top-right
+      { x: 0, y: 190 }, // bottom-middle
+    ],
+    offsetX: 0,
+    offsetY: 90,
+  }));
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const compute = () => {
+      const vw = window.innerWidth || 1024;
+      const isDesktop = vw >= 992;
+      if (isDesktop) {
+        setLayout({
+          areaW: 800,
+          areaH: 260,
+          cardW: 280,
+          pts: [
+            // Fit all cards within the fixed 600px desktop column so nothing gets clipped
+            { x: -140, y: 30 },
+            { x: 140, y: 30 },
+            { x: 0, y: 190 },
+          ],
+          offsetX: 150,
+          offsetY: -50,
+        });
+        return;
+      }
+
+      // Mobile/tablet: keep the whole triangle inside ~92vw
+      const areaW = Math.min(560, Math.floor(vw * 0.92));
+      // Ensure the top two cards never overlap: 2 * cardW + gap <= areaW
+      const topGap = 18;
+      const cardW = Math.max(190, Math.min(260, Math.floor((areaW - topGap) / 2)));
+      const xTop = Math.max(0, Math.floor((areaW - cardW) / 2) - 4);
+
+      // Keep the triangle readable and avoid overlap with the bottom card
+      const yTop = 6;
+      const yBottom = Math.round(Math.max(210, cardW * 0.92));
+      const areaH = Math.max(vw <= 480 ? 380 : 360, yBottom + 210);
+
+      setLayout({
+        areaW,
+        areaH,
+        cardW,
+        pts: [
+          { x: -xTop, y: yTop },
+          { x: xTop, y: yTop },
+          { x: 0, y: yBottom },
+        ],
+        offsetX: 100,
+        offsetY: 10,
+      });
+    };
+
+    compute();
+    window.addEventListener('resize', compute);
+    return () => window.removeEventListener('resize', compute);
+  }, []);
+
   function startStep(steps = 1) {
     resetAutoTimer();
     if (animating) { scheduleAuto(); return; }
@@ -75,14 +143,7 @@ export default function CardsCarousel() {
     rafRef.current = requestAnimationFrame(loop);
   }
 
-  const areaW = 600; // px
-  const areaH = 260; // px
-  const cardW = 260; // px
-  const pts = [
-    { x: -190, y: 30 }, // top-left
-    { x:  160, y: 30 }, // top-right
-    { x:    0, y: 190 }, // bottom-middle
-  ];
+  const { areaW, areaH, cardW, pts, offsetX, offsetY } = layout;
 
   function lerp(a, b, t) { return a + (b - a) * t; }
   function posAlong(t) {
@@ -168,26 +229,55 @@ export default function CardsCarousel() {
     if (best !== active) setActive(best);
   }, [best, active]);
 
-  const offsetX = 150;
-  const offsetY = 90; 
-
   return (
-    <div className="cards-triangle-root" data-animate-on-scroll style={{ '--area-w': `${areaW}px`, '--area-h': `${areaH}px` }}>
-      <div className="cards-triangle-area">
-        {itemsWithScale.map(({ c, idx, x, y, s }) => (
-          <div
-            key={c.title}
-            className={`triangle-card ${idx === active ? 'is-active' : ''}`}
-            style={{ transform: `translate(calc(50% + ${x + offsetX}px), calc(50% + ${y + offsetY}px)) translate(-50%, -50%) scale(${s})`, zIndex: 1000 + Math.round(y) }}
-          >
-            <div className="cc-title">{c.title}</div>
-            <div className="cc-text">{c.text}</div>
-            <div className="cc-progress">
-              <span className="cc-progress-fill" />
-              <span className="cc-step">{c.indexHint}</span>
+    <div className="cards-carousel-wrapper" data-animate-on-scroll>
+      {/* Mobile layout: static grid (matches mock) */}
+      <div className="cards-grid-root">
+        <div className="cards-grid">
+          {CARDS.map((c, idx) => (
+            <div
+              key={`grid-${c.title}`}
+              className={`triangle-card cards-grid-card ${idx === 2 ? 'is-center' : ''}`}
+            >
+              <div className="cc-title">{c.title}</div>
+              <div className="cc-text">{c.text}</div>
+              <div className="cc-progress">
+                <span className="cc-progress-fill" />
+                <span className="cc-step">{c.indexHint}</span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop/tablet layout: animated triangle */}
+      <div
+        className="cards-triangle-root"
+        style={{
+          '--area-w': `${areaW}px`,
+          '--area-h': `${areaH}px`,
+          '--card-w': `${cardW}px`,
+        }}
+      >
+        <div className="cards-triangle-area">
+          {itemsWithScale.map(({ c, idx, x, y, s }) => (
+            <div
+              key={c.title}
+              className={`triangle-card ${idx === active ? 'is-active' : ''}`}
+              style={{
+                transform: `translate(calc(50% + ${x + offsetX}px), calc(50% + ${y + offsetY}px)) translate(-50%, -50%) scale(${s})`,
+                zIndex: 1000 + Math.round(y),
+              }}
+            >
+              <div className="cc-title">{c.title}</div>
+              <div className="cc-text">{c.text}</div>
+              <div className="cc-progress">
+                <span className="cc-progress-fill" />
+                <span className="cc-step">{c.indexHint}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

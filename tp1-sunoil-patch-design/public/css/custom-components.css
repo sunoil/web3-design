@@ -214,11 +214,11 @@
   position: relative;
   z-index: 0;
 }
-/* Ensure networks left column doesn't clip content */
+
 .networks-left {
   overflow: visible;
 }
-/* Make entire section that contains the spiral non-clipping */
+
 .second-section-3,
 .second-section-3 .frame-49 {
   overflow: visible;
@@ -276,6 +276,53 @@
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+/* Phone devices (coarse pointer): ensure hero coins are visible even if viewport width media queries don't match */
+@media (hover: none) and (pointer: coarse) {
+  .first-section-3 .hero-bg-layer {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  .first-section-3 .bg-coin {
+    display: block !important;
+    opacity: 0.75 !important;
+    animation: coin-float 14s ease-in-out infinite !important;
+    animation-delay: 0ms !important;
+  }
+
+  .first-section-3 .bg-coin.coin-extra {
+    display: block !important;
+    opacity: 0.7 !important;
+  }
+
+  /* Keep coins around the headline */
+  .first-section-3 .coin-ava,
+  .first-section-3 .coin-eth,
+  .first-section-3 .coin-sol,
+  .first-section-3 .coin-xrp {
+    display: block !important;
+  }
+
+  /* Pull coins inward so they're not clipped off-screen */
+  .first-section-3 .coin-arb { top: 8% !important; left: 50% !important; margin-left: -16px !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-ava { top: 16% !important; left: 18% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-op  { top: 16% !important; right: 18% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-bnb { top: 34% !important; left: 12% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-xrp { top: 34% !important; right: 12% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-eth { bottom: 18% !important; left: 18% !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-sol { bottom: 14% !important; left: 50% !important; margin-left: -16px !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-poly { bottom: 18% !important; right: 18% !important; top: auto !important; left: auto !important; }
+
+  /* Second ring (extras) */
+  .first-section-3 .coin-ava-2 { top: 24% !important; left: 30% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-arb-2 { top: 24% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-op-2  { top: 10% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-bnb-2 { top: 52% !important; left: 22% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-xrp-2 { top: 52% !important; right: 22% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-eth-2 { bottom: 26% !important; left: 30% !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-poly-2 { bottom: 26% !important; right: 30% !important; top: auto !important; left: auto !important; }
+  .first-section-3 .coin-sol-2 { bottom: 10% !important; left: 30% !important; top: auto !important; right: auto !important; }
 }
 
 @media (max-width: 768px) {
@@ -342,6 +389,48 @@
     width: 28px;
     height: 28px;
   }
+
+  /* Mobile (<=768): ensure coins are visible even if intro animations don't run */
+  .first-section-3 .hero-bg-layer {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  .first-section-3 .bg-coin {
+    opacity: 0.85 !important;
+    animation: coin-float 14s ease-in-out infinite !important;
+    animation-delay: 0ms !important;
+  }
+  .first-section-3 .bg-coin.coin-extra {
+    display: block !important;
+    opacity: 0.7 !important;
+  }
+
+  /* Mobile (<=768): keep coins around the headline (avoid overlap) */
+  .first-section-3 .coin-ava,
+  .first-section-3 .coin-eth,
+  .first-section-3 .coin-sol,
+  .first-section-3 .coin-xrp {
+    display: block !important;
+  }
+
+  .first-section-3 .coin-arb { top: 8% !important; left: 50% !important; margin-left: -16px !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-ava { top: 16% !important; left: 18% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-op  { top: 16% !important; right: 18% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-bnb { top: 34% !important; left: 12% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-xrp { top: 34% !important; right: 12% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-eth { bottom: 18% !important; left: 18% !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-sol { bottom: 14% !important; left: 50% !important; margin-left: -16px !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-poly { bottom: 18% !important; right: 18% !important; top: auto !important; left: auto !important; }
+
+  /* Second ring (extras) */
+  .first-section-3 .coin-ava-2 { top: 24% !important; left: 30% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-arb-2 { top: 24% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-op-2  { top: 10% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-bnb-2 { top: 52% !important; left: 22% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-xrp-2 { top: 52% !important; right: 22% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-eth-2 { bottom: 26% !important; left: 30% !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-poly-2 { bottom: 26% !important; right: 30% !important; top: auto !important; left: auto !important; }
+  .first-section-3 .coin-sol-2 { bottom: 10% !important; left: 30% !important; top: auto !important; right: auto !important; }
   .launch-dapp-btn {
     width: min(240px, 84vw);
     margin: 22px auto 0;
@@ -349,18 +438,57 @@
   .about-twopir-3 {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(140px, 38vw);
-    align-items: center;
-    gap: 18px;
+    grid-template-rows: auto 1fr;
+    align-items: start;
+    column-gap: 18px;
+    row-gap: 18px;
     text-align: left;
+    /* Keep content away from screen edges on mobile */
+    padding-left: 18px;
+    padding-right: 18px;
   }
-  .about-twopir-3 .frame-46 {
-    order: 1;
+
+  /* Mobile-only: make the heading a section title above both text + planet (like the mock) */
+  .about-twopir-3 > .frame-46 {
+    display: contents;
+  }
+  .about-twopir-3 > .frame-46 > h2.text-169[data-size="md"] {
+    grid-column: 1 / -1;
+    text-align: center;
+    justify-self: center;
+    margin: 0 0 6px;
+    width: 100%;
+    font-size: clamp(28px, 8vw, 38px) !important;
+    line-height: 1.05 !important;
+  }
+  /* Hide the spacer div after the heading on mobile; spacing is handled by grid gap/margins */
+  .about-twopir-3 > .frame-46 > div[aria-hidden="true"] {
+    display: none !important;
+  }
+  .about-twopir-3 > .frame-46 > .frame-48 {
+    grid-column: 1 / 2;
+    align-self: start;
+    position: relative;
+    padding-left: 14px; /* space for the white stripe */
+  }
+
+  /* White vertical stripe near the text (as in the mock) */
+  .about-twopir-3 > .frame-46 > .frame-48::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    bottom: 2px;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 2px;
   }
   .about-planet {
-    order: 2;
+    grid-column: 2 / 3;
+    align-self: center;
+    justify-self: end;
     max-width: min(220px, 36vw);
     margin: 0;
-    justify-self: center;
   }
   .second-section-3 {
     padding-top: 28px;
@@ -413,16 +541,26 @@
 
 @media (max-width: 480px) {
   .spiral-container {
-    min-height: clamp(260px, 58vh, 340px);
+    min-height: clamp(180px, 40vh, 260px);
     transform: none;
-    padding-bottom: clamp(36px, 14vh, 100px);
-    max-width: min(240px, 44vw);
-    margin: 8px auto 20px;
+    padding-bottom: clamp(16px, 8vh, 60px);
+    max-width: min(200px, 55vw);
+    margin: 0 auto 5px;
   }
   .nsb-root {
-    padding: 14px 12px 10px;
-    border-radius: 20px;
-    max-width: min(240px, 46vw);
+    padding: 8px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    transform: scale(0.45);
+    transform-origin: top center;
+    margin-bottom: -50%;
+  }
+  .nsb-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
   .page-5 {
     gap: 40px;
@@ -432,17 +570,33 @@
     padding-bottom: 24px;
     background: linear-gradient(180deg, rgba(24,24,32,0.95) 0%, rgba(8,8,12,1) 100%);
   }
-  .text-11-6, .text-11-7, .text-11-8 {
-    font-size: 32px;
-    line-height: 0.8;
+  .text-167 {
+    max-width: min(500px, 92vw);
+    margin-left: auto;
+    margin-right: auto;
+    text-wrap: balance;
+    word-break: break-word;
+  }
+  .text-11-6,
+  .text-11-7,
+  .text-11-8 {
+    font-size: clamp(26px, 8.4vw, 32px);
+    line-height: 1.08;
+    white-space: normal;
   }
   .text-168 {
     font-size: 16px;
     line-height: 1.3;
+    max-width: min(360px, 94vw);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    text-wrap: balance;
+    word-break: break-word;
   }
-  .text-11-6 { font-size: 32px; }
-  .text-11-8 { font-size: 32px; }
-  .text-11-7 { font-size: 32px; }
+  .text-11-6 { font-size: clamp(26px, 8.4vw, 32px); }
+  .text-11-8 { font-size: clamp(26px, 8.4vw, 32px); }
+  .text-11-7 { font-size: clamp(26px, 8.4vw, 32px); }
   .launch-dapp-btn {
     width: min(240px, 84vw);
     margin: 22px auto 0;
@@ -460,19 +614,44 @@
     font-size: clamp(14px, 3.6vw, 17px) !important;
     line-height: 1.35 !important;
   }
+
+  /* Ensure About heading stays large on small screens (override .text-169 * rule) */
+  .about-twopir-3 > .frame-46 > h2.text-169[data-size="md"],
+  .about-twopir-3 > .frame-46 > h2.text-169[data-size="md"] * {
+    font-size: clamp(28px, 8.8vw, 38px) !important;
+    line-height: 1.05 !important;
+  }
   .networks-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 14px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .networks-right {
+    justify-content: center;
+    width: 100%;
   }
   .nsb-group-title {
-    font-size: 17px;
+    font-size: 12px;
+    margin: 2px 0 6px;
   }
   .nsb-card-badge {
-    font-size: 11px;
-    padding: 5px 7px;
+    font-size: 8px;
+    padding: 3px 5px;
   }
   .nsb-card-meta {
-    font-size: 11px;
+    font-size: 9px;
+    margin-top: 5px;
+  }
+  .nsb-card-title {
+    font-size: 8px;
+  }
+  .nsb-card {
+    padding: 8px 10px 6px;
+  }
+  .nsb-divider {
+    margin: 4px 0 2px;
+  }
+  .nsb-cards {
+    gap: 8px;
   }
   .rewards-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -491,14 +670,99 @@
     display: block !important;
     opacity: 0.85;
   }
-  .coin-poly { top: 30%; left: 48%; }
+  /* Phone-only: keep coins around the headline (not on top of it) */
+  .first-section-3 .hero-bg-layer {
+    z-index: 0 !important;
+    /* Make coins visible even if animations are disabled on mobile */
+    opacity: 1 !important;
+    animation: none !important;
+  }
+  .first-section-3 .container-29,
+  .first-section-3 .column-75 { z-index: 2 !important; }
+
+  .first-section-3 .bg-coin {
+    z-index: 1;
+    opacity: 0.94 !important;
+    /* Remove intro animation that relies on `opacity: 0` base rule */
+    animation: coin-float 14s ease-in-out infinite !important;
+    animation-delay: 0ms !important;
+    --coin-blob-size: 120px;
+    --coin-blob-opacity: 0.22;
+  }
+  .first-section-3 .bg-coin.coin-extra {
+    display: block !important;
+    opacity: 0.86 !important;
+  }
+  .first-section-3 .bg-coin::before { opacity: 0.18; }
+  .first-section-3 .bg-coin::after { opacity: 0.18; }
+
+  /* Higher specificity vs later `.coin-*` defaults further down the file */
+  .first-section-3 .coin-ava,
+  .first-section-3 .coin-eth,
+  .first-section-3 .coin-sol,
+  .first-section-3 .coin-xrp {
+    display: block;
+  }
+
+  .first-section-3 .coin-arb { top: 9% !important; left: 50% !important; margin-left: -16px !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-ava { top: 17% !important; left: 18% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-op  { top: 17% !important; right: 18% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-bnb { top: 34% !important; left: 12% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-xrp { top: 34% !important; right: 12% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-eth { bottom: 12% !important; left: 6% !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-sol { bottom: 14% !important; left: 50% !important; margin-left: -16px !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-poly { bottom: 18% !important; right: 18% !important; top: auto !important; left: auto !important; }
+
+  /* Second ring (extras) */
+  .first-section-3 .coin-ava-2 { top: 25% !important; left: 30% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-arb-2 { top: 25% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-op-2  { top: 11% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-bnb-2 { top: 52% !important; left: 22% !important; right: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-xrp-2 { top: 52% !important; right: 22% !important; left: auto !important; bottom: auto !important; }
+  .first-section-3 .coin-eth-2 { bottom: 26% !important; left: 30% !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-poly-2 { bottom: 26% !important; right: 30% !important; top: auto !important; left: auto !important; }
+  .first-section-3 .coin-sol-2 { bottom: 11% !important; left: 30% !important; top: auto !important; right: auto !important; }
+
   .coin-base { display: none !important; }
-  .coin-arb { top: 18%; left: 20%; }
-  .coin-op { top: 48%; right: 25%; }
-  .coin-bnb { top: 40%; left: 28%; }
-  .coin-ava { display: none !important; }
-  .coin-eth { display: none !important; }
-  .coin-sol, .coin-xrp { display: none !important; }
+  .cards-triangle-root {
+    width: 600px;
+    padding-bottom: 0;
+    margin-bottom: -60px;
+    transform: scale(0.55) translateX(-120px);
+    transform-origin: center top;
+    margin-top: -120px;
+    margin-left: auto;
+    margin-right: auto;
+    pointer-events: none;
+  }
+  .cards-triangle-area {
+    margin-top: -40px;
+  }
+  .cards-triangle-root * {
+    pointer-events: auto;
+  }
+  .triangle-card {
+    width: 240px;
+    padding: 14px 16px 16px;
+  }
+  .cc-title {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .cc-text {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .cc-step {
+    font-size: 10px;
+    bottom: -14px;
+  }
+  .cc-progress-fill {
+    bottom: -8px;
+    height: 3px;
+  }
+  /* Hide scrollbar if width causes issues */
 }
 
 [data-animate-on-scroll] {
@@ -852,6 +1116,11 @@
   isolation: isolate;
 }
 
+/* Default: hide duplicated "extra" coins (we enable them on mobile only) */
+.bg-coin.coin-extra {
+  display: none;
+}
+
 .bg-coin::after {
   content: "";
   position: absolute;
@@ -971,7 +1240,6 @@
 
 .hero-cloud {
   position: absolute;
-  /* layered gray clouds with soft edges */
   background:
     radial-gradient(60% 60% at 40% 45%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 60%),
     radial-gradient(48% 48% at 62% 58%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 62%),
@@ -981,7 +1249,7 @@
   border-radius: 50%;
   animation: hero-cloud-in 4300ms cubic-bezier(0.3, 0.9, 0.24, 1) forwards, cloud-float 28s ease-in-out infinite;
   animation-delay: 1000ms, 0ms;
-  z-index: 0; /* keep below coins */
+  z-index: 0;
 }
 
 .hero-cloud-1 { width: 420px; height: 260px; left: 28%; top: 34%; animation-duration: 32s; }
@@ -1004,7 +1272,7 @@
 [data-animate-on-scroll][data-animate="about-planet"] {
   opacity: 0;
   transform: translateY(14px) scale(0.9) rotate(-6deg);
-  transform-origin: 50% 62%; /* pivot lower to avoid leaving top edge */
+  transform-origin: 50% 62%;
   transition: opacity 6000ms ease, transform 6500ms ease;
 }
 
@@ -1024,7 +1292,7 @@
 
 .about-planet {
   display: block;
-  margin-top: 36px; /* extra cushion */
+  margin-top: 36px;
   max-width: 92%;
 }
 
@@ -1122,6 +1390,20 @@
   .rewards-right { justify-content: center; }
 }
 
+/* Desktop: give the section enough vertical space so the triangle cards never get clipped */
+@media (min-width: 992px) {
+  .third-section-3 {
+    height: auto !important;
+    min-height: 620px;
+    padding-bottom: 120px !important;
+    overflow: visible !important;
+  }
+  .cards-carousel-wrapper {
+    overflow: visible;
+    padding-bottom: 220px;
+  }
+}
+
 /* Triangle path spinner (per arrows) */
 .cards-triangle-root { width: 100%; overflow: visible; margin: 16px 0 0; }
 .cards-triangle-area {
@@ -1132,7 +1414,7 @@
 }
 .triangle-card {
   position: absolute; left: 0; top: 0;
-  width: 280px;
+  width: var(--card-w, 280px);
   background: linear-gradient(180deg, rgba(24, 24, 28, 0.96), rgba(16, 16, 22, 0.94));
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
@@ -1615,5 +1897,254 @@ body {
 @media (min-width: 992px) {
   .mobile-nav-overlay {
     display: none;
+  }
+}
+
+/* Fix section overlap: Webflow sets a fixed height on .second-section-3 */
+.second-section-3 {
+  height: auto !important;
+  min-height: unset !important;
+  padding-bottom: 48px;
+  margin-bottom: 32px;
+}
+@media (max-width: 768px) {
+  .second-section-3 { padding-bottom: 56px; margin-bottom: 40px; }
+}
+@media (max-width: 480px) {
+  .second-section-3 { padding-bottom: 64px; margin-bottom: 44px; }
+}
+
+/* Networks mobile layout: stack + readable board */
+@media (max-width: 768px) {
+  /* Give the Networks heading more width and reduce its "card" height */
+  .second-section-3 .frame-49 {
+    max-width: min(920px, 92vw) !important;
+    height: auto !important;
+    min-height: unset !important;
+    padding: 16px 14px !important;
+    background-size: cover;
+  }
+  .second-section-3 .frame-49 h2 {
+    width: 100%;
+    margin: 0;
+  }
+  .second-section-3 .frame-49 h2,
+  .second-section-3 .frame-49 h2 * {
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  .networks-grid {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important; /* bring board closer to spiral */
+  }
+  .networks-left,
+  .networks-right {
+    justify-content: center !important;
+    width: 100%;
+  }
+  .spiral-container {
+    min-height: clamp(320px, 52vh, 460px);
+    /* Closer to desktop tilt */
+    transform: perspective(1100px) rotateX(22deg) rotateZ(-20deg) scale(1.08);
+    padding-bottom: clamp(28px, 10vh, 96px);
+    max-width: min(420px, 92vw);
+    /* Reduce distance from the heading */
+    margin: 2px auto 10px;
+  }
+  .nsb-root {
+    width: 100%;
+    max-width: min(480px, 92vw);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Keep the board close to the spiral on small phones too */
+  .networks-grid {
+    gap: 8px !important;
+  }
+  .second-section-3 .frame-49 {
+    max-width: min(920px, 92vw) !important;
+    padding: 14px 12px !important;
+  }
+  .spiral-container {
+    min-height: clamp(240px, 42vh, 340px);
+    /* Closer to desktop tilt (smaller phones) */
+    transform: perspective(1000px) rotateX(20deg) rotateZ(-18deg) scale(1.05);
+    padding-bottom: clamp(18px, 8vh, 64px);
+    max-width: min(420px, 92vw);
+    margin: 0 auto 8px;
+  }
+  .nsb-root {
+    padding: 18px 16px 14px;
+    border-radius: 24px;
+    width: 100%;
+    max-width: min(480px, 92vw);
+    margin-left: auto;
+    margin-right: auto;
+    transform: none;
+    margin-bottom: 0;
+  }
+  .nsb-group-title { font-size: 14px; }
+  .nsb-card-title { font-size: 14px; }
+  .nsb-card-meta { font-size: 12px; margin-top: 10px; }
+  .nsb-card-badge { font-size: 11px; padding: 6px 10px; }
+  .nsb-card { padding: 14px 14px 12px; }
+  .nsb-divider { margin: 10px 0 8px; }
+  .nsb-cards { gap: 12px; }
+}
+
+/* MetaMask guide section */
+.metamask-guide {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+}
+.metamask-title-box {
+  width: 100%;
+  max-width: min(760px, 92vw);
+  /* remove the frame around the title */
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent;
+  padding: 0 !important;
+}
+.metamask-title {
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: clamp(20px, 5.6vw, 34px) !important;
+  line-height: 1.08 !important;
+}
+.metamask-cards {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* On mobile, keep "For PC" label + image aligned and visible */
+@media (max-width: 991px) {
+  .metamask-cards {
+    padding-bottom: 8px;
+  }
+  .metamask-forpc {
+    align-self: flex-start;
+    margin-left: max(0px, calc((100% - min(520px, 92vw)) / 2));
+  }
+}
+.metamask-card {
+  display: block;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: transparent;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.32);
+}
+.metamask-card--mobile {
+  width: min(360px, 86vw) !important;
+  height: auto !important;
+}
+.metamask-forpc {
+  width: min(520px, 92vw);
+  color: rgba(232, 232, 232, 0.85);
+  font-size: 12px;
+  text-align: left;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+.metamask-card--pc {
+  width: min(520px, 92vw) !important;
+  height: auto !important;
+  display: block !important;
+}
+@media (min-width: 992px) {
+  .metamask-guide { gap: 34px; }
+  .metamask-cards {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 28px;
+  }
+  .metamask-forpc { display: none; }
+  .metamask-card--mobile { width: 320px !important; }
+  .metamask-card--pc { width: 760px !important; }
+}
+
+/* Rewards intro (no dark panel background) */
+.rewards-left { width: 100%; }
+.rewards-intro {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0;
+  max-width: 640px;
+}
+.rewards-title {
+  margin: 0 0 14px;
+  font-weight: 700;
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.05;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+.rewards-title__brand { color: var(--brand-purple); }
+.rewards-title__rest { color: #ffffff; }
+.rewards-copy {
+  margin: 0;
+  font-size: clamp(15px, 1.1vw, 18px);
+  line-height: 1.5;
+  color: rgba(232, 232, 232, 0.9);
+}
+.rewards-copy__brand { color: var(--brand-green); font-weight: 600; }
+.rewards-copy__token { color: var(--brand-purple); font-weight: 600; }
+@media (max-width: 991px) {
+  .rewards-intro { max-width: min(680px, 92vw); margin: 0 auto; text-align: center; }
+}
+
+/* Rewards cards: restore animated triangle carousel (as it was) */
+.cards-grid-root { display: none !important; }
+.cards-triangle-root { display: block !important; }
+
+/* Prevent the animated cards from spilling outside the rewards section */
+.cards-carousel-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Mobile tuning for the animated triangle so it fills the section (no tiny scale/shift) */
+@media (max-width: 768px) {
+  .cards-triangle-root {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center;
+    margin-top: 28px !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    --area-w: min(520px, 92vw);
+    --area-h: 340px;
+  }
+  .cards-triangle-area {
+    /* Layout is now responsive via JS vars; no extra scaling needed */
+    transform: none !important;
+    transform-origin: top center;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .cards-triangle-area {
+    transform: none !important;
+  }
+  .cards-triangle-root {
+    --area-w: min(460px, 92vw);
+    --area-h: 330px;
   }
 }

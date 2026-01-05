@@ -159,6 +159,16 @@ export default function Home() {
                     <img src={xrpLogo.src} alt="" className="bg-coin coin-xrp" />
                     <img src={baseLogo.src} alt="" className="bg-coin coin-base" />
                     <img src={ethTokenLogo.src} alt="" className="bg-coin coin-eth" />
+
+                    {/* Extra coins for mobile-only "around headline" density */}
+                    <img src={avalanceLogo.src} alt="" className="bg-coin coin-ava-2 coin-extra" />
+                    <img src={arbLogo.src} alt="" className="bg-coin coin-arb-2 coin-extra" />
+                    <img src={opLogo.src} alt="" className="bg-coin coin-op-2 coin-extra" />
+                    <img src={bscLogo.src} alt="" className="bg-coin coin-bnb-2 coin-extra" />
+                    <img src={xrpLogo.src} alt="" className="bg-coin coin-xrp-2 coin-extra" />
+                    <img src={ethTokenLogo.src} alt="" className="bg-coin coin-eth-2 coin-extra" />
+                    <img src={polygonLogo.src} alt="" className="bg-coin coin-poly-2 coin-extra" />
+                    <img src={solLogo.src} alt="" className="bg-coin coin-sol-2 coin-extra" />
                 </div>
                 <div className ="container-29">
                     <div className ="column-75">
@@ -229,46 +239,57 @@ export default function Home() {
                 </div>
             </div>
             <div className ="video-section-3">
-                <div className ="circles-2"><Image
-                        src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/684d85d97176fdd04cca4d34_Group-26.svg"
-                        loading="lazy" width="98.86583709716797" height="98.86583709716797" alt="" className ="group-33" />
-                    <div className ="text-169" data-animate-on-scroll>
-                        <div className ="text-169"><span className ="guide-for-starting-metamask-setup-2">Guide </span><span
-                                className ="track-of-the-progress-and-tvl-of-supported-networks-7">for starting </span><span
-                                className ="track-of-the-progress-and-tvl-of-supported-networks-8">MetaMask </span><span
-                                className ="track-of-the-progress-and-tvl-of-supported-networks-7">setup</span></div>
-                    </div><Image
-                        src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/6849307bdcc849b3f138fdfc_Group-27.svg"
-                        loading="lazy" width="98.86583709716797" height="98.86583709716797" alt="" className ="group-33" />
+                <div className="metamask-guide">
+                    <div className="metamask-title-box" data-animate-on-scroll>
+                        <h2 className="metamask-title text-169" data-animate-on-scroll data-animate="heading" data-size="md">
+                            <span className ="guide-for-starting-metamask-setup-2">Guide </span>
+                            <span className ="track-of-the-progress-and-tvl-of-supported-networks-7">for starting </span>
+                            <span className ="track-of-the-progress-and-tvl-of-supported-networks-8">MetaMask </span>
+                            <span className ="track-of-the-progress-and-tvl-of-supported-networks-7">setup</span>
+                        </h2>
+                    </div>
+
+                    <div className="metamask-cards" data-animate-on-scroll>
+                        {/* Mobile-style tall card */}
+                        <Image
+                            src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/6849330bd53157b6b6da6165_Video-2---small-1.png"
+                            loading="lazy"
+                            width="281"
+                            height="500"
+                            alt=""
+                            className="metamask-card metamask-card--mobile"
+                        />
+
+                        <div className="metamask-forpc">For PC:</div>
+
+                        {/* Desktop/PC wide card */}
+                        <Image
+                            src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/6849330cc112be56dfb41054_Video-1-1.png"
+                            loading="lazy"
+                            width="888"
+                            height="500"
+                            alt=""
+                            sizes="(max-width: 991px) 92vw, 888px"
+                            className="metamask-card metamask-card--pc"
+                        />
+                    </div>
                 </div>
-                <div className ="frame-51"><Image
-                        src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/6849330cc112be56dfb41054_Video-1-1.png"
-                        loading="lazy" width="888" height="500" alt=""
-                        sizes="(max-width: 991px) 100vw, 888px" className ="color-text-v2-2-f-4" /><Image
-                        src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/6849330bd53157b6b6da6165_Video-2---small-1.png"
-                        loading="lazy" width="281" height="500" alt="" className ="color-text-v2-2-f-4" /></div>
             </div>
             <div className ="third-section-3">
                 <div className="rewards-grid">
-                    <div className ="frame-52 rewards-left">
-                        <div className ="frame-53">
-                            <h2 className ="text-169" data-animate-on-scroll data-animate="heading" data-size="md">
-                                <div className ="text-169"><span className ="twopir-rewards-program-2">TwoPiR</span><span
-                                        className ="twopir-rewards-program-3"> Rewards Program</span></div>
+                    <div className ="rewards-left">
+                        <div className="rewards-intro" data-animate-on-scroll>
+                            <h2 className="rewards-title" data-animate-on-scroll data-animate="heading">
+                                <span className="rewards-title__brand">TwoPiR</span>{' '}
+                                <span className="rewards-title__rest">Rewards Program</span>
                             </h2>
-                            <div className ="text-169" data-animate-on-scroll>
-                                <div className ="text-169"><span
-                                        className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-4">Introducing
-                                        the </span><span
-                                        className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-5">TwoPiR</span><span
-                                        className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-4">
-                                        Rewards Program! Participants can earn points through engaging in various on-chain
-                                        activities. These points will be converted into </span><span
-                                        className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-6">PIR</span><span
-                                        className ="introducing-the-twopir-rewards-program-participants-can-earn-points-through-engaging-in-various-on-c-4">
-                                        tokens, giving you the opportunity to maximize your rewards and become part of our
-                                        growing ecosystem. Stay tuned for more updates!</span></div>
-                            </div>
+                            <p className="rewards-copy">
+                                Introducing the <span className="rewards-copy__brand">TwoPiR</span> Rewards Program!
+                                Participants can earn points through engaging in various on-chain activities. These points
+                                will be converted into <span className="rewards-copy__token">PIR</span> tokens, giving you the
+                                opportunity to maximize your rewards and become part of our growing ecosystem. Stay tuned
+                                for more updates!
+                            </p>
                         </div>
                     </div>
                     <div className="rewards-right" data-animate-on-scroll>
