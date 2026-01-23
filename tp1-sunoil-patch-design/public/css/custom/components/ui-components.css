@@ -220,8 +220,20 @@
 }
 
 .second-section-3,
-.second-section-3 .frame-49 {
+.second-section-3 .frame-49,
+.second-section-3 .networks-section-heading {
   overflow: visible;
+}
+
+/* Networks heading (no Webflow background card) */
+.second-section-3 .networks-section-heading {
+  width: 100%;
+  max-width: 823.728px;
+  margin: 0 auto 12px;
+  padding: 0;
+}
+.second-section-3 .networks-section-heading .text-169 {
+  margin: 0;
 }
 .spiral-svg {
   width: 100%;
@@ -281,19 +293,19 @@
 /* Phone devices (coarse pointer): ensure hero coins are visible even if viewport width media queries don't match */
 @media (hover: none) and (pointer: coarse) {
   .first-section-3 .hero-bg-layer {
-    opacity: 1 !important;
-    animation: none !important;
+    opacity: 1;
+    animation: none;
   }
   .first-section-3 .bg-coin {
-    display: block !important;
-    opacity: 0.75 !important;
-    animation: coin-float 14s ease-in-out infinite !important;
-    animation-delay: 0ms !important;
+    display: block;
+    opacity: 0.75;
+    animation: coin-float 14s ease-in-out infinite;
+    animation-delay: 0ms;
   }
 
   .first-section-3 .bg-coin.coin-extra {
-    display: block !important;
-    opacity: 0.7 !important;
+    display: block;
+    opacity: 0.7;
   }
 
   /* Keep coins around the headline */
@@ -301,28 +313,28 @@
   .first-section-3 .coin-eth,
   .first-section-3 .coin-sol,
   .first-section-3 .coin-xrp {
-    display: block !important;
+    display: block;
   }
 
   /* Pull coins inward so they're not clipped off-screen */
-  .first-section-3 .coin-arb { top: 8% !important; left: 50% !important; margin-left: -16px !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-ava { top: 16% !important; left: 18% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-op  { top: 16% !important; right: 18% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-bnb { top: 34% !important; left: 12% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-xrp { top: 34% !important; right: 12% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-eth { bottom: 18% !important; left: 18% !important; top: auto !important; right: auto !important; }
-  .first-section-3 .coin-sol { bottom: 14% !important; left: 50% !important; margin-left: -16px !important; top: auto !important; right: auto !important; }
-  .first-section-3 .coin-poly { bottom: 18% !important; right: 18% !important; top: auto !important; left: auto !important; }
+  .first-section-3 .coin-arb { top: 8%; left: 50%; margin-left: -16px; right: auto; bottom: auto; }
+  .first-section-3 .coin-ava { top: 16%; left: 18%; right: auto; bottom: auto; }
+  .first-section-3 .coin-op  { top: 16%; right: 18%; left: auto; bottom: auto; }
+  .first-section-3 .coin-bnb { top: 34%; left: 12%; right: auto; bottom: auto; }
+  .first-section-3 .coin-xrp { top: 34%; right: 12%; left: auto; bottom: auto; }
+  .first-section-3 .coin-eth { bottom: 18%; left: 18%; top: auto; right: auto; }
+  .first-section-3 .coin-sol { bottom: 14%; left: 50%; margin-left: -16px; top: auto; right: auto; }
+  .first-section-3 .coin-poly { bottom: 18%; right: 18%; top: auto; left: auto; }
 
   /* Second ring (extras) */
-  .first-section-3 .coin-ava-2 { top: 24% !important; left: 30% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-arb-2 { top: 24% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-op-2  { top: 10% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-bnb-2 { top: 52% !important; left: 22% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-xrp-2 { top: 52% !important; right: 22% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-eth-2 { bottom: 26% !important; left: 30% !important; top: auto !important; right: auto !important; }
-  .first-section-3 .coin-poly-2 { bottom: 26% !important; right: 30% !important; top: auto !important; left: auto !important; }
-  .first-section-3 .coin-sol-2 { bottom: 10% !important; left: 30% !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-ava-2 { top: 24%; left: 30%; right: auto; bottom: auto; }
+  .first-section-3 .coin-arb-2 { top: 24%; right: 30%; left: auto; bottom: auto; }
+  .first-section-3 .coin-op-2  { top: 10%; right: 30%; left: auto; bottom: auto; }
+  .first-section-3 .coin-bnb-2 { top: 52%; left: 22%; right: auto; bottom: auto; }
+  .first-section-3 .coin-xrp-2 { top: 52%; right: 22%; left: auto; bottom: auto; }
+  .first-section-3 .coin-eth-2 { bottom: 26%; left: 30%; top: auto; right: auto; }
+  .first-section-3 .coin-poly-2 { bottom: 26%; right: 30%; top: auto; left: auto; }
+  .first-section-3 .coin-sol-2 { bottom: 10%; left: 30%; top: auto; right: auto; }
 }
 
 @media (max-width: 768px) {
@@ -359,7 +371,7 @@
   .hero-bubble-field,
   .hero-bubble,
   .bg-coin {
-    display: block !important;
+    display: block;
   }
   .container-29 {
     min-height: auto;
@@ -370,7 +382,7 @@
   .content-style-9,
   .content-style-9 .text-167,
   .content-style-9 .text-168 {
-    text-align: center !important;
+    text-align: center;
   }
   .text-11-6, .text-11-7, .text-11-8 {
     font-size: 31px;
@@ -392,45 +404,45 @@
 
   /* Mobile (<=768): ensure coins are visible even if intro animations don't run */
   .first-section-3 .hero-bg-layer {
-    opacity: 1 !important;
-    animation: none !important;
+    opacity: 1;
+    animation: none;
   }
   .first-section-3 .bg-coin {
-    opacity: 0.85 !important;
-    animation: coin-float 14s ease-in-out infinite !important;
-    animation-delay: 0ms !important;
+    opacity: 0.85;
+    animation: coin-float 14s ease-in-out infinite;
+    animation-delay: 0ms;
   }
   .first-section-3 .bg-coin.coin-extra {
-    display: block !important;
-    opacity: 0.7 !important;
+    display: block;
+    opacity: 0.7;
   }
 
-  /* Mobile (<=768): keep coins around the headline (avoid overlap) */
+  /* Mobile (<=768): keep coins around the headline */
   .first-section-3 .coin-ava,
   .first-section-3 .coin-eth,
   .first-section-3 .coin-sol,
   .first-section-3 .coin-xrp {
-    display: block !important;
+    display: block;
   }
 
-  .first-section-3 .coin-arb { top: 8% !important; left: 50% !important; margin-left: -16px !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-ava { top: 16% !important; left: 18% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-op  { top: 16% !important; right: 18% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-bnb { top: 34% !important; left: 12% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-xrp { top: 34% !important; right: 12% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-eth { bottom: 18% !important; left: 18% !important; top: auto !important; right: auto !important; }
-  .first-section-3 .coin-sol { bottom: 14% !important; left: 50% !important; margin-left: -16px !important; top: auto !important; right: auto !important; }
-  .first-section-3 .coin-poly { bottom: 18% !important; right: 18% !important; top: auto !important; left: auto !important; }
+  .first-section-3 .coin-arb { top: 8%; left: 50%; margin-left: -16px; right: auto; bottom: auto; }
+  .first-section-3 .coin-ava { top: 16%; left: 18%; right: auto; bottom: auto; }
+  .first-section-3 .coin-op  { top: 16%; right: 18%; left: auto; bottom: auto; }
+  .first-section-3 .coin-bnb { top: 34%; left: 12%; right: auto; bottom: auto; }
+  .first-section-3 .coin-xrp { top: 34%; right: 12%; left: auto; bottom: auto; }
+  .first-section-3 .coin-eth { bottom: 18%; left: 18%; top: auto; right: auto; }
+  .first-section-3 .coin-sol { bottom: 14%; left: 50%; margin-left: -16px; top: auto; right: auto; }
+  .first-section-3 .coin-poly { bottom: 18%; right: 18%; top: auto; left: auto; }
 
   /* Second ring (extras) */
-  .first-section-3 .coin-ava-2 { top: 24% !important; left: 30% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-arb-2 { top: 24% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-op-2  { top: 10% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-bnb-2 { top: 52% !important; left: 22% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-xrp-2 { top: 52% !important; right: 22% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-eth-2 { bottom: 26% !important; left: 30% !important; top: auto !important; right: auto !important; }
-  .first-section-3 .coin-poly-2 { bottom: 26% !important; right: 30% !important; top: auto !important; left: auto !important; }
-  .first-section-3 .coin-sol-2 { bottom: 10% !important; left: 30% !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-ava-2 { top: 24%; left: 30%; right: auto; bottom: auto; }
+  .first-section-3 .coin-arb-2 { top: 24%; right: 30%; left: auto; bottom: auto; }
+  .first-section-3 .coin-op-2  { top: 10%; right: 30%; left: auto; bottom: auto; }
+  .first-section-3 .coin-bnb-2 { top: 52%; left: 22%; right: auto; bottom: auto; }
+  .first-section-3 .coin-xrp-2 { top: 52%; right: 22%; left: auto; bottom: auto; }
+  .first-section-3 .coin-eth-2 { bottom: 26%; left: 30%; top: auto; right: auto; }
+  .first-section-3 .coin-poly-2 { bottom: 26%; right: 30%; top: auto; left: auto; }
+  .first-section-3 .coin-sol-2 { bottom: 10%; left: 30%; top: auto; right: auto; }
   .launch-dapp-btn {
     width: min(240px, 84vw);
     margin: 22px auto 0;
@@ -443,12 +455,11 @@
     column-gap: 18px;
     row-gap: 18px;
     text-align: left;
-    /* Keep content away from screen edges on mobile */
     padding-left: 18px;
     padding-right: 18px;
   }
 
-  /* Mobile-only: make the heading a section title above both text + planet (like the mock) */
+  /* Mobile-only: make the heading a section title above both text + planet */
   .about-twopir-3 > .frame-46 {
     display: contents;
   }
@@ -458,21 +469,21 @@
     justify-self: center;
     margin: 0 0 6px;
     width: 100%;
-    font-size: clamp(28px, 8vw, 38px) !important;
-    line-height: 1.05 !important;
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 1.05;
   }
-  /* Hide the spacer div after the heading on mobile; spacing is handled by grid gap/margins */
+
   .about-twopir-3 > .frame-46 > div[aria-hidden="true"] {
-    display: none !important;
+    display: none;
   }
   .about-twopir-3 > .frame-46 > .frame-48 {
     grid-column: 1 / 2;
     align-self: start;
     position: relative;
-    padding-left: 14px; /* space for the white stripe */
+    padding-left: 14px;
   }
 
-  /* White vertical stripe near the text (as in the mock) */
+  /* White vertical stripe near the text */
   .about-twopir-3 > .frame-46 > .frame-48::before {
     content: "";
     position: absolute;
@@ -507,20 +518,20 @@
   }
   .text-169,
   .text-169 * {
-    font-size: clamp(15px, 4vw, 18px) !important;
-    line-height: 1.4 !important;
+    font-size: clamp(15px, 4vw, 18px);
+    line-height: 1.4;
   }
   .text-169[data-size="md"] {
-    font-size: clamp(18px, 4.6vw, 22px) !important;
+    font-size: clamp(18px, 4.6vw, 22px);
   }
   .text-169[data-size="sm"] {
-    font-size: clamp(14px, 3.8vw, 18px) !important;
+    font-size: clamp(14px, 3.8vw, 18px);
   }
   .text-184,
   .text-185,
   .text-189,
   .link-style-4 {
-    font-size: clamp(13px, 3.4vw, 15px) !important;
+    font-size: clamp(13px, 3.4vw, 15px);
   }
   .rewards-grid {
     display: grid;
@@ -611,15 +622,15 @@
   }
   .text-169,
   .text-169 * {
-    font-size: clamp(14px, 3.6vw, 17px) !important;
-    line-height: 1.35 !important;
+    font-size: clamp(14px, 3.6vw, 17px);
+    line-height: 1.35;
   }
 
   /* Ensure About heading stays large on small screens (override .text-169 * rule) */
   .about-twopir-3 > .frame-46 > h2.text-169[data-size="md"],
   .about-twopir-3 > .frame-46 > h2.text-169[data-size="md"] * {
-    font-size: clamp(28px, 8.8vw, 38px) !important;
-    line-height: 1.05 !important;
+    font-size: clamp(28px, 8.8vw, 38px);
+    line-height: 1.05;
   }
   .networks-grid {
     grid-template-columns: 1fr;
@@ -658,7 +669,7 @@
     gap: 20px;
   }
   .hero-bubble-field {
-    display: block !important;
+    display: block;
   }
   .first-section-3 {
     padding-top: 60px;
@@ -667,31 +678,30 @@
   .bg-coin {
     width: 32px;
     height: 32px;
-    display: block !important;
+    display: block;
     opacity: 0.85;
   }
   /* Phone-only: keep coins around the headline (not on top of it) */
   .first-section-3 .hero-bg-layer {
-    z-index: 0 !important;
-    /* Make coins visible even if animations are disabled on mobile */
-    opacity: 1 !important;
-    animation: none !important;
+    z-index: 0;
+    opacity: 1;
+    animation: none;
   }
   .first-section-3 .container-29,
-  .first-section-3 .column-75 { z-index: 2 !important; }
+  .first-section-3 .column-75 { z-index: 2; }
 
   .first-section-3 .bg-coin {
     z-index: 1;
-    opacity: 0.94 !important;
+    opacity: 0.94;
     /* Remove intro animation that relies on `opacity: 0` base rule */
-    animation: coin-float 14s ease-in-out infinite !important;
-    animation-delay: 0ms !important;
+    animation: coin-float 14s ease-in-out infinite;
+    animation-delay: 0ms;
     --coin-blob-size: 120px;
     --coin-blob-opacity: 0.22;
   }
   .first-section-3 .bg-coin.coin-extra {
-    display: block !important;
-    opacity: 0.86 !important;
+    display: block;
+    opacity: 0.86;
   }
   .first-section-3 .bg-coin::before { opacity: 0.18; }
   .first-section-3 .bg-coin::after { opacity: 0.18; }
@@ -704,26 +714,26 @@
     display: block;
   }
 
-  .first-section-3 .coin-arb { top: 9% !important; left: 50% !important; margin-left: -16px !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-ava { top: 17% !important; left: 18% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-op  { top: 17% !important; right: 18% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-bnb { top: 34% !important; left: 12% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-xrp { top: 34% !important; right: 12% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-eth { bottom: 12% !important; left: 6% !important; top: auto !important; right: auto !important; }
-  .first-section-3 .coin-sol { bottom: 14% !important; left: 50% !important; margin-left: -16px !important; top: auto !important; right: auto !important; }
-  .first-section-3 .coin-poly { bottom: 18% !important; right: 18% !important; top: auto !important; left: auto !important; }
+  .first-section-3 .coin-arb { top: 9%; left: 50%; margin-left: -16px; right: auto; bottom: auto; }
+  .first-section-3 .coin-ava { top: 17%; left: 18%; right: auto; bottom: auto; }
+  .first-section-3 .coin-op  { top: 17%; right: 18%; left: auto; bottom: auto; }
+  .first-section-3 .coin-bnb { top: 34%; left: 12%; right: auto; bottom: auto; }
+  .first-section-3 .coin-xrp { top: 34%; right: 12%; left: auto; bottom: auto; }
+  .first-section-3 .coin-eth { bottom: 12%; left: 6%; top: auto; right: auto; }
+  .first-section-3 .coin-sol { bottom: 14%; left: 50%; margin-left: -16px; top: auto; right: auto; }
+  .first-section-3 .coin-poly { bottom: 18%; right: 18%; top: auto; left: auto; }
 
   /* Second ring (extras) */
-  .first-section-3 .coin-ava-2 { top: 25% !important; left: 30% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-arb-2 { top: 25% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-op-2  { top: 11% !important; right: 30% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-bnb-2 { top: 52% !important; left: 22% !important; right: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-xrp-2 { top: 52% !important; right: 22% !important; left: auto !important; bottom: auto !important; }
-  .first-section-3 .coin-eth-2 { bottom: 26% !important; left: 30% !important; top: auto !important; right: auto !important; }
-  .first-section-3 .coin-poly-2 { bottom: 26% !important; right: 30% !important; top: auto !important; left: auto !important; }
-  .first-section-3 .coin-sol-2 { bottom: 11% !important; left: 30% !important; top: auto !important; right: auto !important; }
+  .first-section-3 .coin-ava-2 { top: 25%; left: 30%; right: auto; bottom: auto; }
+  .first-section-3 .coin-arb-2 { top: 25%; right: 30%; left: auto; bottom: auto; }
+  .first-section-3 .coin-op-2  { top: 11%; right: 30%; left: auto; bottom: auto; }
+  .first-section-3 .coin-bnb-2 { top: 52%; left: 22%; right: auto; bottom: auto; }
+  .first-section-3 .coin-xrp-2 { top: 52%; right: 22%; left: auto; bottom: auto; }
+  .first-section-3 .coin-eth-2 { bottom: 26%; left: 30%; top: auto; right: auto; }
+  .first-section-3 .coin-poly-2 { bottom: 26%; right: 30%; top: auto; left: auto; }
+  .first-section-3 .coin-sol-2 { bottom: 11%; left: 30%; top: auto; right: auto; }
 
-  .coin-base { display: none !important; }
+  .coin-base { display: none; }
   .cards-triangle-root {
     width: 600px;
     padding-bottom: 0;
@@ -802,7 +812,7 @@
   }
   .nsb-progress-fill {
     transition: none;
-    animation: none !important;
+    animation: none;
     width: var(--nsb-progress-target);
   }
   .hero-bg-layer,
@@ -810,7 +820,7 @@
   .hero-bubble-field,
   .hero-bubble,
   .bg-coin {
-    animation: none !important;
+    animation: none;
   }
   .hero-bg-layer,
   .hero-bubble-field,
@@ -818,7 +828,7 @@
     opacity: 1;
   }
   .hero-gooey {
-    animation: none !important;
+    animation: none;
   }
   .hero-bg-layer,
   .hero-blob {
@@ -832,7 +842,7 @@
   }
   .nsb-root::before,
   .nsb-root::after {
-    animation: none !important;
+    animation: none;
     opacity: 0.6;
   }
 }
@@ -1304,7 +1314,7 @@
 /* Launch DApp button animation and hover effects */
 .launch-dapp-btn {
   position: relative;
-  display: inline-flex !important;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -1355,8 +1365,8 @@
 }
 
 .launch-dapp-btn span {
-  background: transparent !important;
-  color: inherit !important;
+  background: transparent;
+  color: inherit;
 }
 
 /* Text color swap on hover: green -> purple */
@@ -1393,10 +1403,10 @@
 /* Desktop: give the section enough vertical space so the triangle cards never get clipped */
 @media (min-width: 992px) {
   .third-section-3 {
-    height: auto !important;
+    height: auto;
     min-height: 620px;
-    padding-bottom: 120px !important;
-    overflow: visible !important;
+    padding-bottom: 120px;
+    overflow: visible;
   }
   .cards-carousel-wrapper {
     overflow: visible;
@@ -1498,7 +1508,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    margin-left: 0 !important;
+    margin-left: 0;
     right: auto;
   }
 }
@@ -1506,10 +1516,10 @@
 /* Remove extra paddings/margins so logo can hug the left edge */
 .navbar-logo-left-18,
 .navbar-logo-left-18 .navbarcontainer-13 {
-  padding-left: 0 !important;
+  padding-left: 0;
 }
 .navbar-logo-left-18 .navbarcontainer-13.w-container {
-  max-width: 100% !important;
+  max-width: 100%;
 }
 
 /* Make "My deposit" look static (non-link) */
@@ -1521,26 +1531,26 @@
 
 /* Stronger overrides to pin logo left and keep nav right */
 .navbar-logo-left-18 {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  align-items: stretch !important; /* let inner container fill width */
+  padding-left: 0;
+  padding-right: 0;
+  align-items: stretch; /* let inner container fill width */
 }
 .navbar-logo-left-18 .navbarcontainer-13 {
-  width: 100% !important;
-  padding-right: 0 !important;
-  align-items: stretch !important;
+  width: 100%;
+  padding-right: 0;
+  align-items: stretch;
 }
 .navbar-logo-left-18 .navbar-content-14 {
-  width: 100% !important;
-  max-width: none !important;
+  width: 100%;
+  max-width: none;
 }
 .navbar-logo-left-18 .navbar-menu-14 {
-  width: auto !important;
-  max-width: none !important;
-  column-gap: 20px !important;
+  width: auto;
+  max-width: none;
+  column-gap: 20px;
 }
 .navbar-logo-left-18 .logo-link {
-  margin-left: 0 !important;
+  margin-left: 0;
 }
 
 .logo-mobile {
@@ -1723,6 +1733,151 @@
     min-height: 72px;
 }
 
+.header-actions {
+    position: absolute;
+    top: 50%;
+    right: 28px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.network-dropdown {
+    position: relative;
+}
+
+.network-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-width: 170px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: #e3e3ef;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.network-trigger.is-open {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.24);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.network-trigger-left {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.network-trigger-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+}
+
+.network-trigger-label {
+    font-weight: 600;
+    color: #f0f0f5;
+}
+
+.network-trigger-caret {
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid rgba(216, 216, 226, 0.9);
+    border-bottom: 2px solid rgba(216, 216, 226, 0.9);
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+}
+
+.network-trigger.is-open .network-trigger-caret {
+    transform: rotate(-135deg);
+}
+
+.network-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    min-width: 210px;
+    padding: 8px;
+    background: rgba(18, 18, 24, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    backdrop-filter: blur(14px);
+    z-index: 20;
+}
+
+.network-menu.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.network-option {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    color: #d7d7e4;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+.network-option:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+}
+
+.network-option.is-active {
+    background: rgba(123, 97, 255, 0.16);
+    color: #f5f1ff;
+}
+
+.network-option-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.connect-wallet-btn {
+    font-size: 14px;
+    color: #d8d8e2;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 9px 14px;
+    min-width: 170px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.connect-wallet-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+
+.connect-wallet-btn:active {
+    background: rgba(255, 255, 255, 0.14);
+}
+
 /* Навігація */
 .main-nav {
     position: absolute;
@@ -1872,14 +2027,41 @@ body {
 .video-section-3,
 .about-twopir-3,
 .footer-11 {
-  background-color: #1a1a21 !important;
-  background-image: none !important;
+  background-color: #1a1a21;
+  background-image: none;
 }
 
 
 @media (max-width: 991px) {
   .main-nav {
     display: none;
+  }
+
+  .header-actions {
+    display: none;
+  }
+
+  .mobile-nav-actions {
+    position: absolute;
+    top: 110px;
+    left: 24px;
+    right: 24px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mobile-nav-actions .network-trigger,
+  .mobile-nav-actions .connect-wallet-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .mobile-nav-actions .network-menu {
+    right: 0;
+    left: 0;
+    min-width: 100%;
   }
 
   .burger-menu {
@@ -1902,8 +2084,8 @@ body {
 
 /* Fix section overlap: Webflow sets a fixed height on .second-section-3 */
 .second-section-3 {
-  height: auto !important;
-  min-height: unset !important;
+  height: auto;
+  min-height: unset;
   padding-bottom: 48px;
   margin-bottom: 32px;
 }
@@ -1917,31 +2099,29 @@ body {
 /* Networks mobile layout: stack + readable board */
 @media (max-width: 768px) {
   /* Give the Networks heading more width and reduce its "card" height */
-  .second-section-3 .frame-49 {
-    max-width: min(920px, 92vw) !important;
-    height: auto !important;
-    min-height: unset !important;
-    padding: 16px 14px !important;
-    background-size: cover;
+  .second-section-3 .networks-section-heading {
+    max-width: min(920px, 92vw);
+    margin-bottom: 8px;
+    padding: 0;
   }
-  .second-section-3 .frame-49 h2 {
+  .second-section-3 .networks-section-heading h2 {
     width: 100%;
     margin: 0;
   }
-  .second-section-3 .frame-49 h2,
-  .second-section-3 .frame-49 h2 * {
+  .second-section-3 .networks-section-heading h2,
+  .second-section-3 .networks-section-heading h2 * {
     text-align: center;
     text-wrap: balance;
   }
 
   .networks-grid {
     display: grid;
-    grid-template-columns: 1fr !important;
-    gap: 10px !important; /* bring board closer to spiral */
+    grid-template-columns: 1fr;
+    gap: 10px; /* bring board closer to spiral */
   }
   .networks-left,
   .networks-right {
-    justify-content: center !important;
+    justify-content: center;
     width: 100%;
   }
   .spiral-container {
@@ -1959,16 +2139,34 @@ body {
     margin-left: auto;
     margin-right: auto;
   }
+
+  /* Mobile performance: lighten hero animations */
+  .first-section-3::before,
+  .first-section-3::after,
+  .hero-bg-layer,
+  .hero-gooey,
+  .hero-gooey::before,
+  .hero-gooey::after,
+  .hero-cloud,
+  .bg-coin {
+    animation: none;
+  }
+
+  .hero-gooey,
+  .hero-gooey::before,
+  .hero-gooey::after {
+    transition: none;
+  }
 }
 
 @media (max-width: 480px) {
   /* Keep the board close to the spiral on small phones too */
   .networks-grid {
-    gap: 8px !important;
+    gap: 8px;
   }
-  .second-section-3 .frame-49 {
-    max-width: min(920px, 92vw) !important;
-    padding: 14px 12px !important;
+  .second-section-3 .networks-section-heading {
+    max-width: min(920px, 92vw);
+    margin-bottom: 6px;
   }
   .spiral-container {
     min-height: clamp(240px, 42vh, 340px);
@@ -2009,17 +2207,17 @@ body {
   width: 100%;
   max-width: min(760px, 92vw);
   /* remove the frame around the title */
-  border: 0 !important;
-  border-radius: 0 !important;
+  border: 0;
+  border-radius: 0;
   background: transparent;
-  padding: 0 !important;
+  padding: 0;
 }
 .metamask-title {
   margin: 0;
   text-align: center;
   font-weight: 700;
-  font-size: clamp(20px, 5.6vw, 34px) !important;
-  line-height: 1.08 !important;
+  font-size: clamp(20px, 5.6vw, 34px);
+  line-height: 1.08;
 }
 .metamask-cards {
   width: 100%;
@@ -2038,6 +2236,10 @@ body {
     align-self: flex-start;
     margin-left: max(0px, calc((100% - min(520px, 92vw)) / 2));
   }
+  .metamask-card--pc,
+  .metamask-forpc {
+    display: none;
+  }
 }
 .metamask-card {
   display: block;
@@ -2045,10 +2247,11 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.55);
   background: transparent;
   box-shadow: 0 10px 30px rgba(0,0,0,0.32);
+  object-fit: cover;
 }
 .metamask-card--mobile {
-  width: min(360px, 86vw) !important;
-  height: auto !important;
+  width: min(360px, 86vw);
+  height: auto;
 }
 .metamask-forpc {
   width: min(520px, 92vw);
@@ -2059,9 +2262,9 @@ body {
   margin-bottom: 2px;
 }
 .metamask-card--pc {
-  width: min(520px, 92vw) !important;
-  height: auto !important;
-  display: block !important;
+  width: min(520px, 92vw);
+  height: auto;
+  display: none;
 }
 @media (min-width: 992px) {
   .metamask-guide { gap: 34px; }
@@ -2072,16 +2275,16 @@ body {
     gap: 28px;
   }
   .metamask-forpc { display: none; }
-  .metamask-card--mobile { width: 320px !important; }
-  .metamask-card--pc { width: 760px !important; }
+  .metamask-card--mobile { width: 320px; }
+  .metamask-card--pc { width: 760px; display: block; }
 }
 
 /* Rewards intro (no dark panel background) */
 .rewards-left { width: 100%; }
 .rewards-intro {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
   padding: 0;
   max-width: 640px;
 }
@@ -2108,8 +2311,8 @@ body {
 }
 
 /* Rewards cards: restore animated triangle carousel (as it was) */
-.cards-grid-root { display: none !important; }
-.cards-triangle-root { display: block !important; }
+.cards-grid-root { display: none; }
+.cards-triangle-root { display: block; }
 
 /* Prevent the animated cards from spilling outside the rewards section */
 .cards-carousel-wrapper {
@@ -2120,20 +2323,20 @@ body {
 /* Mobile tuning for the animated triangle so it fills the section (no tiny scale/shift) */
 @media (max-width: 768px) {
   .cards-triangle-root {
-    width: 100% !important;
-    display: flex !important;
+    width: 100%;
+    display: flex;
     justify-content: center;
-    margin-top: 28px !important;
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-    transform: none !important;
-    pointer-events: auto !important;
+    margin-top: 28px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    transform: none;
+    pointer-events: auto;
     --area-w: min(520px, 92vw);
     --area-h: 340px;
   }
   .cards-triangle-area {
     /* Layout is now responsive via JS vars; no extra scaling needed */
-    transform: none !important;
+    transform: none;
     transform-origin: top center;
     margin: 0 auto;
   }
@@ -2141,7 +2344,7 @@ body {
 
 @media (max-width: 480px) {
   .cards-triangle-area {
-    transform: none !important;
+    transform: none;
   }
   .cards-triangle-root {
     --area-w: min(460px, 92vw);

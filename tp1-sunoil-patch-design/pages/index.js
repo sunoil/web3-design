@@ -33,8 +33,12 @@ export default function Home() {
     pointerX: 50,
     pointerY: 50,
   });
+  const heroSectionRef = useRef(null);
   const heroFieldRef = useRef(null);
   const heroBubblesRef = useRef([]);
+  const pointerFrameRef = useRef(null);
+  const lastPointerRef = useRef({ x: 0, y: 0 });
+  const [isHeroMotionEnabled, setIsHeroMotionEnabled] = useState(true);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -55,6 +59,19 @@ export default function Home() {
   useEffect(() => {
     if (!heroFieldRef.current) return;
     heroBubblesRef.current = Array.from(heroFieldRef.current.querySelectorAll('.hero-gooey'));
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const media = window.matchMedia('(prefers-reduced-motion: reduce), (pointer: coarse)');
+    const update = () => setIsHeroMotionEnabled(!media.matches);
+    update();
+    if (media.addEventListener) {
+      media.addEventListener('change', update);
+      return () => media.removeEventListener('change', update);
+    }
+    media.addListener(update);
+    return () => media.removeListener(update);
   }, []);
 
   useEffect(() => {
@@ -81,6 +98,71 @@ export default function Home() {
     return () => cancelAnimationFrame(frame);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (pointerFrameRef.current) {
+        cancelAnimationFrame(pointerFrameRef.current);
+        pointerFrameRef.current = null;
+      }
+    };
+  }, []);
+
+  const updateHeroPointer = () => {
+    const section = heroSectionRef.current;
+    if (!section) return;
+    const { x: clientX, y: clientY } = lastPointerRef.current;
+    const rect = section.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const dx = clientX - centerX;
+    const dy = clientY - centerY;
+    const x = ((clientX - rect.left) / rect.width) * 100;
+    const y = ((clientY - rect.top) / rect.height) * 100;
+    const motion = heroMotionRef.current;
+    motion.targetDX = dx;
+    motion.targetDY = dy;
+    motion.targetX = x;
+    motion.targetY = y;
+
+    if (!heroBubblesRef.current.length && heroFieldRef.current) {
+      heroBubblesRef.current = Array.from(
+        heroFieldRef.current.querySelectorAll('.hero-gooey'),
+      );
+    }
+    heroBubblesRef.current.forEach((bubble) => {
+      const bubbleRect = bubble.getBoundingClientRect();
+      const bubbleX = bubbleRect.left + bubbleRect.width / 2;
+      const bubbleY = bubbleRect.top + bubbleRect.height / 2;
+      const distance = Math.hypot(clientX - bubbleX, clientY - bubbleY);
+      const maxDistance = Math.max(bubbleRect.width, bubbleRect.height) * 3.2;
+      const intensity = Math.max(0, Math.min(1, 1 - distance / maxDistance));
+      bubble.style.setProperty('--hero-pointer-intensity', intensity.toFixed(3));
+    });
+  };
+
+  const handleHeroPointerMove = (event) => {
+    if (!isHeroMotionEnabled) return;
+    lastPointerRef.current = { x: event.clientX, y: event.clientY };
+    if (pointerFrameRef.current) return;
+    pointerFrameRef.current = requestAnimationFrame(() => {
+      pointerFrameRef.current = null;
+      updateHeroPointer();
+    });
+  };
+
+  const handleHeroPointerLeave = () => {
+    if (!isHeroMotionEnabled) return;
+    const motion = heroMotionRef.current;
+    motion.targetDX = 0;
+    motion.targetDY = 0;
+    motion.targetX = 50;
+    motion.targetY = 50;
+
+    heroBubblesRef.current.forEach((bubble) => {
+      bubble.style.setProperty('--hero-pointer-intensity', '0');
+    });
+  };
+
   return (
     <>
       <Head>
@@ -96,44 +178,9 @@ export default function Home() {
         <div className ="page-5">
             <Header />
             <div className ="first-section-3"
-                 onMouseMove={({ clientX, clientY, currentTarget }) => {
-                   const rect = currentTarget.getBoundingClientRect();
-                   const centerX = rect.left + rect.width / 2;
-                   const centerY = rect.top + rect.height / 2;
-                   const dx = clientX - centerX;
-                   const dy = clientY - centerY;
-                   const x = ((clientX - rect.left) / rect.width) * 100;
-                   const y = ((clientY - rect.top) / rect.height) * 100;
-                   const motion = heroMotionRef.current;
-                   motion.targetDX = dx;
-                   motion.targetDY = dy;
-                   motion.targetX = x;
-                   motion.targetY = y;
-
-                  if (!heroBubblesRef.current.length && heroFieldRef.current) {
-                    heroBubblesRef.current = Array.from(heroFieldRef.current.querySelectorAll('.hero-gooey'));
-                  }
-                   heroBubblesRef.current.forEach((bubble) => {
-                     const bubbleRect = bubble.getBoundingClientRect();
-                     const bubbleX = bubbleRect.left + bubbleRect.width / 2;
-                     const bubbleY = bubbleRect.top + bubbleRect.height / 2;
-                     const distance = Math.hypot(clientX - bubbleX, clientY - bubbleY);
-                     const maxDistance = Math.max(bubbleRect.width, bubbleRect.height) * 3.2;
-                     const intensity = Math.max(0, Math.min(1, 1 - distance / maxDistance));
-                     bubble.style.setProperty('--hero-pointer-intensity', intensity.toFixed(3));
-                   });
-                 }}
-                 onMouseLeave={() => {
-                   const motion = heroMotionRef.current;
-                   motion.targetDX = 0;
-                   motion.targetDY = 0;
-                   motion.targetX = 50;
-                   motion.targetY = 50;
-
-                   heroBubblesRef.current.forEach((bubble) => {
-                     bubble.style.setProperty('--hero-pointer-intensity', '0');
-                   });
-                 }}>
+                 ref={heroSectionRef}
+                 onPointerMove={handleHeroPointerMove}
+                 onPointerLeave={handleHeroPointerLeave}>
                 <div className="hero-bg-layer" aria-hidden="true">
                     <div className="hero-blob-field" aria-hidden="true" ref={heroFieldRef}>
                       <span className="hero-gooey hero-gooey--a" />
@@ -218,15 +265,13 @@ export default function Home() {
                     data-animate-on-scroll data-animate="about-planet" />
             </div>
             <div className ="second-section-3">
-                <div className ="frame-49">
+                <div className="networks-section-heading" data-animate-on-scroll>
                     <h2 className ="text-169" data-animate-on-scroll data-animate="heading" data-size="md">
-                        <div className ="text-169"><span className ="track-of-the-progress-and-tvl-of-supported-networks-7">Track of
-                                the </span><span
-                                className ="track-of-the-progress-and-tvl-of-supported-networks-8">Progress</span><span
-                                className ="track-of-the-progress-and-tvl-of-supported-networks-7"> and </span><span
-                                className ="track-of-the-progress-and-tvl-of-supported-networks-9">TVL $</span><span
-                                className ="track-of-the-progress-and-tvl-of-supported-networks-7"> of Supported Networks</span>
-                        </div>
+                        <span className ="track-of-the-progress-and-tvl-of-supported-networks-7">Track of the </span>
+                        <span className ="track-of-the-progress-and-tvl-of-supported-networks-8">Progress</span>
+                        <span className ="track-of-the-progress-and-tvl-of-supported-networks-7"> and </span>
+                        <span className ="track-of-the-progress-and-tvl-of-supported-networks-9">TVL $</span>
+                        <span className ="track-of-the-progress-and-tvl-of-supported-networks-7"> of Supported Networks</span>
                     </h2>
                 </div>
                 <div className="networks-grid">
@@ -250,27 +295,22 @@ export default function Home() {
                     </div>
 
                     <div className="metamask-cards" data-animate-on-scroll>
-                        {/* Mobile-style tall card */}
-                        <Image
-                            src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/6849330bd53157b6b6da6165_Video-2---small-1.png"
-                            loading="lazy"
-                            width="281"
-                            height="500"
-                            alt=""
+                        <video
                             className="metamask-card metamask-card--mobile"
+                            controls
+                            playsInline
+                            preload="metadata"
+                            src="/video/Video_gidePhone.mp4"
                         />
 
                         <div className="metamask-forpc">For PC:</div>
 
-                        {/* Desktop/PC wide card */}
-                        <Image
-                            src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/6849330cc112be56dfb41054_Video-1-1.png"
-                            loading="lazy"
-                            width="888"
-                            height="500"
-                            alt=""
-                            sizes="(max-width: 991px) 92vw, 888px"
+                        <video
                             className="metamask-card metamask-card--pc"
+                            controls
+                            playsInline
+                            preload="metadata"
+                            src="/video/Video_gidePC.mp4"
                         />
                     </div>
                 </div>

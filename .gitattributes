@@ -1,0 +1,2 @@
+public/video/*.mp4 filter=lfs diff=lfs merge=lfs -text
+tp1-sunoil-patch-design/public/video/*.mp4 filter=lfs diff=lfs merge=lfs -text
