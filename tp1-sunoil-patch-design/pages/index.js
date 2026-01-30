@@ -57,6 +57,31 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const visual = document.getElementById('premiumVisual');
+    if (!visual) return undefined;
+
+    const handleMove = (event) => {
+      const { width, height, left, top } = visual.getBoundingClientRect();
+      const x = (event.clientX - left - width / 2) / 25;
+      const y = (event.clientY - top - height / 2) / 25;
+      visual.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+    };
+
+    const handleLeave = () => {
+      visual.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    };
+
+    visual.addEventListener('mousemove', handleMove);
+    visual.addEventListener('mouseleave', handleLeave);
+
+    return () => {
+      visual.removeEventListener('mousemove', handleMove);
+      visual.removeEventListener('mouseleave', handleLeave);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!heroFieldRef.current) return;
     heroBubblesRef.current = Array.from(heroFieldRef.current.querySelectorAll('.hero-gooey'));
   }, []);
@@ -78,6 +103,14 @@ export default function Home() {
     const section = heroFieldRef.current;
     if (!section) return;
 
+    if (!isHeroMotionEnabled) {
+      section.style.setProperty('--hero-motion-dx', '0px');
+      section.style.setProperty('--hero-motion-dy', '0px');
+      section.style.setProperty('--hero-pointer-x', '50%');
+      section.style.setProperty('--hero-pointer-y', '50%');
+      return;
+    }
+
     let frame;
     const tick = () => {
       const motion = heroMotionRef.current;
@@ -96,7 +129,7 @@ export default function Home() {
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, []);
+    image.png  }, [isHeroMotionEnabled]);
 
   useEffect(() => {
     return () => {
@@ -188,11 +221,6 @@ export default function Home() {
                       <span className="hero-gooey hero-gooey--c" />
                       <span className="hero-gooey hero-gooey--d" />
                       <span className="hero-gooey hero-gooey--e" />
-                      <span className="hero-gooey hero-gooey--f" />
-                      <span className="hero-gooey hero-gooey--g" />
-                      <span className="hero-gooey hero-gooey--h" />
-                      <span className="hero-gooey hero-gooey--i" />
-                      <span className="hero-gooey hero-gooey--j" />
                     </div>
                     <div className="hero-cloud hero-cloud-1" />
                     <div className="hero-cloud hero-cloud-2" />
@@ -231,39 +259,88 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <div className ="about-twopir-3">
-                <div className="about-blobs" aria-hidden="true">
-                    <span className="about-blob about-blob--1" />
-                    <span className="about-blob about-blob--2" />
-                    <span className="about-blob about-blob--3" />
+            <section className="twopir-story" aria-label="About TwoPiR and Why TwoPiR">
+                <div className="about-twopir-3">
+                    <div className="about-blobs" aria-hidden="true">
+                        <span className="about-blob about-blob--1" />
+                        <span className="about-blob about-blob--2" />
+                        <span className="about-blob about-blob--3" />
+                    </div>
+                        <div className ="frame-46">
+                        <h2 className ="text-169" data-animate-on-scroll data-animate="heading" data-size="md"><span className ="about-twopir-4">About </span><span className ="about-twopir-5">TwoPiR</span></h2>
+                        <div style={{ height: 16 }} aria-hidden="true" />
+                        <div className ="frame-48">
+                            <div className ="text-169" data-animate-on-scroll data-animate="heading" data-size="sm">
+                                <div className ="text-169"><span
+                                        className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-4">TwoPiR
+                                        is an </span><span
+                                        className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-5">innovative
+                                        crypto banking</span><span
+                                        className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-4">
+                                        that maximizes your earnings on deposits through flexible staking and yield
+                                        optimization. Using advanced algorithms, it identifies top opportunities for
+                                    </span><span
+                                        className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-6">high
+                                        returns with minimal risk</span><span
+                                        className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-4">,
+                                        supporting diverse tokens and prioritizing security.</span>
+                                        </div>
+                            </div>
+                        </div>
+                    </div><img
+                        src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/6849307b31c820220acb1b27_Color-v2-1.png"
+                        loading="lazy" width="403.3171691894531" height="405.62713623046875" alt=""
+                        className ="color-text-v2-2-f-4 about-planet"
+                        data-animate-on-scroll data-animate="about-planet" />
                 </div>
-                    <div className ="frame-46">
-                    <h2 className ="text-169" data-animate-on-scroll data-animate="heading" data-size="md"><span className ="about-twopir-4">About </span><span className ="about-twopir-5">TwoPiR</span></h2>
-                    <div style={{ height: 16 }} aria-hidden="true" />
-                    <div className ="frame-48">
-                        <div className ="text-169" data-animate-on-scroll data-animate="heading" data-size="sm">
-                            <div className ="text-169"><span
-                                    className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-4">TwoPiR
-                                    is an </span><span
-                                    className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-5">innovative
-                                    crypto banking</span><span
-                                    className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-4">
-                                    that maximizes your earnings on deposits through flexible staking and yield
-                                    optimization. Using advanced algorithms, it identifies top opportunities for
-                                </span><span
-                                    className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-6">high
-                                    returns with minimal risk</span><span
-                                    className ="twopir-is-an-innovative-crypto-banking-that-maximizes-your-earnings-on-deposits-through-flexible-sta-4">,
-                                    supporting diverse tokens and prioritizing security.</span>
-                                    </div>
+                <div className="why-twopir" data-animate-on-scroll>
+                    <div className="why-twopir-inner">
+                        <div className="why-twopir-copy">
+                            <h2 className="text-169 why-twopir-title" data-animate-on-scroll data-animate="heading" data-size="md">
+                                <span className="why-twopir-title__brand">Why</span>{' '}
+                                <span className="why-twopir-title__rest">TwoPiR</span>
+                            </h2>
+                            <p className="why-twopir-text">
+                                Choosing our <span className="why-twopir-accent-green">yield system</span> is a smart move for you looking
+                                for reliable and <span className="why-twopir-accent-purple">high-performing</span> options. Our
+                                <span className="why-twopir-accent-green"> financial experts</span> carefully analyze stocks to choose the
+                                <span className="why-twopir-accent-purple"> best investment opportunities</span>, ensuring your money works
+                                hard for you.
+                            </p>
+                            <p className="why-twopir-text">
+                                Plus, with our <span className="why-twopir-accent-green">stable APY</span>, you can count on
+                                <span className="why-twopir-accent-purple"> consistent and dependable returns</span>. We&apos;re here to help
+                                those who are completely new to <span className="why-twopir-accent-green">cryptocurrency</span>, making it
+                                easy and accessible. Our manager will help you to set up all that needed to
+                                <span className="why-twopir-accent-purple"> Stake</span> on our platform — even if you know anything about
+                                crypto.
+                            </p>
+                            <div className="why-twopir-points">
+                                <div className="why-twopir-point">
+                                    <div className="why-twopir-dot" />
+                                    <span>Stable APY with transparent performance</span>
+                                </div>
+                                <div className="why-twopir-point">
+                                    <div className="why-twopir-dot" />
+                                    <span>Expert-picked opportunities for steady growth</span>
+                                </div>
+                                <div className="why-twopir-point">
+                                    <div className="why-twopir-dot" />
+                                    <span>Beginner-friendly onboarding and support</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="why-twopir-visual" aria-hidden="true">
+                            <div className="premium-visual" id="premiumVisual">
+                                <div className="orb" />
+                                <div className="arc" />
+                                <div className="ring ring-1" />
+                                <div className="ring ring-2" />
+                            </div>
                         </div>
                     </div>
-                </div><img
-                    src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/6849307b31c820220acb1b27_Color-v2-1.png"
-                    loading="lazy" width="403.3171691894531" height="405.62713623046875" alt=""
-                    className ="color-text-v2-2-f-4 about-planet"
-                    data-animate-on-scroll data-animate="about-planet" />
-            </div>
+                </div>
+            </section>
             <div className ="second-section-3">
                 <div className="networks-section-heading" data-animate-on-scroll>
                     <h2 className ="text-169" data-animate-on-scroll data-animate="heading" data-size="md">
@@ -271,6 +348,7 @@ export default function Home() {
                         <span className ="track-of-the-progress-and-tvl-of-supported-networks-8">Progress</span>
                         <span className ="track-of-the-progress-and-tvl-of-supported-networks-7"> and </span>
                         <span className ="track-of-the-progress-and-tvl-of-supported-networks-9">TVL $</span>
+                        <span className="networks-heading-break" aria-hidden="true" />
                         <span className ="track-of-the-progress-and-tvl-of-supported-networks-7"> of Supported Networks</span>
                     </h2>
                 </div>

@@ -147,6 +147,24 @@
   height: 42px;
 }
 
+.assetSymbolSm {
+  font-size: 14px;
+}
+
+@media (max-width: 480px) {
+  .asset :global(img) {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+  }
+
+  .asset :global(img.usdc-e-logo) {
+    width: 36px;
+    height: 36px;
+    transform: none;
+  }
+}
+
 .claimBtn {
   border: 1px solid rgba(255,255,255,0.1);
   cursor: pointer;
@@ -178,6 +196,32 @@
 
   .rowHead {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .claimBtn {
+    height: 44px;
+    padding: 8px 24px;
+    border-radius: 18px;
+    max-width: 300px;
+  }
+
+  .claimBtn :global(.claim-2) {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 400px) {
+  .claimBtn {
+    height: 38px;
+    padding: 6px 18px;
+    border-radius: 16px;
+    max-width: 240px;
+  }
+
+  .claimBtn :global(.claim-2) {
+    font-size: 16px;
   }
 }
 

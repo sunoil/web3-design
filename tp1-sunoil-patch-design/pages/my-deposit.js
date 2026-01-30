@@ -31,10 +31,11 @@ export default function MyDeposit() {
       key: 'usdc-e',
       symbol: 'USDC.e',
       logoUrl:
-        'https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/684e99266f25f70111023531_USDC.e-logo.svg',
-      logoClassName: 'usdt-logo',
+        'https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/684e99264faf0299759e9a29_USDC-logo.svg',
+      logoClassName: 'usdc-e-logo',
       logoWidth: 42,
       logoHeight: 42,
+      symbolClassName: 'assetSymbolSm',
     },
     {
       key: 'arb',
@@ -112,7 +113,13 @@ export default function MyDeposit() {
                         alt={`${asset.symbol} logo`}
                         className={asset.logoClassName}
                       />
-                      <div className={styles.assetSymbol}>{asset.symbol}</div>
+                      <div
+                        className={`${styles.assetSymbol} ${
+                          asset.symbolClassName ? styles[asset.symbolClassName] : ''
+                        }`}
+                      >
+                        {asset.symbol}
+                      </div>
                     </div>
                     <div className={styles.cell}>{suppliedByAsset[asset.key] || 0}$</div>
                     <div className={`${styles.cell} ${styles.cellApr}`}>18,72%</div>

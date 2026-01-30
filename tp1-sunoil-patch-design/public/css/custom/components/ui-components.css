@@ -1306,6 +1306,335 @@
   max-width: 92%;
 }
 
+/* About + Why TwoPiR section */
+.twopir-story {
+  position: relative;
+  margin: 0 auto 72px;
+  padding: 0 24px;
+  max-width: 1200px;
+  width: 100%;
+  overflow-x: hidden;
+}
+.twopir-story .about-twopir-3,
+.twopir-story .why-twopir {
+  margin: 0;
+  padding: 0;
+}
+.twopir-story .about-twopir-3 {
+  padding: 24px 28px;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(145deg, rgba(26,26,36,0.85), rgba(16,16,24,0.85));
+  box-shadow: 0 24px 56px -36px rgba(0,0,0,0.6);
+}
+.twopir-story .why-twopir {
+  padding: 28px 0 0;
+}
+
+/* Why TwoPiR section */
+.why-twopir {
+  position: relative;
+  margin: 0 auto 72px;
+  padding: 0 24px;
+}
+.why-twopir-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 36px;
+  align-items: center;
+  padding: 28px 32px;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(145deg, rgba(26,26,36,0.85), rgba(16,16,24,0.85));
+  box-shadow: 0 24px 56px -36px rgba(0,0,0,0.6);
+  overflow: hidden;
+}
+.why-twopir-title {
+  margin: 0 0 14px;
+}
+.why-twopir-copy {
+  font-weight: 600;
+}
+.why-twopir-title__brand {
+  color: #ffffff;
+  font-weight: 700;
+}
+.why-twopir-title__rest {
+  color: #6a5acd;
+  font-weight: 700;
+}
+.why-twopir-text {
+  margin: 0 0 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  text-wrap: pretty;
+}
+.why-twopir-accent-green {
+  color: var(--brand-green);
+  font-weight: 700;
+}
+.why-twopir-accent-purple {
+  color: var(--brand-purple);
+  font-weight: 700;
+}
+.why-twopir-points {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.why-twopir-point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.why-twopir-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--brand-green), var(--brand-purple));
+  box-shadow: 0 0 10px rgba(139,92,255,0.35);
+}
+.why-twopir-visual {
+  position: relative;
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+}
+.premium-visual {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 800px;
+}
+.orb {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 35% 35%,
+      rgba(120, 255, 170, 0.35),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 30% 30%,
+      #b18cff,
+      #5b2dbf 45%,
+      #1a102f 70%
+    );
+  box-shadow:
+    0 0 90px rgba(138, 92, 255, 0.35),
+    0 0 40px rgba(120, 255, 170, 0.25),
+    inset 0 0 40px rgba(255, 255, 255, 0.08);
+  animation: glow 10s ease-in-out infinite;
+  z-index: 2;
+  transition: transform 0.2s ease-out;
+}
+.orb::before{
+  content:"";
+  position:absolute;
+  inset:-35%;
+  border-radius:50%;
+  background:
+    repeating-conic-gradient(
+      from 210deg,
+      rgba(120,255,170,.0) 0deg,
+      rgba(120,255,170,.22) 6deg,
+      rgba(177,140,255,.12) 10deg,
+      rgba(120,255,170,.0) 16deg
+    );
+  filter: blur(6px);
+  opacity: .55;
+  mix-blend-mode: screen;
+  animation: veinsSpin 18s linear infinite;
+}
+.orb::after{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 35%,
+      rgba(120,255,170,.18),
+      transparent 55%),
+    radial-gradient(circle at 65% 70%,
+      rgba(177,140,255,.14),
+      transparent 60%);
+  filter: blur(10px);
+  opacity:.35;
+  mix-blend-mode: screen;
+  animation: veinsPulse 12s ease-in-out infinite;
+}
+@keyframes glow {
+  0%, 100% {
+    box-shadow:
+      0 0 70px rgba(138, 92, 255, 0.25),
+      inset 0 0 35px rgba(255, 255, 255, 0.06);
+  }
+  50% {
+    box-shadow:
+      0 0 110px rgba(138, 92, 255, 0.45),
+      inset 0 0 55px rgba(255, 255, 255, 0.12);
+  }
+}
+@keyframes veinsSpin {
+  from { transform: rotate(0deg) scale(1.02); }
+  to   { transform: rotate(360deg) scale(1.02); }
+}
+@keyframes veinsPulse {
+  0%,100% { transform: scale(1); opacity:.28; }
+  50%     { transform: scale(1.03); opacity:.45; }
+}
+.arc {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border-top: 2px solid rgba(120, 255, 170, 0.65);
+  filter: drop-shadow(0 0 12px rgba(120, 255, 170, 0.45));
+  animation: arcRotate 36s linear infinite;
+}
+.ring {
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  border: 1px solid rgba(120, 255, 170, 0.22);
+  box-shadow: 0 0 15px rgba(120, 255, 170, 0.15);
+  filter: blur(0.4px);
+  animation: rotate 70s linear infinite;
+}
+.ring-1 {
+  transform: rotate(20deg);
+}
+.ring-2 {
+  width: 300px;
+  height: 300px;
+  border-color: rgba(138, 92, 255, 0.22);
+  animation-duration: 90s;
+  transform: rotate(-15deg);
+}
+@keyframes arcRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 480px) {
+  .twopir-story {
+    margin: 0 auto 40px;
+    padding: 16px 10px 20px;
+    border-radius: 18px;
+    border-width: 0;
+  }
+  .twopir-story .about-twopir-3 {
+    padding: 16px 14px 18px;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 12px;
+    text-align: left;
+    box-sizing: border-box;
+  }
+  .twopir-story .about-twopir-3 > .frame-46 {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+  .twopir-story .about-twopir-3 > .frame-46 > h2.text-169[data-size="md"] {
+    grid-column: 1 / -1;
+    margin-bottom: 6px;
+  }
+  .why-twopir-title {
+    text-align: center;
+  }
+  .why-twopir-text {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .why-twopir-point {
+    font-size: 13px;
+  }
+  .twopir-story .about-twopir-3 > .frame-46 > .frame-48 {
+    padding-left: 12px;
+    padding-right: 0;
+  }
+  .twopir-story .about-planet {
+    max-width: 160px;
+    margin: 8px auto 0;
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+  .twopir-story .about-twopir-3 .text-169,
+  .twopir-story .about-twopir-3 .text-169 * {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+  .twopir-story .about-twopir-3 .frame-48 {
+    padding-bottom: 8px;
+  }
+  .twopir-story .about-twopir-3 .text-169,
+  .twopir-story .about-twopir-3 .text-169 * {
+    font-size: 14px;
+    line-height: 1.55;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+  .twopir-story .why-twopir {
+    padding: 14px 0 0;
+  }
+  .why-twopir-inner {
+    grid-template-columns: 1fr;
+    padding: 16px 14px;
+  }
+  .why-twopir-visual {
+    min-height: 170px;
+    margin-top: 18px;
+  }
+  .why-twopir-visual .premium-visual {
+    transform: translateY(25image.pngpx) scale(0.9);
+  }
+  .premium-visual {
+    width: 220px;
+    height: 220px;
+    transform: scale(0.9);
+  }
+  .premium-visual .orb {
+    width: 150px;
+    height: 150px;
+  }
+  .premium-visual .ring {
+    width: 190px;
+    height: 190px;
+  }
+  .premium-visual .ring-2 {
+    width: 170px;
+    height: 170px;
+  }
+}
+
 /* Prevent clipping of spiral animation */
 .page-5 {
   overflow: visible;
@@ -2195,6 +2524,48 @@ body {
   .nsb-cards { gap: 12px; }
 }
 
+@media (max-width: 400px) {
+  .networks-left {
+    display: flex;
+    justify-content: center;
+  }
+  .spiral-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: min(360px, 92vw);
+    transform-origin: center;
+  }
+  .second-section-3 .networks-section-heading h2,
+  .second-section-3 .networks-section-heading h2 * {
+    font-size: clamp(18px, 5.2vw, 22px);
+    line-height: 1.2;
+  }
+  .networks-heading-break {
+    display: block;
+    height: 0;
+    line-height: 0;
+  }
+  .nsb-root {
+    padding: 12px 10px 10px;
+    transform: scale(0.75);
+    transform-origin: top center;
+    margin-bottom: -26%;
+  }
+  .nsb-cards {
+    gap: 10px;
+  }
+  .nsb-card {
+    padding: 9px 9px 7px;
+  }
+  .nsb-card-badge {
+    font-size: 9px;
+    padding: 4px 7px;
+  }
+  .nsb-card-meta {
+    font-size: 10px;
+  }
+}
+
 /* MetaMask guide section */
 .metamask-guide {
   width: 100%;
@@ -2206,7 +2577,6 @@ body {
 .metamask-title-box {
   width: 100%;
   max-width: min(760px, 92vw);
-  /* remove the frame around the title */
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -2350,4 +2720,20 @@ body {
     --area-w: min(460px, 92vw);
     --area-h: 330px;
   }
+}
+
+@media (max-width: 400px) {
+  .cards-triangle-root {
+    transform: translateX(25px) scale(0.8);
+    transform-origin: top center;
+    margin-top: 15px;
+  }
+  .triangle-card {
+    padding: 12px 14px 14px;
+    border-radius: 16px;
+  }
+  .cc-title { font-size: 16px; margin-bottom: 4px; }
+  .cc-text { font-size: 11px; line-height: 1.4; margin-bottom: 8px; }
+  .cc-step { font-size: 10px; }
+  .cc-progress-fill { height: 4px; bottom: -8px; }
 }
