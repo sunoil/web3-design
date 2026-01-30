@@ -27,7 +27,6 @@ export default function CardsCarousel() {
   const [animSteps, setAnimSteps] = useState(1); // how many vertices to pass during current animation
   const autoTimerRef = useRef(null);
   const rafRef = useRef(0);
-
   function scheduleAuto() {
     if (autoTimerRef.current) clearTimeout(autoTimerRef.current);
     autoTimerRef.current = setTimeout(() => startStep(), 5000);
@@ -42,7 +41,10 @@ export default function CardsCarousel() {
 
   useEffect(() => {
     scheduleAuto();
-    return () => { if (autoTimerRef.current) clearTimeout(autoTimerRef.current); cancelAnimationFrame(rafRef.current); };
+    return () => {
+      if (autoTimerRef.current) clearTimeout(autoTimerRef.current);
+      cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   // Responsive layout: keep the triangle inside the viewport (esp. mobile)
@@ -50,6 +52,8 @@ export default function CardsCarousel() {
     areaW: 600,
     areaH: 260,
     cardW: 280,
+    minScale: 0.92,
+    maxScale: 1.06,
     pts: [
       // Keep the whole animation inside the 600px desktop column to avoid clipping
       { x: -140, y: 30 }, // top-left
@@ -70,6 +74,8 @@ export default function CardsCarousel() {
           areaW: 800,
           areaH: 260,
           cardW: 280,
+          minScale: 0.92,
+          maxScale: 1.06,
           pts: [
             // Fit all cards within the fixed 600px desktop column so nothing gets clipped
             { x: -140, y: 30 },
@@ -82,12 +88,16 @@ export default function CardsCarousel() {
         return;
       }
 
+      const isTiny = vw <= 400;
       // Mobile/tablet: keep the whole triangle inside ~92vw
       const areaW = Math.min(560, Math.floor(vw * 0.92));
       // Ensure the top two cards never overlap: 2 * cardW + gap <= areaW
-      const topGap = 18;
-      const cardW = Math.max(190, Math.min(260, Math.floor((areaW - topGap) / 2)));
-      const xTop = Math.max(0, Math.floor((areaW - cardW) / 2) - 4);
+      const topGap = isTiny ? 56 : 18;
+      const minCardW = isTiny ? 170 : 190;
+      const maxCardW = isTiny ? 240 : 260;
+      const cardW = Math.max(minCardW, Math.min(maxCardW, Math.floor((areaW - topGap) / 2)));
+      const extraSpread = isTiny ? 14 : 0;
+      const xTop = Math.max(0, Math.floor((areaW - cardW) / 2) - 4) + extraSpread;
 
       // Keep the triangle readable and avoid overlap with the bottom card
       const yTop = 6;
@@ -98,12 +108,14 @@ export default function CardsCarousel() {
         areaW,
         areaH,
         cardW,
+        minScale: isTiny ? 1 : 0.92,
+        maxScale: isTiny ? 1 : 1.06,
         pts: [
           { x: -xTop, y: yTop },
           { x: xTop, y: yTop },
           { x: 0, y: yBottom },
         ],
-        offsetX: 100,
+        offsetX: 50,
         offsetY: 10,
       });
     };
@@ -143,7 +155,7 @@ export default function CardsCarousel() {
     rafRef.current = requestAnimationFrame(loop);
   }
 
-  const { areaW, areaH, cardW, pts, offsetX, offsetY } = layout;
+  const { areaW, areaH, cardW, pts, offsetX, offsetY, minScale, maxScale } = layout;
 
   function lerp(a, b, t) { return a + (b - a) * t; }
   function posAlong(t) {
@@ -211,8 +223,6 @@ export default function CardsCarousel() {
   const denomY = Math.max(1, maxY - minY);
   const itemsWithScale = items.map(it => {
     const t = (it.y - minY) / denomY; // 0 at top, 1 at bottom
-    const minScale = 0.92;
-    const maxScale = 1.06;
     const s = minScale + t * (maxScale - minScale);
     return { ...it, s };
   });
