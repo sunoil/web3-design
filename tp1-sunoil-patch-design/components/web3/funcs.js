@@ -1,5 +1,8 @@
 import Web3 from 'web3';
 import Web3Conection from './ABI/web3Conection.json';
+import StakingLogicABI from './ABI/StakingLogic.json'; 
+import StakingStorageABI from './ABI/StakingStorage.json';
+
 const BSC_TESTNET_RPC = 'https://site1.moralis-nodes.com/arbitrum/724ef06ada8141a6a49f4c0bf98c9a78';
 
 const Contract = require("web3-eth-contract");
@@ -15,9 +18,9 @@ Contract.setProvider(BSC_TESTNET_RPC);
 
 const Contract_Address = "0xa407e4e34fe3d081a2F563F9552B22668bf609A1";
 
-const StakingStorage_Address = "0x517353a3c1bebbaa8b1fcabed172207fbf6511c9";
+const StakingStorage_Address = "0xcCA06f9A1cf9aeBeeEcB128fa01C39405444A808";
 
-const StakingLogic_Address = "0x58924c1237b6e1dcd483410be7f89059ff3ef902";
+const StakingLogic_Address = "0xd349Df7D1c51B4457e79334CB21184a04Bb852B3";
 
 const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -45,37 +48,57 @@ const loadWeb3 = async () => {
 
 export const loadData = async () => {
     await loadWeb3();
-    const addressAccount = await window.web3.eth.getCoinbase();
-    const Contract_Web3_Conection = new Contract(Web3Conection.output.abi, Contract_Address);
-    const StakingStorage_Web3_Conection = new Contract(Web3Conection.output.abi, StakingStorage_Address);
-    const StakingLogic_Web3_Conection = new Contract(Web3Conection.output.abi, StakingLogic_Address);
-    const usdt_Web3_Conection = new Contract(Web3Conection.output.abi,usdt)
-    const weth_Web3_Conection = new Contract(Web3Conection.output.abi,weth)
-    const usdc_Web3_Conection = new Contract(Web3Conection.output.abi,usdc)
-    const usdce_Web3_Conection = new Contract(Web3Conection.output.abi,usdce)
-    const pusdt_Web3_Conection = new Contract(Web3Conection.output.abi,pusdt)
-    const arb_Web3_Conection = new Contract(Web3Conection.output.abi,arb)
-    
-    
-    
-    
-    //const usdt_contract=new Contract(Web3Conection.output.abi, Contract_Address);
-    
-    
-    const number = 1;
-    
-    const deposit = await Contract_Web3_Conection.methods.checkDeposit(addressAccount).call();
-    const seenDeposit = await web3.utils.fromWei(deposit,'ether');
-
-    const balanceofUSDT_pusdt= await pusdt_Web3_Conection.methods.balanceOf(addressAccount).call();
-    const USDTpusdtDeposit = await web3.utils.fromWei(balanceofUSDT_pusdt,'ether');
-
-    const reward = await Contract_Web3_Conection.methods.checkRewards(addressAccount).call();
-    const seenReward = await web3.utils.fromWei(reward,'ether');
-    const startTime = await Contract_Web3_Conection.methods.checkstartTime(addressAccount).call();
-    const lockTime = await Contract_Web3_Conection.methods.checklockTime(addressAccount).call();
+    const web3 = window.web3;
+    const addressAccount = await web3.eth.getCoinbase();
 
     
-    return { Contract_Web3_Conection, StakingLogic_Web3_Conection, StakingStorage_Web3_Conection, addressAccount, number, deposit, balanceofUSDT_pusdt, reward, startTime, seenDeposit, USDTpusdtDeposit, seenReward, usdt, weth, usdc, usdce, pusdt, arb, usdt_Web3_Conection, weth_Web3_Conection, usdc_Web3_Conection, usdce_Web3_Conection, arb_Web3_Conection,weth_Web3_Conection, lockTime, Contract_Address, StakingLogic_Address,  StakingStorage_Address};
+    const StakingLogic = new Contract(StakingLogicABI, StakingLogic_Address);
+    const StakingStorage = new Contract(StakingStorageABI, StakingStorage_Address);
+    const usdt_Web3_Conection = new Contract(Web3Conection.output.abi,usdt);
+   
+    const stakedBalanceRaw = await StakingLogic.methods.balanceOf(addressAccount).call();
+    const stakedBalance = web3.utils.fromWei(stakedBalanceRaw, 'ether');
+
+    
+    const pendingRewardsRaw = await StakingLogic.methods.earned(addressAccount).call();
+    const pendingRewards = web3.utils.fromWei(pendingRewardsRaw, 'ether');
+
+   
+    const userPoints = await StakingStorage.methods.userPoints(addressAccount).call();
+
+    const unstakeRequests = await StakingStorage.methods.getUnstakeInfo(addressAccount).call();
+
+    return {
+        addressAccount,
+        usdt_Web3_Conection,
+        StakingLogic,
+        StakingStorage,
+        stakedBalance,
+        pendingRewards,
+        userPoints,
+        unstakeRequests,
+        StakingLogic_Address,
+        StakingStorage_Address
+    };
+};
+export const depositTokens = async (amount) => {
+    const web3 = window.web3;
+    const account = await web3.eth.getCoinbase();
+    const amountWei = web3.utils.toWei(amount, 'ether');
+
+    //  Approve
+    const tokenContract = new web3.eth.Contract(Web3Conection, usdt);
+    await tokenContract.methods.approve(StakingLogic_Address, amountWei).send({ from: account });
+
+    //  Deposit
+    return await StakingLogic.methods.deposit(amountWei).send({ from: account });
 };
 
+export const unstakeTokens = async (amount) => {
+    const amountWei = window.web3.utils.toWei(amount, 'ether');
+    return await StakingLogic.methods.unstake(amountWei).send({ from: account });
+};
+
+export const withdrawFunds = async () => {
+    return await StakingLogic.methods.withdrawReadyFunds().send({ from: account });
+};
