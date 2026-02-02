@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
 .myDepositPage {
   /* match Home page background, but remove Webflow image */
   background-color: #1a1a21 !important;
@@ -7,6 +9,12 @@
   padding-top: 120px;
   padding-left: 16px;
   padding-right: 16px;
+  font-family: 'Manrope', sans-serif;
+}
+
+.myDepositPage,
+.myDepositPage * {
+  font-family: 'Manrope', sans-serif !important;
 }
 
 .layout {
@@ -20,15 +28,105 @@
   width: min(860px, 100%);
   max-width: none;
   padding: 28px 32px;
-  background: rgba(35, 35, 37, 0.58);
+  background:
+    radial-gradient(120% 180% at 0% 50%, rgba(120, 78, 200, 0.18), transparent 60%),
+    radial-gradient(120% 180% at 100% 50%, rgba(120, 78, 200, 0.18), transparent 60%),
+    rgba(35, 35, 37, 0.58);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 22px 48px -28px rgba(0,0,0,0.65);
   backdrop-filter: blur(16px);
+  position: relative;
+  overflow: hidden;
+  background-size: 140% 140%;
+  background-position: 0% 50%;
+  transition: background-position 220ms ease;
 }
 
 .sidebar {
   width: min(520px, 100%);
   max-width: none;
+  background: transparent;
+  border-radius: 24px;
+}
+
+.sidebar :global(.balance),
+.sidebar :global(.apr-points),
+.sidebar :global(.frame-59) {
+  background:
+    radial-gradient(120% 140% at 0% 50%, rgba(118, 76, 198, 0.22), transparent 65%),
+    radial-gradient(120% 140% at 100% 50%, rgba(118, 76, 198, 0.22), transparent 65%),
+    rgba(28, 28, 36, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 40px rgba(17, 12, 32, 0.45);
+  border-radius: 22px;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  background-size: 140% 140%;
+  background-position: 0% 50%;
+  transition: background-position 220ms ease;
+}
+
+.sidebar :global(.frame-57) {
+  gap: 0;
+  row-gap: 0;
+}
+
+.sidebar :global(.balance) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.sidebar :global(.apr-points) {
+  border-radius: 0;
+}
+
+.sidebar :global(.frame-59) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.panel::before,
+.sidebar :global(.balance)::before,
+.sidebar :global(.apr-points)::before,
+.sidebar :global(.frame-59)::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/></filter><rect width='120' height='120' filter='url(%23n)' opacity='0.05'/></svg>");
+  opacity: 0.08;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+.panel::after,
+.sidebar :global(.balance)::after,
+.sidebar :global(.apr-points)::after,
+.sidebar :global(.frame-59)::after {
+  content: "";
+  position: absolute;
+  inset: -20% -10%;
+  background:
+    linear-gradient(120deg, transparent 0%, rgba(188, 148, 255, 0.12) 35%, transparent 55%),
+    linear-gradient(200deg, transparent 10%, rgba(120, 78, 200, 0.10) 45%, transparent 70%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.panel:hover,
+.sidebar :global(.balance):hover,
+.sidebar :global(.apr-points):hover,
+.sidebar :global(.frame-59):hover {
+  background-position: 100% 50%;
+}
+
+.sidebar :global(.balance),
+.sidebar :global(.apr-points) {
+  padding: 18px 20px;
+}
+
+.sidebar :global(.frame-59) {
+  padding: 18px 20px 20px;
 }
 
 .table {
