@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import styles from './my-deposit.module.css';
 import React from 'react'; // React library for building UI components
-import { loadData } from 'tp1-sunoil-patch-design/components/web3/funcs.js'; // Function to load Web3 data (defined elsewhere)
+import { loadData } from '/opt/build/repo/tp1-sunoil-patch-design/components/web3/funcs.js'; // Function to load Web3 data (defined elsewhere)
 import Link from 'next/link'; // Next.js Link component for navigation
 import Image from 'next/image'; // Optimized image component in Next.js
 import { useEffect, useState } from 'react'; // React hooks for managing state and lifecycle events
