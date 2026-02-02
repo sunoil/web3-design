@@ -13958,4 +13958,85 @@ html {
       flex-direction: column;
       align-items: center;
     }
+    .frame-62 {
+    grid-column-gap: 108px;
+    flex: 0 1 auto
+    }
+    
+    .pop-up-1 {
+        grid-row-gap: 10px;
+        background-color: #1a1a1a;
+        background-image: url(https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/684d8550e4bb13705d07bdd4_Pop-up-3.png);
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: 1px solid #fff;
+        border-radius: 10.5039px;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        max-width: 447px;
+        height: 509px;
+        min-height: 509px;
+        padding: 22px 18px
+    }
+    
+    .pop-up-1,.top-buttons {
+        align-items: center;
+        text-decoration: none;
+        display: flex;
+        overflow: hidden
+    }
+    
+    .top-buttons {
+        grid-column-gap: 94px;
+        border: solid #fff;
+        border-width: 0 0 1px;
+        flex: 0 1 auto;
+        justify-content: flex-start;
+        padding: 3px 12px
+    }
+    
+    .stake {
+        color: #fff
+    }
+    
+    .stake,.unstake {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-family: Inter,sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 150%;
+        text-decoration: none
+    }
+    
+    .unstake {
+        color: #ffffff94
+    }
+    
+    .frame-you-stake {
+        grid-row-gap: 7.00261px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+        text-decoration: none;
+        display: flex;
+        overflow: hidden
+    }
+    
+    .text-190 {
+        color: #ffffffbf;
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-family: Inter,sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 150%
+    }
   }
