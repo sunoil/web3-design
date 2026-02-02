@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useId } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import arbLogo from '../src/img/planet/arb-logo.png';
@@ -9,6 +9,8 @@ import ethLogo from '../src/img/planet/eth-logo.png';
 import opLogo from '../src/img/planet/op-logo.png';
 import polygonLogo from '../src/img/planet/polygon-logo.png';
 import solLogo from '../src/img/planet/sol-logo.png';
+import orbitLogo from '../src/img/new-logo/Frame 10.svg';
+import orbitRocket from '../src/img/new-logo/rocet.svg';
 
 const NAV_LINKS = [
   { href: '/stake', label: 'Stake' },
@@ -26,6 +28,81 @@ const NETWORK_OPTIONS = [
   { id: 'solana', label: 'Solana', logo: solLogo },
   { id: 'bsc', label: 'BSC', logo: bscLogo },
 ];
+
+const OrbitLogo = () => {
+  const pathRef = useRef(null);
+  const backRef = useRef(null);
+  const frontRef = useRef(null);
+  const rafRef = useRef(null);
+  const instanceId = useId().replace(/:/g, '');
+
+  useEffect(() => {
+    const path = pathRef.current;
+    const back = backRef.current;
+    const front = frontRef.current;
+    if (!path || !back || !front) return () => {};
+
+    const length = path.getTotalLength();
+    const period = 5.0;
+    // Ракета дивиться вгору-вліво: це -135° від стандартного "вправо".
+    const noseOffsetDeg = -135;
+    const epsilon = 0.75;
+    const orbitCenterY = 210;
+    const start = performance.now();
+
+    const setRocketTransform = (node, x, y, angDeg) => {
+      node.setAttribute('transform', `translate(${x} ${y}) rotate(${angDeg})`);
+    };
+
+    const tick = (now) => {
+      const elapsed = (now - start) / 1000;
+      const p = (elapsed / period) % 1;
+      const s = p * length;
+      const p1 = path.getPointAtLength(s);
+      const p2 = path.getPointAtLength((s + epsilon) % length);
+      const dx = p2.x - p1.x;
+      const dy = p2.y - p1.y;
+      const ang = (Math.atan2(dy, dx) * 180) / Math.PI + noseOffsetDeg;
+      const isFront = p1.y > orbitCenterY;
+
+      front.setAttribute('opacity', isFront ? '1' : '0');
+      back.setAttribute('opacity', isFront ? '0' : '1');
+      setRocketTransform(back, p1.x, p1.y, ang);
+      setRocketTransform(front, p1.x, p1.y, ang);
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [instanceId]);
+
+  return (
+    <span className="orbit-logo" aria-hidden="true">
+      <svg className="orbit-logo__svg" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+        <path
+          ref={pathRef}
+          id={`orbitPath-${instanceId}`}
+          d="M320 210 A140 55 0 1 1 40 210 A140 55 0 1 1 320 210"
+          fill="none"
+        />
+        <g transform="rotate(-20 180 210)">
+          <g ref={backRef} opacity="1">
+            <image href={orbitRocket.src} width="54" height="54" x="-27" y="-27" />
+          </g>
+        </g>
+        <image href={orbitLogo.src} x="40" y="40" width="280" height="280" />
+        <g transform="rotate(-20 180 210)">
+          <g ref={frontRef} opacity="0">
+            <image href={orbitRocket.src} width="54" height="54" x="-27" y="-27" />
+          </g>
+        </g>
+      </svg>
+    </span>
+  );
+};
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -128,11 +205,8 @@ export default function Header() {
         <div className="header-content">
           <div className="logo">
               <Link href="/" legacyBehavior>
-                  <a className="logo-link" aria-label="Home">
-                      <Image
-                          src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/68492fb235b07b4bcd6d03c1_Color-text-v2-2-(f)-3.png"
-                          loading="lazy" width="181" height="64" alt="TwoPiR logo"
-                      />
+                  <a className="logo-link orbit-logo-link" aria-label="Home">
+                      <OrbitLogo />
                   </a>
               </Link>
           </div>
@@ -224,11 +298,8 @@ export default function Header() {
       >
         <div className="mobile-nav-header">
           <Link href="/" legacyBehavior>
-              <a className="logo-link" aria-label="Home" onClick={closeMenu}>
-                  <Image
-                      src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/68492fb235b07b4bcd6d03c1_Color-text-v2-2-(f)-3.png"
-                      loading="lazy" width="160" height="56" alt="TwoPiR logo"
-                  />
+              <a className="logo-link orbit-logo-link" aria-label="Home" onClick={closeMenu}>
+                  <OrbitLogo />
               </a>
           </Link>
         </div>

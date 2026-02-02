@@ -39,6 +39,7 @@ export default function Home() {
   const pointerFrameRef = useRef(null);
   const lastPointerRef = useRef({ x: 0, y: 0 });
   const [isHeroMotionEnabled, setIsHeroMotionEnabled] = useState(true);
+  const [activeGuide, setActiveGuide] = useState('desktop');
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -373,23 +374,58 @@ export default function Home() {
                     </div>
 
                     <div className="metamask-cards" data-animate-on-scroll>
-                        <video
-                            className="metamask-card metamask-card--mobile"
-                            controls
-                            playsInline
-                            preload="metadata"
-                            src="/video/Video_gidePhone.mp4"
-                        />
+                        <div className="metamask-card-wrap metamask-card-wrap--main">
+                          <span className="metamask-badge">
+                            {activeGuide === 'desktop' ? 'Desktop guide' : 'Mobile guide'}
+                          </span>
+                          <video
+                              key={activeGuide}
+                              className={`metamask-card metamask-card--main ${
+                                activeGuide === 'desktop' ? 'is-desktop' : 'is-mobile'
+                              }`}
+                              controls
+                              playsInline
+                              preload="metadata"
+                              src={activeGuide === 'desktop' ? '/video/Video_gidePC.mp4' : '/video/Video_gidePhone.mp4'}
+                              onLoadedData={(event) => {
+                                event.currentTarget.parentElement?.classList.add('is-loaded');
+                              }}
+                          />
+                        </div>
 
-                        <div className="metamask-forpc">For PC:</div>
-
-                        <video
-                            className="metamask-card metamask-card--pc"
-                            controls
-                            playsInline
-                            preload="metadata"
-                            src="/video/Video_gidePC.mp4"
-                        />
+                        <div className="metamask-switcher" role="tablist" aria-label="Guide switcher">
+                          <button
+                            type="button"
+                            role="tab"
+                            aria-selected={activeGuide === 'desktop'}
+                            className={`metamask-switch ${activeGuide === 'desktop' ? 'is-active' : ''}`}
+                            onClick={() => setActiveGuide('desktop')}
+                          >
+                            <svg className="metamask-switch-icon" viewBox="0 0 24 24" aria-hidden="true">
+                              <path
+                                d="M4 5.5C4 4.67 4.67 4 5.5 4h13C19.33 4 20 4.67 20 5.5v9c0 .83-.67 1.5-1.5 1.5h-5.4l1.1 2H17a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2h2.8l1.1-2H5.5C4.67 16 4 15.33 4 14.5v-9Z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                            Desktop
+                          </button>
+                          <span className="metamask-switch-divider" aria-hidden="true">|</span>
+                          <button
+                            type="button"
+                            role="tab"
+                            aria-selected={activeGuide === 'mobile'}
+                            className={`metamask-switch ${activeGuide === 'mobile' ? 'is-active' : ''}`}
+                            onClick={() => setActiveGuide('mobile')}
+                          >
+                            <svg className="metamask-switch-icon" viewBox="0 0 24 24" aria-hidden="true">
+                              <path
+                                d="M8 2.75h8c1.1 0 2 .9 2 2v14.5c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V4.75c0-1.1.9-2 2-2Zm3 16.75h2a1 1 0 1 0 0-2h-2a1 1 0 0 0 0 2Z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                            Mobile
+                          </button>
+                        </div>
                     </div>
                 </div>
             </div>
