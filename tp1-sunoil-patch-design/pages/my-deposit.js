@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import styles from './my-deposit.module.css';
 import React from 'react'; // React library for building UI components
-import { loadData } from '/opt/build/repo/tp1-sunoil-patch-design/components/web3/funcs.js'; // Function to load Web3 data (defined elsewhere)
+import { loadData } from '../components/web3/funcs'; // Function to load Web3 data (defined elsewhere)
 import Link from 'next/link'; // Next.js Link component for navigation
 import Image from 'next/image'; // Optimized image component in Next.js
 import { useEffect, useState } from 'react'; // React hooks for managing state and lifecycle events
@@ -306,22 +306,7 @@ export default function MyDeposit() {
     return initial;
   });
 
-  const onDeposit = (assetKey) => {
-    setSuppliedByAsset((prev) => ({
-      ...prev,
-      [assetKey]: (prev[assetKey] || 0) + STEP_AMOUNT,
-    }));
-  };
-
-  const onWithdraw = (assetKey) => {
-    setSuppliedByAsset((prev) => {
-      const current = prev[assetKey] || 0;
-      return {
-        ...prev,
-        [assetKey]: Math.max(0, current - STEP_AMOUNT),
-      };
-    });
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
@@ -331,7 +316,7 @@ export default function MyDeposit() {
       </Head>
       <div className="body">
         <Header />
-        <div className={`page-2 ${styles.myDepositPage}`}>
+        <div className={`page-2 ${styles.myDepositPage} ${isModalOpen ? 'is-blurred' : ''}`}>
           <div className={`frame-54 ${styles.layout}`}>
             <section className={`list-4 ${styles.panel}`} aria-label="My deposit assets">
               <div className={styles.table}>
@@ -369,7 +354,10 @@ export default function MyDeposit() {
                         type="button"
                         className={styles.actionBtn}
                         aria-label={`Deposit ${asset.symbol}`}
-                        onClick={() => onDeposit(asset.key)}
+                        onClick={() => {
+                          setActiveTab('stake');
+                          setIsModalOpen(true);
+                        }}
                       >
                         +
                       </button>
@@ -377,7 +365,10 @@ export default function MyDeposit() {
                         type="button"
                         className={`${styles.actionBtn} ${styles.actionBtnMinus}`}
                         aria-label={`Withdraw ${asset.symbol}`}
-                        onClick={() => onWithdraw(asset.key)}
+                        onClick={() => {
+                          setActiveTab('unstake');
+                          setIsModalOpen(true);
+                        }}
                       >
                         −
                       </button>
@@ -386,8 +377,15 @@ export default function MyDeposit() {
                 ))}
               </div>
             </section>
-            <div className="frame-62">
-                {activeTab === 'stake' && (
+            {false && (
+              <div
+                className="deposit-modal-overlay"
+                role="dialog"
+                aria-modal="true"
+                onClick={() => setIsModalOpen(false)}
+              >
+                <div className="deposit-modal" onClick={(event) => event.stopPropagation()}>
+                  {activeTab === 'stake' && (
                     <div className="pop-up-1">
                         <div className="top-buttons">
                             <div className={`stake ${activeTab === 'stake' ? 'active' : ''}`} onClick={() => setActiveTab('stake')}>Stake</div>
@@ -574,8 +572,9 @@ export default function MyDeposit() {
                         </div>
                     </div>
                     )}
-                
                 </div>
+              </div>
+            )}
 
             <aside className={`frame-57 ${styles.sidebar}`} aria-label="My deposit summary">
               <div className="balance">
@@ -615,6 +614,204 @@ export default function MyDeposit() {
             </aside>
           </div>
         </div>
+        {isModalOpen && (
+          <div
+            className="deposit-modal-overlay"
+            role="dialog"
+            aria-modal="true"
+            onClick={() => setIsModalOpen(false)}
+          >
+            <div className="deposit-modal" onClick={(event) => event.stopPropagation()}>
+              {activeTab === 'stake' && (
+                <div className="pop-up-1">
+                    <div className="top-buttons">
+                        <div className={`stake ${activeTab === 'stake' ? 'active' : ''}`} onClick={() => setActiveTab('stake')}>Stake</div>
+                        <div className="unstake" onClick={() => setActiveTab('unstake')}>Unstake</div>
+                        <div className="unstake" onClick={() => setActiveTab('withdraw')}>Withdraw</div>
+                    </div>
+                    <div className="frame-you-stake">
+                        <div className="text-190">You Stake</div>
+                        <div className="frame-63">
+                            <input 
+                                type='number' 
+                                value={inputValuedeposit} 
+                                onChange={(e) => setInputValuedeposit(e.target.value)} 
+                                placeholder="Amount" 
+                            />
+                            <div className="frame-35">
+                                <div className="frame-36"><Image
+                                    src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/68a011679cd01fc0ef59767a_ethereum-eth-logo-diamond-purple-2.svg"
+                                    loading="lazy" width="8.716163635253906" height="14.381670951843262" alt=""
+                                    className="ethereum-eth-logo-diamond-purple-2" />
+                                    <div className="text-192">USDT</div>
+                                </div>
+                                <div className="text-193">Balance: {seenDeposit}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="frame-you-receive"><Image
+                        src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/68a011679cd01fc0ef59767e_Arrow-.svg"
+                        loading="lazy" width="44" height="0.0000019233070815971587" alt="" className="arrow" />
+                        <div className="text-194">You Receive</div>
+                        <div className="frame-64">
+                            <input 
+                                type='number' 
+                                value={inputValuedeposit} 
+                                onChange={(e) => setInputValuedeposit(e.target.value)} 
+                                placeholder="Amount" 
+                            />
+                            <div className="frame-35">
+                                <div className="frame-36"><Image
+                                    src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/68a0116715ed8b7467a84ffb_ethereum-eth-logo-diamond-purple-3.svg"
+                                    loading="lazy" width="8.491949081420898" height="14.011717796325684" alt=""
+                                    className="ethereum-eth-logo-diamond-purple-2" />
+                                    <div className="text-192">pUSDT</div>
+                                </div>
+                                <div className="text-193">Balance: {seenDeposit}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="rewards-eligible-gas-2">
+                        <div className="rewards-eligible-gas">
+                            <div className="text-195">Rewards Eligible</div>
+                            <div className="text-196">|</div>
+                            <div className="text-195">Gas $0,98</div>
+                        </div>
+                        <div className="frame-rewards-eligible">
+                            <div className="text-197">All assets will be available to withdraw 7 days after unstaking.</div>
+                        </div>
+                        <div className="button-container">
+                            {!addressAccount ? (
+                                <div className="button-connect-wallet" onClick={handleWeb3} style={{cursor: 'pointer'}}>
+                                    <div className="text-198">Connect Wallet</div>
+                                </div>
+                            ) : (
+                                <div className="button-connect-wallet" onClick={handleDepositLogic} style={{cursor: 'pointer', backgroundColor: '#00ff88'}}>
+                                    <div className="text-198" style={{color: '#000'}}>Stake USDT</div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+                )}
+                {activeTab === 'unstake' && (
+                <div className="pop-up-4">
+                    <div className="top-buttons">
+                        <div className="unstake" onClick={() => setActiveTab('stake')}>Stake</div>
+                        <div className="stake">Unstake</div>
+                        <div className="unstake" onClick={() => setActiveTab('withdraw')}>Withdraw</div>
+                    </div>
+                    <div className="you-unstake"></div>
+                    <div className="rewards-eligible-gas-2">
+                        <div className="you-unstake-2">You Unstake</div>
+                        <div className="frame-67">
+                            <input 
+                                type='number' 
+                                value={inputValuedeposit} 
+                                onChange={(e) => setInputValuedeposit(e.target.value)} 
+                                placeholder="Amount" 
+                            />
+                            <div className="frame-68">
+                                <div className="frame-69"><Image
+                                    src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/68a0120be05f0d4621e68f22_ethereum-eth-logo-diamond-purple-3.svg"
+                                    loading="lazy" width="8.491949081420898" height="14.011717796325684" alt=""
+                                    className="ethereum-eth-logo-diamond-purple-2" />
+                                    <div className="text-201">pUSDT</div>
+                                </div>
+                                <div className="text-202">Balance: {seenDeposit}</div>
+                            </div>
+                        </div>
+                        <div className="rewards-eligible-gas-3">
+                            <div className="text-195">Rewards Eligible</div>
+                            <div className="text-196">|</div>
+                            <div className="text-195">Gas $0,98</div>
+                        </div>
+                        <div className="frame-rewards-eligible">
+                            <div className="text-197">After 7 days after unstaking you are allowed to withdraw</div>
+                        </div>
+                        <div className="frame-rewards-eligible">
+                            <div className="text-197">All assets will be available to withdraw 7 days after unstaking.</div>
+                        </div>
+                        {!addressAccount ? (
+                            <div className="button-connect-wallet" onClick={handleWeb3}>Connect Wallet</div>
+                        ) : (
+                            <div className="button-connect-wallet" onClick={handleUnstake}>Confirm Unstake</div>
+                        )}
+                    </div>
+                
+                </div>
+                )}
+                {activeTab === 'withdraw' && (
+                <div className="pop-up-3">
+                    <div className="top-buttons-2">
+                        <div className="unstake" onClick={() => setActiveTab('stake')}>Stake </div>
+                        <div className="unstake" onClick={() => setActiveTab('unstake')}>Unstake </div>
+                        <div className="stake">Withdraw </div>
+                    </div>
+                
+                    <div className="rewards-eligible-gas-2">
+                        <div className="you-unstake-2">Withdrawal Status</div>
+                
+                        <div className="frame-66" style={{ height: 'auto', minHeight: '120px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '10px', padding: '15px' }}>
+                            {/* ПЕРЕВІРКА: чи є хоча б один активний запит */}
+                            {unstakeRequests.filter(r => !r.withdrawn).length > 0 ? (
+                                unstakeRequests.filter(r => !r.withdrawn).map((req, index) => {
+                                    const status = getStatus(req.unlockTime, req.withdrawn);
+                                    return (
+                                        <div key={index} style={{ display: 'flex', justifyContent: 'space-between', width: '100%', borderBottom: '1px solid #333', paddingBottom: '5px' }}>
+                                            <div className="text-199" style={{fontSize: '14px'}}>
+                                                {window.web3.utils.fromWei(req.amount, 'ether')} USDT
+                                            </div>
+                                            <div className="text-197" style={{ color: status === 'Ready' ? '#00ff88' : '#aaa', fontSize: '14px' }}>
+                                                {status}
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                /* ІНФОРМАЦІЯ ЯКЩО НЕМАЄ ЗАПИТІВ */
+                                <div style={{ textAlign: 'center' }}>
+                                    <div className="text-199" style={{ fontSize: '16px', color: '#ffcc00', marginBottom: '8px' }}>
+                                        No active requests found
+                                    </div>
+                                    <div className="text-197" style={{ fontSize: '13px', opacity: 0.7 }}>
+                                        To withdraw your funds, you need to go to the <b>Unstake</b> tab first and wait for the 7-day unlock period.
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                
+                        <div className="rewards-eligible-gas-4">
+                            <div className="text-195">Rewards Eligible</div>
+                            <div className="text-196">|</div>
+                            <div className="text-195">Gas ~$0.98</div>
+                        </div>
+                
+                        <div className="button-container" style={{ marginTop: '15px' }}>
+                            {!addressAccount ? (
+                                <div className="button-connect-wallet" onClick={handleWeb3} style={{cursor: 'pointer'}}>
+                                    <div className="text-198">Connect Wallet</div>
+                                </div>
+                            ) : (
+                                <div 
+                                    className="button-connect-wallet" 
+                                    onClick={unstakeRequests.some(r => !r.withdrawn && getStatus(r.unlockTime, r.withdrawn) === 'Ready') ? handleWithdrawReady : null}
+                                    style={{ 
+                                        cursor: 'pointer', 
+                                        opacity: unstakeRequests.some(r => !r.withdrawn && getStatus(r.unlockTime, r.withdrawn) === 'Ready') ? 1 : 0.3,
+                                        filter: unstakeRequests.some(r => !r.withdrawn && getStatus(r.unlockTime, r.withdrawn) === 'Ready') ? 'none' : 'grayscale(1)'
+                                    }}
+                                >
+                                    <div className="text-198">Claim Ready Funds</div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+                )}
+            </div>
+          </div>
+        )}
         <Footer />
       </div>
     </>
