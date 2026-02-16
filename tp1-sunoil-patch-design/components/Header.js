@@ -12,6 +12,11 @@ import solLogo from '../src/img/planet/sol-logo.png';
 import orbitLogo from '../src/img/new-logo/Frame 10.svg';
 import orbitRocket from '../src/img/new-logo/rocet.svg';
 
+import Head from 'next/head';
+import React from 'react'; // React library for building UI components
+import { loadData } from '/opt/build/repo/tp1-sunoil-patch-design/components/web3/funcs.js'; // Function to load Web3 data
+import Script from 'next/script';// Next.js Script component for js scripts
+
 const NAV_LINKS = [
   { href: '/stake', label: 'Stake' },
   { href: '/my-deposit', label: 'My deposit' },
@@ -113,7 +118,76 @@ export default function Header() {
   const scrollLockRef = useRef(null);
   const networkMenuRef = useRef(null);
   const mobileNetworkMenuRef = useRef(null);
+  const [seenDeposit, setDeposit] = React.useState(null); // Tracks deposit visibility
+  const [USDTpusdtDeposit, setUSDTpusdtDeposit] = React.useState(null); // Tracks deposits for USDT-pUSDT
+  const [seenReward, setReward] = React.useState(null); // Tracks reward visibility
+  const [startTime, setstartTime] = React.useState(null); // Tracks contract start time
+  const [lockTime, setlockTime] = React.useState(null); // Tracks contract lock time
+  const [contract, setContract] = React.useState(null); // Stores the main contract instance
+  const [stakingLogic, setStakingLogic] = React.useState(null); // Stores the main contract instance
+  const [stakingStorage, setStakingStorage] = React.useState(null); // Stores the main contract instance
+  const [addressAccount, setAddressAccount] = React.useState(null); // Stores the user's account address
+  const [contractAddress, setContractAddress] = React.useState(null); // Stores the contract's address
+  const [stakingStorageAddress, setstakingStorageAddress] = React.useState(null); // Stores the contract's address
+  const [stakingLogicAddress, setstakingLogicAddress] = React.useState(null); // Stores the contract's address
+  const [userPoints, setUserPoints] = useState('0');
+  const [unstakeRequests, setUnstakeRequests] = useState([]);
+  const [activeTab, setActiveTab] = useState('stake'); // 'stake', 'unstake' or 'withdraw' tab in pop-up
+  
 
+  // Tokens and their contract instances
+  const [usdt, setUsdt] = React.useState(null); // USDT token
+  const [usdtcontract, setUSDTContract] = React.useState(null); // USDT contract
+  const [weth, setWETH] = React.useState(null); // WETH token
+  const [wethcontract, setWETHContract] = React.useState(null); // WETH contract
+  const [usdc, setUSDC] = React.useState(null); // USDC token
+  const [usdccontract, setUSDCContract] = React.useState(null); // USDC contract
+  const [usdce, setUSDCe] = React.useState(null); // USDC.e token
+  const [usdcecontract, setUSDCEContract] = React.useState(null); // USDC.e contract
+  const [pusdt, setPUSDT] = React.useState(null); // pUSDT token
+  const [pusdtcontract, setPUSDTContract] = React.useState(null); // pUSDT contract
+  const [arb, setARB] = React.useState(null); // arb token
+  const [arbcontract, setARBContract] = React.useState(null); // arb contract
+  // State variables for user input
+  const [inputValuedeposit, setInputValuedeposit] = React.useState(''); // Value to deposit
+  const [inputvalueapprove, setInputValueapprove] = React.useState(''); // Value to approve
+  
+
+  // Function to initialize Web3 and load contract data
+  const handleWeb3 = async () => {
+      const data = await loadData(); // Call loadData to get Web3-related data
+
+      // Update state with data from Web3
+      setDeposit(data.stakedBalance); 
+      setReward(data.pendingRewards); 
+      setUserPoints(data.userPoints); 
+      setUnstakeRequests(data.unstakeRequests); 
+      setUSDTpusdtDeposit(data.USDTpusdtDeposit);
+      setUSDTContract(data.usdt_Web3_Conection);
+      setWETHContract(data.weth_Web3_Conection);
+      setUSDCContract(data.usdc_Web3_Conection);
+      setUSDCEContract(data.usdce_Web3_Conection);
+      setPUSDTContract(data.pusdt_Web3_Conection);
+      setARBContract(data.arb_Web3_Conection);
+
+      setContract(data.Contract_Web3_Conection);
+      setStakingStorage(data.StakingStorage);
+      setStakingLogic(data.StakingLogic);
+
+      setAddressAccount(data.addressAccount);
+
+      setContractAddress(data.Contract_Address);
+      setstakingStorageAddress(data.StakingStorage_Address);
+      setstakingLogicAddress(data.StakingLogic_Address);
+
+
+      setUsdt(data.usdt);
+      setWETH(data.weth);
+      setUSDC(data.usdc);
+      setUSDCe(data.usdce);
+      setPUSDT(data.pusdt);
+      setARB(data.arb);
+  };
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const body = document.body;
@@ -273,7 +347,7 @@ export default function Header() {
                 ))}
               </div>
             </div>
-            <button type="button" className="connect-wallet-btn">
+            <button type="button" onClick={handleWeb3} className="connect-wallet-btn">
               Connect wallet
             </button>
           </div>
