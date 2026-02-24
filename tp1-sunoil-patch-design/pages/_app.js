@@ -6,6 +6,7 @@ import '../public/css/custom/components/ui-components.css';
 import '../public/css/custom/animations/animations.css';
 import Head from 'next/head';
 import { useEffect } from 'react';
+import Header from '../components/Header';
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -69,7 +70,8 @@ function MyApp({ Component, pageProps }) {
         <span className="bubble b9" />
         <span className="bubble b10" />
       </div>
-      <div className="app-root">
+      <div className="app-root page">
+        <Header />
         <Component {...pageProps} />
       </div>
     </>

@@ -1,15 +1,107 @@
 /* Header Styles */
 :root {
-    --header-offset: 50px;
+    --header-offset: 48px;
 }
 
 .body {
     padding-top: var(--header-offset);
-    background:
-      radial-gradient(60% 120% at 0% 50%, rgba(120, 78, 200, 0.22), transparent 60%),
-      radial-gradient(60% 120% at 100% 50%, rgba(120, 78, 200, 0.22), transparent 60%),
-      #1a1a21;
     overflow-x: hidden;
+    background: transparent !important;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+html body {
+  background:
+    linear-gradient(180deg, #0e0e1a 0%, #0c0c16 50%, #080812 100%) !important;
+}
+
+
+.app-root.page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: transparent;
+  padding-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.body.page,
+.app-root.page .body {
+  padding-top: var(--header-offset);
+}
+
+.app-root.page::before {
+  content: "";
+  position: absolute;
+  inset: -200px;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    /* Зелені круги */
+    radial-gradient(750px 500px at 25% 35%, rgba(0, 255, 140, 0.15), transparent 65%),
+    radial-gradient(800px 550px at 70% 60%, rgba(0, 255, 140, 0.14), transparent 62%),
+    /* Фіолетові круги */
+    radial-gradient(700px 480px at 78% 22%, rgba(139, 92, 255, 0.16), transparent 58%),
+    radial-gradient(900px 650px at 50% 85%, rgba(120, 40, 255, 0.18), transparent 65%),
+    radial-gradient(720px 520px at 35% 75%, rgba(140, 60, 255, 0.14), transparent 60%),
+    radial-gradient(680px 480px at 90% 45%, rgba(139, 92, 255, 0.15), transparent 62%),
+    radial-gradient(800px 600px at 5% 50%, rgba(120, 40, 255, 0.12), transparent 58%);
+  filter: blur(8px);
+  opacity: 1;
+  animation: glowDrift 30s ease-in-out infinite;
+}
+
+@keyframes glowDrift {
+  0%   { transform: translate3d(0, 0, 0); }
+  50%  { transform: translate3d(-1.5%, 1%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+.app-root.page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+.app-root.page > * {
+  position: relative;
+  z-index: 2;
+}
+
+
+.app-root.page > .site-header {
+  position: fixed !important;
+  z-index: 999999 !important;
+}
+
+
+.app-root.page .page-2,
+.app-root.page .page-5 {
+  background-color: transparent;
+  background-image: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.footer-11 {
+  background: rgba(7, 7, 15, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: auto;
 }
 
 /* Hide scrollbars globally but keep scroll */
@@ -22,20 +114,21 @@
     height: 0;
 }
 .site-header {
-    padding: 4px 0;
-    position: fixed;
-    top: 0;
+    padding: 2px 0;
+    position: fixed !important;
+    top: 0 !important;
     left: 0;
+    right: 0;
     width: 100%;
-    z-index: 12000;
-    background: rgba(26, 26, 34, 0.95);
-    backdrop-filter: blur(18px);
+    z-index: 999999;
+    background: rgba(10, 10, 18, 0.98);
     transition: background 0.25s ease, box-shadow 0.25s ease;
+    overflow: visible;
 }
 
 .site-header.is-scrolled {
-    background: rgba(26, 26, 34, 0.78);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    background: rgba(10, 10, 18, 0.99);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 /* Custom overrides – component layouts and sections */
@@ -71,7 +164,9 @@
   height: 420px;
   top: -210px;
   left: -170px;
-  background: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(108, 255, 74, 0.28) 0%, rgba(108, 255, 74, 0.1) 45%, transparent 70%);
+  filter: blur(28px);
 }
 .nsb-haze-layer {
   position: absolute;
@@ -81,12 +176,14 @@
   height: 360px;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.45;
+  opacity: 0.5;
   mix-blend-mode: screen;
-  filter: blur(0.4px);
+  filter: blur(8px);
   transform: translate(-50%, -50%) scale(0.94) rotate(0deg);
   animation: nsb-haze-wave 18s ease-in-out infinite;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360'%3E%3Cdefs%3E%3CradialGradient id='centerGlow' cx='50%25' cy='50%25' r='52%25'%3E%3Cstop offset='0%25' stop-color='%23b9bdc8' stop-opacity='0.55'/%3E%3Cstop offset='62%25' stop-color='%239297a4' stop-opacity='0.32'/%3E%3Cstop offset='100%25' stop-color='%235c606d' stop-opacity='0'/%3E%3C/radialGradient%3E%3ClinearGradient id='wave' x1='18%25' y1='14%25' x2='88%25' y2='90%25'%3E%3Cstop offset='0%25' stop-color='%23a5aab7' stop-opacity='0.42'/%3E%3Cstop offset='100%25' stop-color='%23626978' stop-opacity='0.3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='180' cy='180' r='180' fill='url(%23centerGlow)'/%3E%3Cpath d='M52 142c38-48 132-70 194-42s78 108 26 170c-68 44-136 40-188-10-44-36-52-76-32-118z' fill='url(%23wave)' fill-opacity='0.66'/%3E%3C/svg%3E") center/cover no-repeat;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(107, 255, 74, 0.473) 0%, transparent 50%),
+              radial-gradient(circle at 70% 70%, rgba(125, 73, 255, 0.445) 0%, transparent 50%);
 }
 .nsb-haze-center {
   animation-duration: 24s;
@@ -97,9 +194,11 @@
   height: 320px;
   bottom: -180px;
   right: -140px;
-  opacity: 0.32;
+  opacity: 0.4;
   animation-delay: 0.6s, 0s;
-  background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22320%22 height=%22320%22 viewBox=%220 0 320 320%22%3E%3Cdefs%3E%3CradialGradient id=%22grey2%22 cx=%2250%25%22 cy=%2250%25%22 r=%2250%25%22%3E%3Cstop offset=%220%25%22 stop-color=%22%2392949c%22 stop-opacity=%220.4%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%2392949c%22 stop-opacity=%220%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx=%22160%22 cy=%22160%22 r=%22160%22 fill=%22url(%23grey2)%22/%3E%3Cpath d=%22M120 48c76-10 160 46 160 112s-52 114-136 118c-70-12-108-62-108-110S62 58 120 48Z%22 fill=%22%23b0b3ba%22 fill-opacity=%220.16%22/%3E%3C/svg%3E") center/cover no-repeat;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 255, 0.26) 0%, rgba(139, 92, 255, 0.08) 45%, transparent 70%);
+  filter: blur(24px);
 }
 .nsb-group { padding: 8px 6px 12px; }
 .nsb-group-title {
@@ -123,7 +222,9 @@
 }
 .nsb-progress-group .nsb-cards { gap: 22px 24px; }
 .nsb-card {
-  background: #1b1b1b;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(18, 20, 28, 0.95) 0%, rgba(14, 16, 24, 0.98) 100%);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 18px;
   padding: 18px 20px 16px;
@@ -131,6 +232,38 @@
   --nsb-icon-glow-color: rgba(184, 188, 204, 0.42);
   --nsb-icon-trace-color: rgba(136, 142, 158, 0.32);
   --nsb-icon-delay: 0s;
+}
+
+/* Бабл зліва зверху (зелений) + фіолетовий бабл */
+.nsb-card::before {
+  content: "";
+  position: absolute;
+  top: -24px;
+  left: -24px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 158, 21, 0.13)) 0%, rgba(108, 255, 74, 0.06) 50%, transparent 75%);
+  filter: blur(12px);
+  pointer-events: none;
+  z-index: 0;
+}
+.nsb-card::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(33, 12, 155, 0.849) 0%, rgba(139, 92, 255, 0.05) 50%, transparent 75%);
+  filter: blur(10px);
+  pointer-events: none;
+  z-index: 0;
+}
+.nsb-card > * {
+  position: relative;
+  z-index: 1;
 }
 .nsb-card-header {
   display: flex;
@@ -141,8 +274,8 @@
 .nsb-card-identity { display: inline-flex; align-items: center; gap: 10px; position: relative; }
 .nsb-card-icon-wrap {
   position: relative;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   display: grid;
   place-items: center;
 }
@@ -169,8 +302,8 @@
 }
 .nsb-card-icon {
   position: relative;
-  width: 18px;
-  height: 18px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
   opacity: 0.95;
   z-index: 1;
@@ -247,15 +380,21 @@
   overflow: visible;
 }
 
-/* Networks heading (no Webflow background card) */
+/* Networks heading (no Webflow background card) — відступ, спіраль і мережі трохи нижче тексту */
 .second-section-3 .networks-section-heading {
   width: 100%;
   max-width: 823.728px;
-  margin: 0 auto 12px;
-  padding: 0;
+  margin: 0 auto 28px;
+  padding: 0 8px;
+  text-align: center;
 }
-.second-section-3 .networks-section-heading .text-169 {
+.second-section-3 .networks-section-heading .text-169,
+.second-section-3 .networks-section-heading h2.text-169,
+.second-section-3 .networks-section-heading h2.text-169 * {
   margin: 0;
+  text-align: center;
+  text-wrap: balance;
+  line-height: 1.25;
 }
 .spiral-svg {
   width: 100%;
@@ -380,6 +519,18 @@
   .nsb-card {
     padding: 14px 14px 12px;
   }
+  .nsb-card-icon-wrap {
+    width: 22px;
+    height: 22px;
+  }
+  .nsb-card-icon {
+    width: 22px;
+    height: 22px;
+  }
+  .nsb-group-title { font-size: 14px; margin: 4px 0 10px; }
+  .nsb-card-title { font-size: 13px; line-height: 1.2; }
+  .nsb-card-badge { font-size: 11px; padding: 5px 8px; }
+  .nsb-card-meta { font-size: 11px; margin-top: 8px; }
   .page-5 {
     gap: 64px;
   }
@@ -601,7 +752,7 @@
   .first-section-3 {
     padding-top: 36px;
     padding-bottom: 24px;
-    background: linear-gradient(180deg, rgba(24,24,32,0.95) 0%, rgba(8,8,12,1) 100%);
+    background: transparent;
   }
   .text-167 {
     max-width: min(500px, 92vw);
@@ -725,8 +876,8 @@
     display: block;
     opacity: 0.86;
   }
-  .first-section-3 .bg-coin::before { opacity: 0.18; }
-  .first-section-3 .bg-coin::after { opacity: 0.18; }
+  .first-section-3 .bg-coin::before { display: block; opacity: 0.18; }
+  .first-section-3 .bg-coin::after { display: block; opacity: 0.18; }
 
   /* Higher specificity vs later `.coin-*` defaults further down the file */
   .first-section-3 .coin-ava,
@@ -857,7 +1008,7 @@
     opacity: 1;
   }
   .hero-cloud {
-    opacity: 0.18;
+    display: none;
   }
   .bg-coin {
     opacity: 0.6;
@@ -876,7 +1027,12 @@
   overflow: visible;
 }
 .first-section-3 { padding-top: 120px; padding-bottom: 60px; margin-bottom: 48px; }
-.page-5 { gap: 140px; }
+.page-5 { 
+  gap: 140px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 .container-29 { height: auto; min-height: 560px; }
 .first-section-3 .container-29 {
   background: transparent;
@@ -887,6 +1043,51 @@
   position: relative;
   z-index: 1;
 }
+
+/* Hero: текст по центру, гарний вигляд */
+.first-section-3 .container-29 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.first-section-3 .column-75 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: min(720px, 92vw);
+  margin: 0 auto;
+}
+.first-section-3 .content-style-9 {
+  width: 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+.first-section-3 .text-167,
+.first-section-3 .text-167 * {
+  text-align: center;
+  text-wrap: balance;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.first-section-3 .text-168 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 16px;
+  margin-bottom: 0;
+  line-height: 1.45;
+  max-width: min(520px, 90vw);
+  color: rgba(255, 255, 255, 0.82);
+}
+.first-section-3 .launch-dapp-btn {
+  margin-top: 28px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .first-section-3::before,
 .first-section-3::after {
   content: "";
@@ -903,21 +1104,29 @@
 }
 
 .first-section-3::before {
-  background:
-    radial-gradient(50% 40% at 30% 35%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 62%),
-    radial-gradient(55% 45% at 70% 65%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 64%),
-    radial-gradient(46% 38% at 65% 30%, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 70%),
-    radial-gradient(48% 40% at 35% 70%, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0) 74%);
-  animation: hero-blobs-drift-1 22s ease-in-out infinite;
+  background: none;
+  display: none;
 }
 
 .first-section-3::after {
-  background:
-    radial-gradient(40% 32% at 55% 45%, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0) 58%),
-    radial-gradient(42% 34% at 45% 60%, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0) 68%),
-    radial-gradient(44% 36% at 58% 58%, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0) 70%);
-  transform: translate(-50%, -50%) scale(1.1);
-  animation: hero-blobs-drift-2 28s ease-in-out infinite;
+  background: radial-gradient(ellipse at center, rgba(108, 255, 74, 0.15) 0%, rgba(108, 255, 74, 0.08) 40%, transparent 80%);
+  width: min(1400px, 100vw);
+  height: min(900px, 80vh);
+  filter: blur(60px);
+  opacity: 0.7;
+  transform: translate(-50%, -50%);
+  animation: softGreenGlow 20s ease-in-out infinite;
+}
+
+@keyframes softGreenGlow {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
 }
 
 /* Allow later sections to overlap if needed */
@@ -932,12 +1141,13 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0;
+  opacity: 1;
   animation: hero-layer-in 4200ms cubic-bezier(0.19, 1, 0.22, 1) forwards;
   animation-delay: 900ms;
 }
 
 .hero-blob-field {
+  display: none; /* хмарки приховані, монети поза ним у hero-bg-layer */
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -960,6 +1170,7 @@
 }
 
 .hero-gooey {
+  display: none;
   position: absolute;
   width: clamp(90px, 7vw, 140px);
   height: clamp(90px, 7vw, 140px);
@@ -1140,12 +1351,13 @@
   width: 48px;
   height: 48px;
   object-fit: contain;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,0.35)) drop-shadow(0 0 12px rgba(139,92,255,0.25));
+  filter: drop-shadow(0 0 12px rgba(139,92,255,0.25));
   opacity: 0;
   animation: hero-coin-in 3600ms cubic-bezier(0.23, 1, 0.32, 1) forwards, coin-float 14s ease-in-out infinite;
   animation-delay: 1400ms, 0ms;
   z-index: 2;
   isolation: isolate;
+  display: block;
 }
 
 /* Default: hide duplicated "extra" coins (we enable them on mobile only) */
@@ -1169,6 +1381,7 @@
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: -1;
+  display: none;
 }
 
 .bg-coin::before {
@@ -1185,6 +1398,7 @@
   transition: transform 320ms ease, opacity 320ms ease;
   mix-blend-mode: screen;
   z-index: -1;
+  display: none;
 }
 
 .bg-coin:hover::before {
@@ -1212,19 +1426,14 @@
   top: -60px;
   width: 360px;
   height: 320px;
+  display: none;
   pointer-events: none;
   z-index: 0;
   filter: blur(18px);
 }
 
 .about-blob {
-  position: absolute;
-  border-radius: 48% 52% 50% 50% / 52% 46% 54% 48%;
-  background:
-    radial-gradient(60% 60% at 40% 35%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0) 70%),
-    linear-gradient(210deg, rgba(58, 58, 74, 0.3) 0%, rgba(16, 16, 20, 0.82) 100%);
-  opacity: 0.6;
-  animation: about-blob-drift 28s ease-in-out infinite alternate;
+  display: none;
 }
 
 .about-blob--1 {
@@ -1271,6 +1480,7 @@
 .footer-social-icons img:hover { opacity: 1; }
 
 .hero-cloud {
+  display: none;
   position: absolute;
   background:
     radial-gradient(60% 60% at 40% 45%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 60%),
@@ -1289,10 +1499,9 @@
 .hero-cloud-3 { width: 360px; height: 220px; left: 40%; bottom: 18%; animation-duration: 34s; }
 
 [data-animate-on-scroll][data-animate="planet"] {
-  opacity: 0;
-  transform: scale(0.84);
+  opacity: 1;
+  transform: scale(1);
   transform-origin: center;
-  transition: opacity 7000ms ease, transform 7000ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 [data-animate-on-scroll][data-animate="planet"].is-visible {
   opacity: 1;
@@ -1320,6 +1529,7 @@
   margin-bottom: 72px; /* reduce gap below */
   padding-bottom: 24px; /* lighter internal cushion */
   overflow: visible;
+  background: transparent !important;
 }
 
 .about-planet {
@@ -1336,6 +1546,7 @@
   max-width: 1200px;
   width: 100%;
   overflow-x: hidden;
+  background: transparent !important;
 }
 .twopir-story .about-twopir-3,
 .twopir-story .why-twopir {
@@ -1345,9 +1556,91 @@
 .twopir-story .about-twopir-3 {
   padding: 24px 28px;
   border-radius: 28px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: linear-gradient(145deg, rgba(26,26,36,0.85), rgba(16,16,24,0.85));
-  box-shadow: 0 24px 56px -36px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.06);
+  background: transparent !important;
+  box-shadow: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Декоративні кульки в стилі сайту для About TwoPiR */
+.twopir-story .about-twopir-3 {
+  position: relative;
+}
+
+.twopir-story .about-twopir-3::before {
+  content: "";
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  top: 10px;
+  left: 10px;
+  background: radial-gradient(circle, rgba(108, 255, 74, 0.28) 0%, rgba(108, 255, 74, 0) 75%);
+  filter: blur(24px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: section-glow-pulse 6s ease-in-out infinite;
+}
+
+.twopir-story .about-twopir-3::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  bottom: 10px;
+  right: 10px;
+  background: radial-gradient(circle, rgba(139, 92, 255, 0.28) 0%, rgba(139, 92, 255, 0) 75%);
+  filter: blur(22px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: section-glow-pulse 7s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+/* Додаткові кульки всередині секції About */
+.twopir-story .about-twopir-3 .frame-48 {
+  position: relative;
+}
+
+.twopir-story .about-twopir-3 .frame-48::before {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  top: 5px;
+  right: 5px;
+  background: radial-gradient(circle, rgba(139, 92, 255, 0.2) 0%, rgba(139, 92, 255, 0) 70%);
+  filter: blur(18px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.twopir-story .about-twopir-3 .frame-48::after {
+  content: "";
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  bottom: 5px;
+  left: 5px;
+  background: radial-gradient(circle, rgba(108, 255, 74, 0.22) 0%, rgba(108, 255, 74, 0) 70%);
+  filter: blur(16px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes section-glow-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
 }
 .twopir-story .why-twopir {
   padding: 28px 0 0;
@@ -1358,6 +1651,7 @@
   position: relative;
   margin: 0 auto 72px;
   padding: 0 24px;
+  background: transparent !important;
 }
 .why-twopir-inner {
   display: grid;
@@ -1366,16 +1660,79 @@
   align-items: center;
   padding: 28px 32px;
   border-radius: 28px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: linear-gradient(145deg, rgba(26,26,36,0.85), rgba(16,16,24,0.85));
-  box-shadow: 0 24px 56px -36px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.06);
+  background: transparent !important;
+  box-shadow: none;
   overflow: hidden;
+  position: relative;
+}
+
+/* Декоративні кульки в стилі сайту для Why TwoPiR */
+.why-twopir-inner::before {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  top: 10px;
+  right: 10px;
+  background: radial-gradient(circle, rgba(139, 92, 255, 0.3) 0%, rgba(139, 92, 255, 0) 75%);
+  filter: blur(24px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: section-glow-pulse 6.5s ease-in-out infinite;
+  animation-delay: -1s;
+}
+
+.why-twopir-inner::after {
+  content: "";
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  bottom: 10px;
+  left: 10px;
+  background: radial-gradient(circle, rgba(108, 255, 74, 0.25) 0%, rgba(108, 255, 74, 0) 75%);
+  filter: blur(22px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: section-glow-pulse 7.5s ease-in-out infinite;
+}
+
+/* Додаткові кульки всередині секції Why */
+.why-twopir-copy::before {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  top: 5px;
+  left: 5px;
+  background: radial-gradient(circle, rgba(108, 255, 74, 0.2) 0%, rgba(108, 255, 74, 0) 70%);
+  filter: blur(18px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.why-twopir-visual::after {
+  content: "";
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  bottom: 5px;
+  right: 5px;
+  background: radial-gradient(circle, rgba(139, 92, 255, 0.22) 0%, rgba(139, 92, 255, 0) 70%);
+  filter: blur(16px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
 }
 .why-twopir-title {
   margin: 0 0 14px;
 }
 .why-twopir-copy {
   font-weight: 600;
+  position: relative;
 }
 .why-twopir-title__brand {
   color: #ffffff;
@@ -1567,12 +1924,13 @@
   .twopir-story {
     margin: 0 auto 40px;
     padding: 16px 10px 20px;
-    border-radius: 18px;
+    border-radius: 0;
     border-width: 0;
   }
   .twopir-story .about-twopir-3 {
     padding: 16px 14px 18px;
     border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 12px;
@@ -1636,7 +1994,7 @@
     margin-top: 18px;
   }
   .why-twopir-visual .premium-visual {
-    transform: translateY(25image.pngpx) scale(0.9);
+    transform: translateY(25px) scale(0.9);
   }
   .premium-visual {
     width: 220px;
@@ -1756,12 +2114,12 @@
   .third-section-3 {
     height: auto;
     min-height: 620px;
-    padding-bottom: 120px;
+    padding-bottom: 48px;
     overflow: visible;
   }
   .cards-carousel-wrapper {
     overflow: visible;
-    padding-bottom: 220px;
+    padding-bottom: 100px;
   }
 }
 
@@ -1776,14 +2134,14 @@
 .triangle-card {
   position: absolute; left: 0; top: 0;
   width: var(--card-w, 280px);
-  background: linear-gradient(180deg, rgba(24, 24, 28, 0.96), rgba(16, 16, 22, 0.94));
-  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(18, 18, 26, 0.55), rgba(12, 12, 18, 0.5));
+  border: 1px solid rgba(255,255,255,0.06);
   border-radius: 18px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.32);
+  box-shadow: 0 8px 24px -12px rgba(0,0,0,0.25);
   padding: 18px 20px 20px;
   color: #eaeaea;
   transition: transform 320ms ease, box-shadow 320ms ease, background 320ms ease, border-color 320ms ease;
-  opacity: 0.95;
+  opacity: 0.98;
   overflow: hidden;
 }
 .triangle-card::before { display: none; }
@@ -1974,7 +2332,9 @@
 }
 
 .footer-11 {
-  background: rgba(10, 10, 14, 0.96);
+  background: rgba(7, 7, 15, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-top: 1px solid rgba(255,255,255,0.06);
   padding: 32px 24px 36px;
 }
@@ -2042,22 +2402,21 @@
   }
 }
 
-/* Header Styles */
+/* Header Styles (duplicate block – keep in sync with top .site-header) */
 .site-header {
-    padding: 15px 0;
-    position: fixed;
-    top: 0;
+    padding: 6px 0;
+    position: fixed !important;
+    top: 0 !important;
     left: 0;
     width: 100%;
-    z-index: 12000;
-    background: rgba(26, 26, 34, 0.95);
-    backdrop-filter: blur(18px);
+    z-index: 999999;
+    background: rgba(10, 10, 18, 0.98);
     transition: background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .site-header.is-scrolled {
-    background: rgba(26, 26, 34, 0.78);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    background: rgba(10, 10, 18, 0.99);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 /* Нижня лінія з градієнтом */
 .site-header::after {
@@ -2079,9 +2438,10 @@
     margin: 0 auto;
     padding: 0 20px;
     position: relative;
-    gap: 16px;
+    gap: 12px;
     padding-right: 84px;
-    min-height: 52px;
+    min-height: 40px;
+    overflow: visible;
 }
 
 .logo {
@@ -2096,13 +2456,13 @@
 }
 
 .orbit-logo {
-    --size: 104px;
+    --size: 100px;
     width: var(--size);
     height: var(--size);
     position: relative;
     display: grid;
     place-items: center;
-    transform: scale(1.45);
+    transform: scale(1.2);
     transform-origin: left center;
 }
 
@@ -2309,7 +2669,7 @@
   border: none;
   background: transparent;
   cursor: pointer;
-  z-index: 2;
+  z-index: 1000000;
 }
 
 .burger-menu span {
@@ -2351,20 +2711,36 @@
   transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+/* Бургер-меню: під хедером, без додаткового хедера */
 .mobile-nav-overlay {
   position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at top, rgba(60, 67, 94, 0.35), transparent 45%), #0b0c12;
+  top: var(--header-offset, 48px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: calc(100vh - var(--header-offset, 48px));
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 120px 24px 60px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 9000;
-  text-align: center;
+  justify-content: flex-start;
+  align-items: stretch;
+  pointer-events: auto;
+  z-index: 999998;
+  text-align: left;
+  animation: mobile-nav-overlay-in 0.28s ease-out forwards;
+}
+
+@keyframes mobile-nav-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .mobile-nav-overlay.is-open {
@@ -2372,26 +2748,85 @@
   pointer-events: auto;
 }
 
-.mobile-nav-header {
-  position: absolute;
-  top: 28px;
-  left: 24px;
+/* Легка анімація закривання */
+.mobile-nav-overlay.is-closing {
+  animation: mobile-nav-overlay-out 0.22s ease-in forwards;
+  pointer-events: none;
+}
+.mobile-nav-overlay.is-closing .mobile-nav-panel {
+  animation: mobile-nav-panel-out 0.22s ease-in forwards;
+}
+
+@keyframes mobile-nav-overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes mobile-nav-panel-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.mobile-nav-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background: rgba(10, 10, 20, 0.98);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px 40px;
+  overflow-y: auto;
+  animation: mobile-nav-panel-in 0.32s ease-out forwards;
+}
+
+/* Прибрати білу полосу: псевдоелементи та яскравий фон тригера мережі */
+.mobile-nav-panel::before,
+.mobile-nav-panel::after {
+  display: none !important;
+  content: none !important;
+}
+.mobile-nav-overlay .network-trigger {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+@keyframes mobile-nav-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mobile-nav-links {
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-top: 32px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
 }
 
 .mobile-nav-links li a {
-  font-size: 28px;
+  font-size: 20px;
+  line-height: 1.3;
   color: #fefefe;
   text-decoration: none;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
+  display: block;
+  text-align: center;
 }
 
 .page-5 {
@@ -2409,10 +2844,16 @@ body {
 .second-section-3,
 .third-section-3,
 .video-section-3,
-.about-twopir-3,
-.footer-11 {
-  background-color: #1a1a21;
+.about-twopir-3 {
+  background: transparent;
   background-image: none;
+}
+
+.footer-11 {
+  background: rgba(7, 7, 15, 0.82);
+  background-image: none;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 
@@ -2430,11 +2871,11 @@ body {
   }
 
   .site-header {
-    padding: 2px 0;
+    padding: 4px 0;
   }
 
   .header-content {
-    min-height: 48px;
+    min-height: 40px;
   }
 
   .orbit-logo {
@@ -2442,14 +2883,10 @@ body {
   }
 
   .mobile-nav-actions {
-    position: absolute;
-    top: 110px;
-    left: 24px;
-    right: 24px;
-    width: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    max-width: 100%;
   }
 
   .mobile-nav-actions .network-trigger,
@@ -2465,10 +2902,20 @@ body {
   }
 
   .burger-menu {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    top: 50%;
+    right: 28px;
+    transform: translateY(-50%);
+    z-index: 1000000;
+  }
+  
+  .header-content {
+    padding-right: 84px;
+    position: relative;
   }
 
   .page-5 {
@@ -2501,8 +2948,8 @@ body {
   /* Give the Networks heading more width and reduce its "card" height */
   .second-section-3 .networks-section-heading {
     max-width: min(920px, 92vw);
-    margin-bottom: 8px;
-    padding: 0;
+    margin-bottom: 24px;
+    padding: 0 8px;
   }
   .second-section-3 .networks-section-heading h2 {
     width: 100%;
@@ -2517,7 +2964,8 @@ body {
   .networks-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 10px; /* bring board closer to spiral */
+    gap: 10px;
+    margin-top: 14px;
   }
   .networks-left,
   .networks-right {
@@ -2563,10 +3011,18 @@ body {
   /* Keep the board close to the spiral on small phones too */
   .networks-grid {
     gap: 8px;
+    margin-top: 12px;
   }
   .second-section-3 .networks-section-heading {
     max-width: min(920px, 92vw);
-    margin-bottom: 6px;
+    margin-bottom: 20px;
+    padding: 0 6px;
+    text-align: center;
+  }
+  .second-section-3 .networks-section-heading h2,
+  .second-section-3 .networks-section-heading h2 * {
+    text-align: center !important;
+    text-wrap: balance;
   }
   .spiral-container {
     min-height: clamp(240px, 42vh, 340px);
@@ -2586,12 +3042,21 @@ body {
     transform: none;
     margin-bottom: 0;
   }
-  .nsb-group-title { font-size: 14px; }
-  .nsb-card-title { font-size: 14px; }
-  .nsb-card-meta { font-size: 12px; margin-top: 10px; }
-  .nsb-card-badge { font-size: 11px; padding: 6px 10px; }
-  .nsb-card { padding: 14px 14px 12px; }
-  .nsb-divider { margin: 10px 0 8px; }
+  .nsb-group-title { font-size: 12px; margin: 4px 0 8px; }
+  .nsb-card-title { font-size: 11px; line-height: 1.2; }
+  .nsb-card-meta { font-size: 10px; margin-top: 6px; }
+  .nsb-card-badge { font-size: 10px; padding: 4px 8px; }
+  .nsb-card { padding: 12px 12px 10px; }
+  .nsb-card-icon-wrap {
+    width: 18px;
+    height: 18px;
+  }
+  .nsb-card-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .nsb-card-identity { gap: 6px; }
+  .nsb-divider { margin: 8px 0 6px; }
   .nsb-cards { gap: 12px; }
 }
 
@@ -2610,6 +3075,7 @@ body {
   .second-section-3 .networks-section-heading h2 * {
     font-size: clamp(18px, 5.2vw, 22px);
     line-height: 1.2;
+    text-align: center;
   }
   .networks-heading-break {
     display: block;
@@ -2628,12 +3094,15 @@ body {
   .nsb-card {
     padding: 9px 9px 7px;
   }
+  .nsb-group-title { font-size: 11px; margin: 2px 0 6px; }
+  .nsb-card-title { font-size: 10px; line-height: 1.2; }
   .nsb-card-badge {
     font-size: 9px;
-    padding: 4px 7px;
+    padding: 4px 6px;
   }
   .nsb-card-meta {
-    font-size: 10px;
+    font-size: 9px;
+    margin-top: 4px;
   }
 }
 
@@ -2966,6 +3435,7 @@ body {
 .frame-64 input[type="number"]::-webkit-inner-spin-button,
 .frame-67 input[type="number"]::-webkit-outer-spin-button,
 .frame-67 input[type="number"]::-webkit-inner-spin-button {
+  appearance: none;
   -webkit-appearance: none;
   margin: 0;
 }

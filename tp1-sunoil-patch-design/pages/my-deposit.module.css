@@ -1,11 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
 
 .myDepositPage {
-  /* match Home page background, but remove Webflow image */
-  background-color: #1a1a21 !important;
-  background-image: none !important;
+  background-color: transparent;
+  background-image: none;
 
-  /* breathing room under fixed header */
   padding-top: 120px;
   padding-left: 16px;
   padding-right: 16px;
@@ -49,9 +47,14 @@
   border-radius: 24px;
 }
 
-.sidebar :global(.balance),
-.sidebar :global(.apr-points),
-.sidebar :global(.frame-59) {
+.sidebar :global(.frame-57) {
+  gap: 0;
+  row-gap: 0;
+}
+
+
+.sidebarCard {
+  width: 100%;
   background:
     radial-gradient(120% 140% at 0% 50%, rgba(118, 76, 198, 0.22), transparent 65%),
     radial-gradient(120% 140% at 100% 50%, rgba(118, 76, 198, 0.22), transparent 65%),
@@ -59,37 +62,16 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 16px 40px rgba(17, 12, 32, 0.45);
   border-radius: 22px;
-  margin: 0;
-  position: relative;
   overflow: hidden;
+  position: relative;
   background-size: 140% 140%;
   background-position: 0% 50%;
   transition: background-position 220ms ease;
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebar :global(.frame-57) {
-  gap: 0;
-  row-gap: 0;
-}
-
-.sidebar :global(.balance) {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.sidebar :global(.apr-points) {
-  border-radius: 0;
-}
-
-.sidebar :global(.frame-59) {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-.panel::before,
-.sidebar :global(.balance)::before,
-.sidebar :global(.apr-points)::before,
-.sidebar :global(.frame-59)::before {
+.sidebarCard::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -99,10 +81,7 @@
   pointer-events: none;
 }
 
-.panel::after,
-.sidebar :global(.balance)::after,
-.sidebar :global(.apr-points)::after,
-.sidebar :global(.frame-59)::after {
+.sidebarCard::after {
   content: "";
   position: absolute;
   inset: -20% -10%;
@@ -113,20 +92,47 @@
   pointer-events: none;
 }
 
-.panel:hover,
-.sidebar :global(.balance):hover,
-.sidebar :global(.apr-points):hover,
-.sidebar :global(.frame-59):hover {
+.sidebarCard:hover {
   background-position: 100% 50%;
 }
 
-.sidebar :global(.balance),
-.sidebar :global(.apr-points) {
+.sidebarBlock {
   padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  gap: 8px;
 }
 
-.sidebar :global(.frame-59) {
-  padding: 18px 20px 20px;
+.sidebarBlock:last-child {
+  padding-bottom: 16px;
+  gap: 18px;
+}
+
+.sidebarDivider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 12px 0;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+
+.sidebarCard :global(.total-balance) {
+  color: rgba(255, 255, 255, 0.28);
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+
+.sidebarCard :global(.rewards) {
+  border-bottom-width: 1px;
+  border-bottom-color: rgba(255, 255, 255, 0.15);
 }
 
 .table {

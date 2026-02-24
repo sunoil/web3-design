@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useId } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
 import arbLogo from '../src/img/planet/arb-logo.png';
@@ -106,11 +107,13 @@ const OrbitLogo = () => {
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuClosing, setIsMenuClosing] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [activeNetworkId, setActiveNetworkId] = useState(NETWORK_OPTIONS[0].id);
   const [isNetworkOpen, setIsNetworkOpen] = useState(false);
   const [isMobileNetworkOpen, setIsMobileNetworkOpen] = useState(false);
   const scrollLockRef = useRef(null);
+  const closeMenuTimeoutRef = useRef(null);
   const networkMenuRef = useRef(null);
   const mobileNetworkMenuRef = useRef(null);
 
@@ -148,8 +151,31 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') closeMenu();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isMenuOpen]);
+
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
-  const closeMenu = () => setIsMenuOpen(false);
+  const closeMenu = () => {
+    if (isMenuClosing) return;
+    setIsMenuClosing(true);
+    closeMenuTimeoutRef.current = window.setTimeout(() => {
+      setIsMenuOpen(false);
+      setIsMenuClosing(false);
+      closeMenuTimeoutRef.current = null;
+    }, 220);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (closeMenuTimeoutRef.current) clearTimeout(closeMenuTimeoutRef.current);
+    };
+  }, []);
   const toggleNetworkMenu = () => {
     setIsNetworkOpen((prev) => !prev);
     setIsMobileNetworkOpen(false);
@@ -291,75 +317,74 @@ export default function Header() {
         </div>
       </header>
 
-      <div
-        id="mobile-nav"
-        className={`mobile-nav-overlay ${isMenuOpen ? 'is-open' : ''}`}
-        aria-hidden={!isMenuOpen}
-      >
-        <div className="mobile-nav-header">
-          <Link href="/" legacyBehavior>
-              <a className="logo-link orbit-logo-link" aria-label="Home" onClick={closeMenu}>
-                  <OrbitLogo />
-              </a>
-          </Link>
-        </div>
-        <div className="mobile-nav-actions">
-          <div className="network-dropdown" ref={mobileNetworkMenuRef}>
-            <button
-              type="button"
-              className={`network-trigger ${isMobileNetworkOpen ? 'is-open' : ''}`}
-              onClick={toggleMobileNetworkMenu}
-              aria-haspopup="listbox"
-              aria-expanded={isMobileNetworkOpen}
-            >
-              <span className="network-trigger-left">
-                <Image
-                  src={activeNetwork.logo}
-                  width={18}
-                  height={18}
-                  alt=""
-                  className="network-trigger-icon"
-                />
-                <span className="network-trigger-label">{activeNetwork.label}</span>
-              </span>
-              <span className="network-trigger-caret" aria-hidden="true" />
-            </button>
-            <div
-              className={`network-menu ${isMobileNetworkOpen ? 'is-open' : ''}`}
-              role="listbox"
-              aria-label="Select network"
-            >
-              {NETWORK_OPTIONS.map((option) => (
-                <button
-                  key={`mobile-${option.id}`}
-                  type="button"
-                  className={`network-option ${
-                    option.id === activeNetworkId ? 'is-active' : ''
-                  }`}
-                  role="option"
-                  aria-selected={option.id === activeNetworkId}
-                  onClick={() => {
-                    setActiveNetworkId(option.id);
-                    closeNetworkMenus();
-                  }}
-                >
+      {typeof document !== 'undefined' && isMenuOpen && createPortal(
+        <div
+          id="mobile-nav"
+          className={`mobile-nav-overlay is-open${isMenuClosing ? ' is-closing' : ''}`}
+          aria-hidden={false}
+          onClick={closeMenu}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+        >
+          <div className="mobile-nav-panel" onClick={(e) => e.stopPropagation()}>
+          <div className="mobile-nav-actions">
+            <div className="network-dropdown" ref={mobileNetworkMenuRef}>
+              <button
+                type="button"
+                className={`network-trigger ${isMobileNetworkOpen ? 'is-open' : ''}`}
+                onClick={toggleMobileNetworkMenu}
+                aria-haspopup="listbox"
+                aria-expanded={isMobileNetworkOpen}
+              >
+                <span className="network-trigger-left">
                   <Image
-                    src={option.logo}
-                    width={16}
-                    height={16}
+                    src={activeNetwork.logo}
+                    width={18}
+                    height={18}
                     alt=""
-                    className="network-option-icon"
+                    className="network-trigger-icon"
                   />
-                  <span className="network-option-label">{option.label}</span>
-                </button>
-              ))}
+                  <span className="network-trigger-label">{activeNetwork.label}</span>
+                </span>
+                <span className="network-trigger-caret" aria-hidden="true" />
+              </button>
+              <div
+                className={`network-menu ${isMobileNetworkOpen ? 'is-open' : ''}`}
+                role="listbox"
+                aria-label="Select network"
+              >
+                {NETWORK_OPTIONS.map((option) => (
+                  <button
+                    key={`mobile-${option.id}`}
+                    type="button"
+                    className={`network-option ${
+                      option.id === activeNetworkId ? 'is-active' : ''
+                    }`}
+                    role="option"
+                    aria-selected={option.id === activeNetworkId}
+                    onClick={() => {
+                      setActiveNetworkId(option.id);
+                      closeNetworkMenus();
+                    }}
+                  >
+                    <Image
+                      src={option.logo}
+                      width={16}
+                      height={16}
+                      alt=""
+                      className="network-option-icon"
+                    />
+                    <span className="network-option-label">{option.label}</span>
+                  </button>
+                ))}
+              </div>
             </div>
+            <button type="button" className="connect-wallet-btn">
+              Connect wallet
+            </button>
           </div>
-          <button type="button" className="connect-wallet-btn">
-            Connect wallet
-          </button>
-        </div>
-        <ul className="mobile-nav-links">
+          <ul className="mobile-nav-links">
             {NAV_LINKS.map(({ href, label }) => (
               <li key={`mobile-${href}`}>
                 <Link href={href} legacyBehavior>
@@ -367,8 +392,11 @@ export default function Header() {
                 </Link>
               </li>
             ))}
-        </ul>
-      </div>
+          </ul>
+          </div>
+        </div>,
+        document.body
+      )}
     </>
   );
 }
