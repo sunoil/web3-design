@@ -17,7 +17,6 @@ import ethTokenLogo from '../src/img/planet/eth-logo.png';
 import bscLogo from '../src/img/planet/bsc-logo.png';
 import xrpLogo from '../src/img/planet/xrp-logo.png';
 import { useEffect, useState, useRef } from 'react';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SpiralScene from '../components/SpiralScene';
 
@@ -210,7 +209,6 @@ export default function Home() {
 
       <div className ="body">
         <div className ="page-5">
-            <Header />
             <div className ="first-section-3"
                  ref={heroSectionRef}
                  onPointerMove={handleHeroPointerMove}

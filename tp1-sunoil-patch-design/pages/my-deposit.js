@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 import styles from './my-deposit.module.css';
 import React from 'react'; // React library for building UI components
@@ -161,35 +160,49 @@ export default function MyDeposit() {
 
     // 3. Claim
     const handleClaim = async () => {
-        const data = await stakingLogic.methods.claimReward().encodeABI();
-        const nonce = await web3.eth.getTransactionCount(addressAccount);
-    
-        const estimateGas = await stakingLogic.methods.claimReward().estimateGas({
-            from: addressAccount,
-            to: stakingLogicAddress,
-            nonce,
-            data,
-        });
-    
-        const params = {
-            from: addressAccount,
-            to: stakingLogicAddress,
-            gas: web3.utils.toHex(estimateGas),
-            gasPrice: web3.utils.toHex(web3.utils.toWei('1', 'gwei')),
-            data,
-        };
-    
-        ethereum.request({ method: 'eth_sendTransaction', params: [params] })
-            .then((res) => {
-                const interval = setInterval(() => {
-                    web3.eth.getTransactionReceipt(res, (err, rec) => {
-                        if (rec) {
-                            handleWeb3();
-                            clearInterval(interval);
-                        }
-                    });
-                }, 500);
+        if (!stakingLogic || !addressAccount || !stakingLogicAddress) {
+            alert("Please connect your wallet first");
+            return;
+        }
+
+        try {
+            const data = await stakingLogic.methods.claimReward().encodeABI();
+            const nonce = await web3.eth.getTransactionCount(addressAccount);
+        
+            const estimateGas = await stakingLogic.methods.claimReward().estimateGas({
+                from: addressAccount,
+                to: stakingLogicAddress,
+                nonce,
+                data,
             });
+        
+            const params = {
+                from: addressAccount,
+                to: stakingLogicAddress,
+                gas: web3.utils.toHex(estimateGas),
+                gasPrice: web3.utils.toHex(web3.utils.toWei('1', 'gwei')),
+                data,
+            };
+        
+            ethereum.request({ method: 'eth_sendTransaction', params: [params] })
+                .then((res) => {
+                    const interval = setInterval(() => {
+                        web3.eth.getTransactionReceipt(res, (err, rec) => {
+                            if (rec) {
+                                handleWeb3();
+                                clearInterval(interval);
+                            }
+                        });
+                    }, 500);
+                })
+                .catch((err) => {
+                    console.error("Transaction error:", err);
+                    alert("Transaction failed. Please try again.");
+                });
+        } catch (error) {
+            console.error("Claim error:", error);
+            alert("Failed to claim rewards. Please try again.");
+        }
     };
     const handleWithdrawReady = async () => {
         const data = await stakingLogic.methods.withdrawReadyFunds().encodeABI();
@@ -314,8 +327,7 @@ export default function MyDeposit() {
         <title>TwoPiR — My Deposit</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </Head>
-      <div className="body">
-        <Header />
+      <div className="body page">
         <div className={`page-2 ${styles.myDepositPage} ${isModalOpen ? 'is-blurred' : ''}`}>
           <div className={`frame-54 ${styles.layout}`}>
             <section className={`list-4 ${styles.panel}`} aria-label="My deposit assets">
@@ -577,39 +589,37 @@ export default function MyDeposit() {
             )}
 
             <aside className={`frame-57 ${styles.sidebar}`} aria-label="My deposit summary">
-              <div className="balance">
-                <div className="total-balance">Total Balance</div>
-                <div className="text-179">$ 0.00</div>
-              </div>
-              <div className="apr-points">
-                <div className="frame-58">
+              <div className={styles.sidebarCard}>
+                <div className={styles.sidebarBlock}>
+                  <div className="total-balance">Total Balance</div>
+                  <div className="text-179">$ 0.00</div>
+                </div>
+                <div className={styles.sidebarDivider} />
+                <div className={styles.sidebarBlock}>
                   <div className="text-180">APR</div>
                   <div className="text-181">18,72%</div>
                 </div>
-                <div className="frame-58-copy">
-                  <div className="text-180">Points</div>
-                  <div className="text-182">0.00</div>
-                </div>
-              </div>
-              <div className="frame-59">
-                <div className="rewards">Rewards</div>
-                <div className="frame-60">
-                  <div className="frame-61">
-                    <Image
-                      src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/684e99269f23631551450ec0_USDT-logo.svg"
-                      loading="lazy"
-                      width="41.88167953491211"
-                      height="41.87932586669922"
-                      alt=""
-                      className="usdt-logo-2"
-                    />
-                    <div className="usdt-rewards">USDT</div>
+                <div className={styles.sidebarDivider} />
+                <div className={styles.sidebarBlock}>
+                  <div className="rewards">Rewards</div>
+                  <div className="frame-60">
+                    <div className="frame-61">
+                      <Image
+                        src="https://cdn.prod.website-files.com/66c9e08a6edbb91f35dede99/684e99269f23631551450ec0_USDT-logo.svg"
+                        loading="lazy"
+                        width="41.88167953491211"
+                        height="41.87932586669922"
+                        alt=""
+                        className="usdt-logo-2"
+                      />
+                      <div className="usdt-rewards">USDT</div>
+                    </div>
+                    <div className="text-183">0.00</div>
                   </div>
-                  <div className="text-183">0.00</div>
+                  <button type="button" className={`claim ${styles.claimBtn}`} onClick={handleClaim}>
+                    <div className="claim-2">Claim</div>
+                  </button>
                 </div>
-                <button type="button" className={`claim ${styles.claimBtn}`}>
-                  <div className="claim-2">Claim</div>
-                </button>
               </div>
             </aside>
           </div>
@@ -691,7 +701,7 @@ export default function MyDeposit() {
                                 </div>
                             )}
                         </div>
-                    </div>
+                    </div>  
                 </div>
                 )}
                 {activeTab === 'unstake' && (
