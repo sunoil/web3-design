@@ -2473,6 +2473,19 @@ html body {
     pointer-events: none;
 }
 
+/* Ракета всередині лого — чорна заливка, білі контури */
+.orbit-logo__rocket path,
+.orbit-logo__rocket circle,
+.orbit-logo__rocket rect {
+    fill: #0a0a0f;
+    stroke: rgba(255, 254, 254, 0.95);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+}
+.orbit-logo__rocket {
+    color: #fff;
+}
+
 .mobile-nav-header .orbit-logo {
     --size: 88px;
 }
