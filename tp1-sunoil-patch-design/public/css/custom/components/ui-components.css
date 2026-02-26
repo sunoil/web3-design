@@ -2123,6 +2123,457 @@ html body {
   }
 }
 
+/* FAQ section */
+.faq-section {
+  position: relative;
+  padding: 56px 24px 64px;
+  background: transparent;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.faq-inner {
+  max-width: min(1200px, 96vw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .faq-inner {
+    grid-template-columns: 220px 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+}
+
+.faq-title {
+  margin: 0;
+  font-size: clamp(28px, 5vw, 36px);
+  font-weight: 800;
+  color: #f0f0f5;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.35s ease-out, background 0.35s ease-out;
+}
+
+.faq-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.faq-item.is-open {
+  border-color: rgba(139, 92, 255, 0.35);
+  background: rgba(139, 92, 255, 0.06);
+}
+
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: #e8e8ee;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.35;
+  transition: color 0.2s ease;
+}
+
+.faq-question:hover {
+  color: #fff;
+}
+
+.faq-question-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Іконка  */
+.faq-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(108, 255, 74, 0.2), rgba(139, 92, 255, 0.2));
+  border: 1px solid rgba(139, 92, 255, 0.35);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+.faq-item.is-open .faq-icon {
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, rgba(108, 255, 74, 0.28), rgba(139, 92, 255, 0.28));
+  border-color: var(--brand-purple);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+.faq-icon-plus {
+  position: relative;
+  display: block;
+  width: 12px;
+  height: 12px;
+}
+
+.faq-icon-plus::before,
+.faq-icon-plus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: linear-gradient(180deg, var(--brand-green), var(--brand-purple));
+  transition: opacity 0.2s ease;
+}
+
+.faq-icon-plus::before {
+  width: 2px;
+  height: 12px;
+  margin-left: -1px;
+  margin-top: -6px;
+  border-radius: 1px;
+}
+
+.faq-icon-plus::after {
+  width: 12px;
+  height: 2px;
+  margin-left: -6px;
+  margin-top: -1px;
+  border-radius: 1px;
+}
+
+/* Плавне відкриття по висоті контенту (grid 0fr → 1fr) */
+.faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.faq-item.is-open .faq-answer {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer p {
+  min-height: 0;
+  margin: 0;
+  padding: 12px 20px 18px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+  opacity: 0;
+  transition: opacity 0.35s ease-out 0.05s;
+}
+
+.faq-item.is-open .faq-answer p {
+  opacity: 1;
+  transition-delay: 0.08s;
+}
+
+.faq-see-more-wrap {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.faq-see-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--brand-green);
+  text-decoration: none;
+  transition: color 0.2s ease, gap 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: rgba(108, 255, 74, 0.08);
+  border: 1px solid rgba(108, 255, 74, 0.25);
+}
+
+.faq-see-more:hover {
+  color: var(--brand-purple);
+  gap: 10px;
+  background: rgba(139, 92, 255, 0.12);
+  border-color: rgba(139, 92, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(139, 92, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.faq-see-more-arrow {
+  font-size: 18px;
+  color: inherit;
+}
+
+/* ---------- FAQ page (/faq) — двоколонка + права навігація ---------- */
+.faq-page {
+  padding-top: var(--header-offset, 48px);
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+.faq-page-inner {
+  max-width: min(1200px, 96vw);
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+}
+
+@media (min-width: 992px) {
+  .faq-page-inner {
+    grid-template-columns: 1fr 200px;
+    gap: 64px;
+    align-items: start;
+    padding-top: 40px;
+  }
+  /* Список секцій постійно рухається за користувачем — fixed, завжди видимий справа */
+  .faq-page-nav {
+    position: fixed;
+    top: calc(var(--header-offset, 48px) + 20px);
+    right: max(24px, calc((100vw - min(1200px, 96vw)) / 2 + 24px));
+    width: 200px;
+    max-height: calc(100vh - var(--header-offset, 48px) - 40px);
+    overflow-y: auto;
+    padding: 16px 0 20px;
+    scrollbar-width: thin;
+    z-index: 10;
+  }
+  .faq-page-nav::-webkit-scrollbar {
+    width: 6px;
+  }
+  .faq-page-nav::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 3px;
+  }
+  .faq-page-nav::-webkit-scrollbar-thumb {
+    background: rgba(139, 92, 255, 0.35);
+    border-radius: 3px;
+  }
+}
+
+.faq-page-content {
+  min-width: 0;
+}
+
+.faq-page-title {
+  margin: 24px 0 40px;
+  font-size: clamp(38px, 6vw, 52px);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.faq-page-section {
+  margin-bottom: 48px;
+  scroll-margin-top: calc(var(--header-offset, 48px) + 16px);
+}
+
+.faq-page-section-title {
+  margin: 0 0 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--brand-green);
+  letter-spacing: 0.02em;
+}
+
+.faq-page-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-page-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.35s ease-out, background 0.35s ease-out;
+}
+
+.faq-page-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.faq-page-item.is-open {
+  border-color: rgba(139, 92, 255, 0.35);
+  background: rgba(139, 92, 255, 0.06);
+}
+
+.faq-page-question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: #e8e8ee;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.35;
+  transition: color 0.2s ease;
+}
+
+.faq-page-question:hover {
+  color: #fff;
+}
+
+.faq-page-question-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.faq-page-icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(108, 255, 74, 0.2), rgba(139, 92, 255, 0.2));
+  border: 1px solid rgba(139, 92, 255, 0.35);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+.faq-page-item.is-open .faq-page-icon {
+  transform: rotate(45deg);
+  background: linear-gradient(135deg, rgba(108, 255, 74, 0.28), rgba(139, 92, 255, 0.28));
+  border-color: var(--brand-purple);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+.faq-page-icon-plus {
+  position: relative;
+  display: block;
+  width: 11px;
+  height: 11px;
+}
+
+.faq-page-icon-plus::before,
+.faq-page-icon-plus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: linear-gradient(180deg, var(--brand-green), var(--brand-purple));
+}
+
+.faq-page-icon-plus::before {
+  width: 2px;
+  height: 11px;
+  margin-left: -1px;
+  margin-top: -5.5px;
+  border-radius: 1px;
+}
+
+.faq-page-icon-plus::after {
+  width: 11px;
+  height: 2px;
+  margin-left: -5.5px;
+  margin-top: -1px;
+  border-radius: 1px;
+}
+
+.faq-page-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.faq-page-item.is-open .faq-page-answer {
+  grid-template-rows: 1fr;
+}
+
+.faq-page-answer p {
+  min-height: 0;
+  margin: 0;
+  padding: 10px 20px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+  opacity: 0;
+  transition: opacity 0.35s ease-out 0.05s;
+}
+
+.faq-page-item.is-open .faq-page-answer p {
+  opacity: 1;
+  transition-delay: 0.08s;
+}
+
+/* Права навігація по секціях — постійно рухається за користувачем при скролі */
+.faq-page-nav {
+  padding: 16px 0 20px;
+}
+
+.faq-page-nav-title {
+  margin: 0 0 14px;
+  padding-top: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.faq-page-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.faq-page-nav-link {
+  display: block;
+  padding: 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  border-left: 2px solid transparent;
+  padding-left: 10px;
+  margin-left: -2px;
+}
+
+.faq-page-nav-link:hover {
+  color: var(--brand-green);
+}
+
+.faq-page-nav-link.is-active {
+  color: var(--brand-green);
+  border-left-color: var(--brand-green);
+  padding-left: 12px;
+}
+
 /* Triangle path spinner (per arrows) */
 .cards-triangle-root { width: 100%; overflow: visible; margin: 16px 0 0; }
 .cards-triangle-area {
@@ -2473,7 +2924,7 @@ html body {
     pointer-events: none;
 }
 
-/* Ракета всередині лого — чорна заливка, білі контури */
+/* Ракета всередині лого */
 .orbit-logo__rocket path,
 .orbit-logo__rocket circle,
 .orbit-logo__rocket rect {
@@ -3562,7 +4013,6 @@ body {
     --area-h: 340px;
   }
   .cards-triangle-area {
-    /* Layout is now responsive via JS vars; no extra scaling needed */
     transform: none;
     transform-origin: top center;
     margin: 0 auto;

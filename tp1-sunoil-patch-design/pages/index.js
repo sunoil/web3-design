@@ -39,6 +39,14 @@ export default function Home() {
   const lastPointerRef = useRef({ x: 0, y: 0 });
   const [isHeroMotionEnabled, setIsHeroMotionEnabled] = useState(true);
   const [activeGuide, setActiveGuide] = useState('desktop');
+  const [openFaqIndex, setOpenFaqIndex] = useState(null);
+
+  const FAQ_ITEMS = [
+    { q: 'What is TwoPiR?', a: 'Content will be added here.' },
+    { q: 'How do I start staking?', a: 'Content will be added here.' },
+    { q: 'What are the risks?', a: 'Content will be added here.' },
+    { q: 'Which networks are supported?', a: 'Content will be added here.' },
+  ];
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -449,6 +457,48 @@ export default function Home() {
                     </div>
                 </div>
             </div>
+
+            {/* FAQ */}
+            <section className="faq-section" aria-label="FAQs">
+              <div className="faq-inner">
+                <h2 className="faq-title">FAQs</h2>
+                <div className="faq-list">
+                  {FAQ_ITEMS.map((item, i) => (
+                    <div
+                      key={i}
+                      className={`faq-item ${openFaqIndex === i ? 'is-open' : ''}`}
+                    >
+                      <button
+                        type="button"
+                        className="faq-question"
+                        onClick={() => setOpenFaqIndex(openFaqIndex === i ? null : i)}
+                        aria-expanded={openFaqIndex === i}
+                        aria-controls={`faq-answer-${i}`}
+                        id={`faq-question-${i}`}
+                      >
+                        <span className="faq-question-text">{item.q}</span>
+                        <span className="faq-icon" aria-hidden="true">
+                          <span className="faq-icon-plus" />
+                        </span>
+                      </button>
+                      <div
+                        id={`faq-answer-${i}`}
+                        className="faq-answer"
+                        role="region"
+                        aria-labelledby={`faq-question-${i}`}
+                      >
+                        <p>{item.a}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="faq-see-more-wrap">
+                  <Link href="/faq" className="faq-see-more">
+                    <span>See More<span className="faq-see-more-arrow" aria-hidden="true"> →</span></span>
+                  </Link>
+                </div>
+              </div>
+            </section>
             
             <Footer />
         </div>
